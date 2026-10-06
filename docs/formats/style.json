@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "meta": { "id": "night-party", "name": "2007 Night Party", "category": "Digicam", "version": 1, "tags": ["night", "2000s"] },
+  "effects": [
+    { "meta": { "id": "bloom-soft", "name": "Soft Bloom", "category": "Light" }, "type": "bloom", "parameters": { "amount": 0.15, "threshold": 0.8 } }
+  ],
+  "layers": [
+    { "id": "timestamp", "type": "text", "content": "OCT 05 2007", "transform": { "x": 60, "y": 1750, "width": 500, "height": 100 } }
+  ]
+}

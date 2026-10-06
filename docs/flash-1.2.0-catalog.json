@@ -1,0 +1,8034 @@
+[
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-flash-01",
+      "name": "Flash Verde 89",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "flash",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.1,
+      "contrast": 1.23,
+      "saturation": 0.76,
+      "temperature": -0.12,
+      "tint": -0.18,
+      "shadows": -0.19,
+      "highlights": 0.04,
+      "whites": 0.16,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.18,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.018
+        },
+        {
+          "x": 0.2,
+          "y": 0.1394
+        },
+        {
+          "x": 0.5,
+          "y": 0.49
+        },
+        {
+          "x": 0.8,
+          "y": 0.8592
+        },
+        {
+          "x": 1,
+          "y": 0.9971
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0081
+        },
+        {
+          "x": 0.2,
+          "y": 0.1615
+        },
+        {
+          "x": 0.5,
+          "y": 0.4685
+        },
+        {
+          "x": 0.8,
+          "y": 0.81
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0159
+        },
+        {
+          "x": 0.2,
+          "y": 0.2248
+        },
+        {
+          "x": 0.5,
+          "y": 0.545
+        },
+        {
+          "x": 0.8,
+          "y": 0.8108
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0144
+        },
+        {
+          "x": 0.2,
+          "y": 0.1942
+        },
+        {
+          "x": 0.5,
+          "y": 0.5066
+        },
+        {
+          "x": 0.8,
+          "y": 0.8024
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.16,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.06,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.085,
+        0.0054
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-flash-01-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-01-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.2,
+            "threshold": 0.7,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-flash-01-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-01-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.28,
+            "size": 0.12,
+            "seed": 0.13
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-flash-02",
+      "name": "Tokyo Flash",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "flash",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.16,
+      "contrast": 1.16,
+      "saturation": 0.76,
+      "temperature": -0.12,
+      "tint": -0.18,
+      "shadows": -0.19,
+      "highlights": 0.04,
+      "whites": 0.1492,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.215,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.03
+        },
+        {
+          "x": 0.2,
+          "y": 0.157
+        },
+        {
+          "x": 0.5,
+          "y": 0.4942
+        },
+        {
+          "x": 0.8,
+          "y": 0.8412
+        },
+        {
+          "x": 1,
+          "y": 0.9952
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0135
+        },
+        {
+          "x": 0.2,
+          "y": 0.1582
+        },
+        {
+          "x": 0.5,
+          "y": 0.4608
+        },
+        {
+          "x": 0.8,
+          "y": 0.8046
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0225
+        },
+        {
+          "x": 0.2,
+          "y": 0.2308
+        },
+        {
+          "x": 0.5,
+          "y": 0.556
+        },
+        {
+          "x": 0.8,
+          "y": 0.8102
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0173
+        },
+        {
+          "x": 0.2,
+          "y": 0.1918
+        },
+        {
+          "x": 0.5,
+          "y": 0.5028
+        },
+        {
+          "x": 0.8,
+          "y": 0.801
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.172,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.071,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0905,
+        0.0023
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-flash-02-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-02-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.2,
+            "threshold": 0.7,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-flash-02-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-02-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.31,
+            "size": 0.12,
+            "seed": 0.201
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-flash-03",
+      "name": "Posto 93",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "flash",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.02,
+      "contrast": 1.28,
+      "saturation": 0.76,
+      "temperature": -0.12,
+      "tint": -0.18,
+      "shadows": -0.19,
+      "highlights": 0.04,
+      "whites": 0.1732,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.25,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.012
+        },
+        {
+          "x": 0.2,
+          "y": 0.1276
+        },
+        {
+          "x": 0.5,
+          "y": 0.4844
+        },
+        {
+          "x": 0.8,
+          "y": 0.8812
+        },
+        {
+          "x": 1,
+          "y": 0.9981
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0054
+        },
+        {
+          "x": 0.2,
+          "y": 0.1564
+        },
+        {
+          "x": 0.5,
+          "y": 0.4566
+        },
+        {
+          "x": 0.8,
+          "y": 0.8166
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0126
+        },
+        {
+          "x": 0.2,
+          "y": 0.2341
+        },
+        {
+          "x": 0.5,
+          "y": 0.562
+        },
+        {
+          "x": 0.8,
+          "y": 0.8188
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0132
+        },
+        {
+          "x": 0.2,
+          "y": 0.1956
+        },
+        {
+          "x": 0.5,
+          "y": 0.5088
+        },
+        {
+          "x": 0.8,
+          "y": 0.8032
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.184,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.18,
+          "saturation": 0.077,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0935,
+        0.0072
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-flash-03-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-03-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.2,
+            "threshold": 0.7,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-flash-03-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-03-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.35,
+            "size": 0.12,
+            "seed": 0.272
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-flash-04",
+      "name": "Pocket 90",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "flash",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.22,
+      "contrast": 1.25,
+      "saturation": 0.76,
+      "temperature": -0.12,
+      "tint": -0.18,
+      "shadows": -0.19,
+      "highlights": 0.04,
+      "whites": 0.181,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.18,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.022
+        },
+        {
+          "x": 0.2,
+          "y": 0.1366
+        },
+        {
+          "x": 0.5,
+          "y": 0.4984
+        },
+        {
+          "x": 0.8,
+          "y": 0.8942
+        },
+        {
+          "x": 1,
+          "y": 0.9965
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0099
+        },
+        {
+          "x": 0.2,
+          "y": 0.163
+        },
+        {
+          "x": 0.5,
+          "y": 0.472
+        },
+        {
+          "x": 0.8,
+          "y": 0.8205
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0181
+        },
+        {
+          "x": 0.2,
+          "y": 0.222
+        },
+        {
+          "x": 0.5,
+          "y": 0.54
+        },
+        {
+          "x": 0.8,
+          "y": 0.8159
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0115
+        },
+        {
+          "x": 0.2,
+          "y": 0.1903
+        },
+        {
+          "x": 0.5,
+          "y": 0.5006
+        },
+        {
+          "x": 0.8,
+          "y": 0.8002
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.196,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.055,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0825,
+        0.0005
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-flash-04-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-04-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.2,
+            "threshold": 0.7,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-flash-04-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-04-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.26,
+            "size": 0.12,
+            "seed": 0.343
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-flash-05",
+      "name": "Estacionamento 88",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "flash",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.06,
+      "contrast": 1.33,
+      "saturation": 0.76,
+      "temperature": -0.12,
+      "tint": -0.18,
+      "shadows": -0.19,
+      "highlights": 0.04,
+      "whites": 0.145,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.215,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.009
+        },
+        {
+          "x": 0.2,
+          "y": 0.1167
+        },
+        {
+          "x": 0.5,
+          "y": 0.4872
+        },
+        {
+          "x": 0.8,
+          "y": 0.8342
+        },
+        {
+          "x": 1,
+          "y": 0.9986
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.004
+        },
+        {
+          "x": 0.2,
+          "y": 0.1588
+        },
+        {
+          "x": 0.5,
+          "y": 0.4622
+        },
+        {
+          "x": 0.8,
+          "y": 0.8025
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.011
+        },
+        {
+          "x": 0.2,
+          "y": 0.2297
+        },
+        {
+          "x": 0.5,
+          "y": 0.554
+        },
+        {
+          "x": 0.8,
+          "y": 0.8085
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0166
+        },
+        {
+          "x": 0.2,
+          "y": 0.1995
+        },
+        {
+          "x": 0.5,
+          "y": 0.5149
+        },
+        {
+          "x": 0.8,
+          "y": 0.8054
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.208,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.069,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0895,
+        0.0121
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-flash-05-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-05-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.2,
+            "threshold": 0.7,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-flash-05-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-05-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.32,
+            "size": 0.12,
+            "seed": 0.414
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-flash-06",
+      "name": "Garage Flash",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "flash",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.12,
+      "contrast": 1.19,
+      "saturation": 0.76,
+      "temperature": -0.12,
+      "tint": -0.18,
+      "shadows": -0.19,
+      "highlights": 0.04,
+      "whites": 0.1528,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.25,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.036
+        },
+        {
+          "x": 0.2,
+          "y": 0.1528
+        },
+        {
+          "x": 0.5,
+          "y": 0.4914
+        },
+        {
+          "x": 0.8,
+          "y": 0.8472
+        },
+        {
+          "x": 1,
+          "y": 0.9942
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0162
+        },
+        {
+          "x": 0.2,
+          "y": 0.1549
+        },
+        {
+          "x": 0.5,
+          "y": 0.4531
+        },
+        {
+          "x": 0.8,
+          "y": 0.8064
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0258
+        },
+        {
+          "x": 0.2,
+          "y": 0.2369
+        },
+        {
+          "x": 0.5,
+          "y": 0.567
+        },
+        {
+          "x": 0.8,
+          "y": 0.8139
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0216
+        },
+        {
+          "x": 0.2,
+          "y": 0.1928
+        },
+        {
+          "x": 0.5,
+          "y": 0.5044
+        },
+        {
+          "x": 0.8,
+          "y": 0.8016
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.22,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.18,
+          "saturation": 0.082,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.096,
+        0.0036
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-flash-06-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-06-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.2,
+            "threshold": 0.7,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-flash-06-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-06-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.34,
+            "size": 0.12,
+            "seed": 0.485
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-flash-07",
+      "name": "Concreto Verde",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "flash",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.01,
+      "contrast": 1.21,
+      "saturation": 0.76,
+      "temperature": -0.12,
+      "tint": -0.18,
+      "shadows": -0.19,
+      "highlights": 0.04,
+      "whites": 0.1678,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.18,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.028
+        },
+        {
+          "x": 0.2,
+          "y": 0.1464
+        },
+        {
+          "x": 0.5,
+          "y": 0.4823
+        },
+        {
+          "x": 0.8,
+          "y": 0.8722
+        },
+        {
+          "x": 1,
+          "y": 0.9955
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0126
+        },
+        {
+          "x": 0.2,
+          "y": 0.16
+        },
+        {
+          "x": 0.5,
+          "y": 0.465
+        },
+        {
+          "x": 0.8,
+          "y": 0.8139
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0214
+        },
+        {
+          "x": 0.2,
+          "y": 0.2275
+        },
+        {
+          "x": 0.5,
+          "y": 0.55
+        },
+        {
+          "x": 0.8,
+          "y": 0.8143
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0239
+        },
+        {
+          "x": 0.2,
+          "y": 0.1977
+        },
+        {
+          "x": 0.5,
+          "y": 0.5121
+        },
+        {
+          "x": 0.8,
+          "y": 0.8044
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.232,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.065,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0875,
+        0.0099
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-flash-07-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-07-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.2,
+            "threshold": 0.7,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-flash-07-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-07-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.24,
+            "size": 0.12,
+            "seed": 0.556
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-flash-08",
+      "name": "Compact 95",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "flash",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.19,
+      "contrast": 1.29,
+      "saturation": 0.76,
+      "temperature": -0.12,
+      "tint": -0.18,
+      "shadows": -0.19,
+      "highlights": 0.04,
+      "whites": 0.1708,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.215,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.015
+        },
+        {
+          "x": 0.2,
+          "y": 0.1265
+        },
+        {
+          "x": 0.5,
+          "y": 0.4963
+        },
+        {
+          "x": 0.8,
+          "y": 0.8772
+        },
+        {
+          "x": 1,
+          "y": 0.9976
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0067
+        },
+        {
+          "x": 0.2,
+          "y": 0.157
+        },
+        {
+          "x": 0.5,
+          "y": 0.458
+        },
+        {
+          "x": 0.8,
+          "y": 0.8154
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0143
+        },
+        {
+          "x": 0.2,
+          "y": 0.233
+        },
+        {
+          "x": 0.5,
+          "y": 0.56
+        },
+        {
+          "x": 0.8,
+          "y": 0.8176
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0161
+        },
+        {
+          "x": 0.2,
+          "y": 0.1966
+        },
+        {
+          "x": 0.5,
+          "y": 0.5104
+        },
+        {
+          "x": 0.8,
+          "y": 0.8038
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.244,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.075,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0925,
+        0.0086
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-flash-08-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-08-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.2,
+            "threshold": 0.7,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-flash-08-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-flash-08-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.3,
+            "size": 0.12,
+            "seed": 0.627
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-negative-01",
+      "name": "Negativo Verde",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "negative",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0,
+      "contrast": 0.96,
+      "saturation": 0.67,
+      "temperature": 0.07,
+      "tint": -0.18,
+      "shadows": 0.1,
+      "highlights": -0.1,
+      "whites": -0.07,
+      "blacks": -0.02,
+      "fade": 0.1,
+      "vignette": 0.18,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.075
+        },
+        {
+          "x": 0.2,
+          "y": 0.2105
+        },
+        {
+          "x": 0.5,
+          "y": 0.49
+        },
+        {
+          "x": 0.8,
+          "y": 0.8316
+        },
+        {
+          "x": 1,
+          "y": 0.988
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0338
+        },
+        {
+          "x": 0.2,
+          "y": 0.163
+        },
+        {
+          "x": 0.5,
+          "y": 0.472
+        },
+        {
+          "x": 0.8,
+          "y": 0.81
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0473
+        },
+        {
+          "x": 0.2,
+          "y": 0.222
+        },
+        {
+          "x": 0.5,
+          "y": 0.54
+        },
+        {
+          "x": 0.8,
+          "y": 0.8096
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0375
+        },
+        {
+          "x": 0.2,
+          "y": 0.1858
+        },
+        {
+          "x": 0.5,
+          "y": 0.4934
+        },
+        {
+          "x": 0.8,
+          "y": 0.7976
+        },
+        {
+          "x": 1,
+          "y": 0.985
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      -0.015
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.16,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.06,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.085,
+        -0.0054
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-negative-01-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-01-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.06,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-negative-01-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-01-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.32,
+            "size": 0.19,
+            "seed": 0.13
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-negative-02",
+      "name": "Arquivo 86",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "negative",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.06,
+      "contrast": 0.89,
+      "saturation": 0.67,
+      "temperature": 0.07,
+      "tint": -0.18,
+      "shadows": 0.1,
+      "highlights": -0.1,
+      "whites": -0.0808,
+      "blacks": -0.02,
+      "fade": 0.1,
+      "vignette": 0.215,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.087
+        },
+        {
+          "x": 0.2,
+          "y": 0.2281
+        },
+        {
+          "x": 0.5,
+          "y": 0.4942
+        },
+        {
+          "x": 0.8,
+          "y": 0.8136
+        },
+        {
+          "x": 1,
+          "y": 0.9861
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0391
+        },
+        {
+          "x": 0.2,
+          "y": 0.1597
+        },
+        {
+          "x": 0.5,
+          "y": 0.4643
+        },
+        {
+          "x": 0.8,
+          "y": 0.8046
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0539
+        },
+        {
+          "x": 0.2,
+          "y": 0.2281
+        },
+        {
+          "x": 0.5,
+          "y": 0.551
+        },
+        {
+          "x": 0.8,
+          "y": 0.809
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0435
+        },
+        {
+          "x": 0.2,
+          "y": 0.1834
+        },
+        {
+          "x": 0.5,
+          "y": 0.4895
+        },
+        {
+          "x": 0.8,
+          "y": 0.7962
+        },
+        {
+          "x": 1,
+          "y": 0.985
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      -0.015
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.172,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.071,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0905,
+        -0.0086
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-negative-02-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-02-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.06,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-negative-02-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-02-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.35,
+            "size": 0.19,
+            "seed": 0.201
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-negative-03",
+      "name": "Verde Lavado",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "negative",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.08,
+      "contrast": 1.01,
+      "saturation": 0.67,
+      "temperature": 0.07,
+      "tint": -0.18,
+      "shadows": 0.1,
+      "highlights": -0.1,
+      "whites": -0.0568,
+      "blacks": -0.02,
+      "fade": 0.1,
+      "vignette": 0.25,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.069
+        },
+        {
+          "x": 0.2,
+          "y": 0.1987
+        },
+        {
+          "x": 0.5,
+          "y": 0.4844
+        },
+        {
+          "x": 0.8,
+          "y": 0.8536
+        },
+        {
+          "x": 1,
+          "y": 0.989
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.031
+        },
+        {
+          "x": 0.2,
+          "y": 0.1579
+        },
+        {
+          "x": 0.5,
+          "y": 0.4601
+        },
+        {
+          "x": 0.8,
+          "y": 0.8166
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0439
+        },
+        {
+          "x": 0.2,
+          "y": 0.2314
+        },
+        {
+          "x": 0.5,
+          "y": 0.557
+        },
+        {
+          "x": 0.8,
+          "y": 0.8176
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0345
+        },
+        {
+          "x": 0.2,
+          "y": 0.1872
+        },
+        {
+          "x": 0.5,
+          "y": 0.4956
+        },
+        {
+          "x": 0.8,
+          "y": 0.7984
+        },
+        {
+          "x": 1,
+          "y": 0.985
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      -0.015
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.184,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.18,
+          "saturation": 0.077,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0935,
+        -0.0036
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-negative-03-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-03-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.06,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-negative-03-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-03-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.39,
+            "size": 0.19,
+            "seed": 0.272
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-negative-04",
+      "name": "Foto Revelada",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "negative",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.12,
+      "contrast": 0.98,
+      "saturation": 0.67,
+      "temperature": 0.07,
+      "tint": -0.18,
+      "shadows": 0.1,
+      "highlights": -0.1,
+      "whites": -0.049,
+      "blacks": -0.02,
+      "fade": 0.1,
+      "vignette": 0.18,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.079
+        },
+        {
+          "x": 0.2,
+          "y": 0.2077
+        },
+        {
+          "x": 0.5,
+          "y": 0.4984
+        },
+        {
+          "x": 0.8,
+          "y": 0.8666
+        },
+        {
+          "x": 1,
+          "y": 0.9874
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0355
+        },
+        {
+          "x": 0.2,
+          "y": 0.1645
+        },
+        {
+          "x": 0.5,
+          "y": 0.4755
+        },
+        {
+          "x": 0.8,
+          "y": 0.8205
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0495
+        },
+        {
+          "x": 0.2,
+          "y": 0.2193
+        },
+        {
+          "x": 0.5,
+          "y": 0.535
+        },
+        {
+          "x": 0.8,
+          "y": 0.8147
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0395
+        },
+        {
+          "x": 0.2,
+          "y": 0.182
+        },
+        {
+          "x": 0.5,
+          "y": 0.4874
+        },
+        {
+          "x": 0.8,
+          "y": 0.7954
+        },
+        {
+          "x": 1,
+          "y": 0.985
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      -0.015
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.196,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.055,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0825,
+        -0.0103
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-negative-04-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-04-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.06,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-negative-04-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-04-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.3,
+            "size": 0.19,
+            "seed": 0.343
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-negative-05",
+      "name": "Asfalto 90",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "negative",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.04,
+      "contrast": 1.06,
+      "saturation": 0.67,
+      "temperature": 0.07,
+      "tint": -0.18,
+      "shadows": 0.1,
+      "highlights": -0.1,
+      "whites": -0.085,
+      "blacks": -0.02,
+      "fade": 0.1,
+      "vignette": 0.215,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.066
+        },
+        {
+          "x": 0.2,
+          "y": 0.1878
+        },
+        {
+          "x": 0.5,
+          "y": 0.4872
+        },
+        {
+          "x": 0.8,
+          "y": 0.8066
+        },
+        {
+          "x": 1,
+          "y": 0.9894
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0297
+        },
+        {
+          "x": 0.2,
+          "y": 0.1603
+        },
+        {
+          "x": 0.5,
+          "y": 0.4657
+        },
+        {
+          "x": 0.8,
+          "y": 0.8025
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0423
+        },
+        {
+          "x": 0.2,
+          "y": 0.227
+        },
+        {
+          "x": 0.5,
+          "y": 0.549
+        },
+        {
+          "x": 0.8,
+          "y": 0.8073
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0343
+        },
+        {
+          "x": 0.2,
+          "y": 0.191
+        },
+        {
+          "x": 0.5,
+          "y": 0.5017
+        },
+        {
+          "x": 0.8,
+          "y": 0.8006
+        },
+        {
+          "x": 1,
+          "y": 0.985
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      -0.015
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.208,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.069,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0895,
+        0.0013
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-negative-05-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-05-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.06,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-negative-05-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-05-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.36,
+            "size": 0.19,
+            "seed": 0.414
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-negative-06",
+      "name": "Neblina 87",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "negative",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.02,
+      "contrast": 0.92,
+      "saturation": 0.67,
+      "temperature": 0.07,
+      "tint": -0.18,
+      "shadows": 0.1,
+      "highlights": -0.1,
+      "whites": -0.0772,
+      "blacks": -0.02,
+      "fade": 0.1,
+      "vignette": 0.25,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.093
+        },
+        {
+          "x": 0.2,
+          "y": 0.2239
+        },
+        {
+          "x": 0.5,
+          "y": 0.4914
+        },
+        {
+          "x": 0.8,
+          "y": 0.8196
+        },
+        {
+          "x": 1,
+          "y": 0.9851
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0418
+        },
+        {
+          "x": 0.2,
+          "y": 0.1564
+        },
+        {
+          "x": 0.5,
+          "y": 0.4566
+        },
+        {
+          "x": 0.8,
+          "y": 0.8064
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0571
+        },
+        {
+          "x": 0.2,
+          "y": 0.2341
+        },
+        {
+          "x": 0.5,
+          "y": 0.562
+        },
+        {
+          "x": 0.8,
+          "y": 0.8127
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0465
+        },
+        {
+          "x": 0.2,
+          "y": 0.1844
+        },
+        {
+          "x": 0.5,
+          "y": 0.4912
+        },
+        {
+          "x": 0.8,
+          "y": 0.7968
+        },
+        {
+          "x": 1,
+          "y": 0.985
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      -0.015
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.22,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.18,
+          "saturation": 0.082,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.096,
+        -0.0072
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-negative-06-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-06-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.06,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-negative-06-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-06-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.38,
+            "size": 0.19,
+            "seed": 0.485
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-negative-07",
+      "name": "Papel Antigo",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "negative",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.11,
+      "contrast": 0.94,
+      "saturation": 0.67,
+      "temperature": 0.07,
+      "tint": -0.18,
+      "shadows": 0.1,
+      "highlights": -0.1,
+      "whites": -0.0622,
+      "blacks": -0.02,
+      "fade": 0.1,
+      "vignette": 0.18,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.085
+        },
+        {
+          "x": 0.2,
+          "y": 0.2175
+        },
+        {
+          "x": 0.5,
+          "y": 0.4823
+        },
+        {
+          "x": 0.8,
+          "y": 0.8446
+        },
+        {
+          "x": 1,
+          "y": 0.9864
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0382
+        },
+        {
+          "x": 0.2,
+          "y": 0.1615
+        },
+        {
+          "x": 0.5,
+          "y": 0.4685
+        },
+        {
+          "x": 0.8,
+          "y": 0.8139
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0527
+        },
+        {
+          "x": 0.2,
+          "y": 0.2248
+        },
+        {
+          "x": 0.5,
+          "y": 0.545
+        },
+        {
+          "x": 0.8,
+          "y": 0.8131
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0425
+        },
+        {
+          "x": 0.2,
+          "y": 0.1893
+        },
+        {
+          "x": 0.5,
+          "y": 0.4989
+        },
+        {
+          "x": 0.8,
+          "y": 0.7996
+        },
+        {
+          "x": 1,
+          "y": 0.985
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      -0.015
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.232,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.065,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0875,
+        -0.0009
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-negative-07-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-07-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.06,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-negative-07-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-07-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.28,
+            "size": 0.19,
+            "seed": 0.556
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-negative-08",
+      "name": "Musgo 94",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "negative",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.09,
+      "contrast": 1.02,
+      "saturation": 0.67,
+      "temperature": 0.07,
+      "tint": -0.18,
+      "shadows": 0.1,
+      "highlights": -0.1,
+      "whites": -0.0592,
+      "blacks": -0.02,
+      "fade": 0.1,
+      "vignette": 0.215,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.072
+        },
+        {
+          "x": 0.2,
+          "y": 0.1976
+        },
+        {
+          "x": 0.5,
+          "y": 0.4963
+        },
+        {
+          "x": 0.8,
+          "y": 0.8496
+        },
+        {
+          "x": 1,
+          "y": 0.9885
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0324
+        },
+        {
+          "x": 0.2,
+          "y": 0.1585
+        },
+        {
+          "x": 0.5,
+          "y": 0.4615
+        },
+        {
+          "x": 0.8,
+          "y": 0.8154
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0456
+        },
+        {
+          "x": 0.2,
+          "y": 0.2303
+        },
+        {
+          "x": 0.5,
+          "y": 0.555
+        },
+        {
+          "x": 0.8,
+          "y": 0.8164
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.036
+        },
+        {
+          "x": 0.2,
+          "y": 0.1883
+        },
+        {
+          "x": 0.5,
+          "y": 0.4973
+        },
+        {
+          "x": 0.8,
+          "y": 0.799
+        },
+        {
+          "x": 1,
+          "y": 0.985
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      -0.015
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.244,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.075,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0925,
+        -0.0023
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-negative-08-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-08-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.06,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-negative-08-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-negative-08-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.34,
+            "size": 0.19,
+            "seed": 0.627
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-night-01",
+      "name": "Daikoku Night",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "night",
+        "noite"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.06,
+      "contrast": 1.18,
+      "saturation": 0.82,
+      "temperature": -0.24,
+      "tint": -0.18,
+      "shadows": -0.13,
+      "highlights": -0.06,
+      "whites": 0.03,
+      "blacks": -0.02,
+      "fade": 0.025,
+      "vignette": 0.18,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.025
+        },
+        {
+          "x": 0.2,
+          "y": 0.1515
+        },
+        {
+          "x": 0.5,
+          "y": 0.49
+        },
+        {
+          "x": 0.8,
+          "y": 0.8436
+        },
+        {
+          "x": 1,
+          "y": 0.996
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0113
+        },
+        {
+          "x": 0.2,
+          "y": 0.1618
+        },
+        {
+          "x": 0.5,
+          "y": 0.4692
+        },
+        {
+          "x": 0.8,
+          "y": 0.81
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0198
+        },
+        {
+          "x": 0.2,
+          "y": 0.2242
+        },
+        {
+          "x": 0.5,
+          "y": 0.544
+        },
+        {
+          "x": 0.8,
+          "y": 0.8106
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0278
+        },
+        {
+          "x": 0.2,
+          "y": 0.2019
+        },
+        {
+          "x": 0.5,
+          "y": 0.5187
+        },
+        {
+          "x": 0.8,
+          "y": 0.8068
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.12
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.16,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.06,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.065
+      ],
+      "midtones": [
+        -0.045,
+        0.085,
+        0.0153
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-night-01-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-01-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.15,
+            "threshold": 0.56,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-night-01-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-01-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.27,
+            "size": 0.12,
+            "seed": 0.13
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-night-02",
+      "name": "Shuto 91",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "night",
+        "noite"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.0,
+      "contrast": 1.11,
+      "saturation": 0.82,
+      "temperature": -0.24,
+      "tint": -0.18,
+      "shadows": -0.13,
+      "highlights": -0.06,
+      "whites": 0.0192,
+      "blacks": -0.02,
+      "fade": 0.025,
+      "vignette": 0.215,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.037
+        },
+        {
+          "x": 0.2,
+          "y": 0.1691
+        },
+        {
+          "x": 0.5,
+          "y": 0.4942
+        },
+        {
+          "x": 0.8,
+          "y": 0.8256
+        },
+        {
+          "x": 1,
+          "y": 0.9941
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0167
+        },
+        {
+          "x": 0.2,
+          "y": 0.1585
+        },
+        {
+          "x": 0.5,
+          "y": 0.4615
+        },
+        {
+          "x": 0.8,
+          "y": 0.8046
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0264
+        },
+        {
+          "x": 0.2,
+          "y": 0.2303
+        },
+        {
+          "x": 0.5,
+          "y": 0.555
+        },
+        {
+          "x": 0.8,
+          "y": 0.81
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0307
+        },
+        {
+          "x": 0.2,
+          "y": 0.1995
+        },
+        {
+          "x": 0.5,
+          "y": 0.5149
+        },
+        {
+          "x": 0.8,
+          "y": 0.8054
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.12
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.172,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.071,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.065
+      ],
+      "midtones": [
+        -0.045,
+        0.0905,
+        0.0122
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-night-02-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-02-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.15,
+            "threshold": 0.56,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-night-02-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-02-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.3,
+            "size": 0.12,
+            "seed": 0.201
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-night-03",
+      "name": "Osaka Midnight",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "night",
+        "noite"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.14,
+      "contrast": 1.23,
+      "saturation": 0.82,
+      "temperature": -0.24,
+      "tint": -0.18,
+      "shadows": -0.13,
+      "highlights": -0.06,
+      "whites": 0.0432,
+      "blacks": -0.02,
+      "fade": 0.025,
+      "vignette": 0.25,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.019
+        },
+        {
+          "x": 0.2,
+          "y": 0.1397
+        },
+        {
+          "x": 0.5,
+          "y": 0.4844
+        },
+        {
+          "x": 0.8,
+          "y": 0.8656
+        },
+        {
+          "x": 1,
+          "y": 0.997
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0086
+        },
+        {
+          "x": 0.2,
+          "y": 0.1567
+        },
+        {
+          "x": 0.5,
+          "y": 0.4573
+        },
+        {
+          "x": 0.8,
+          "y": 0.8166
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0165
+        },
+        {
+          "x": 0.2,
+          "y": 0.2336
+        },
+        {
+          "x": 0.5,
+          "y": 0.561
+        },
+        {
+          "x": 0.8,
+          "y": 0.8186
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0266
+        },
+        {
+          "x": 0.2,
+          "y": 0.2033
+        },
+        {
+          "x": 0.5,
+          "y": 0.5209
+        },
+        {
+          "x": 0.8,
+          "y": 0.8076
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.12
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.184,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.18,
+          "saturation": 0.077,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.065
+      ],
+      "midtones": [
+        -0.045,
+        0.0935,
+        0.0171
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-night-03-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-03-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.15,
+            "threshold": 0.56,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-night-03-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-03-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.34,
+            "size": 0.12,
+            "seed": 0.272
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-night-04",
+      "name": "Teal Garage",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "night",
+        "noite"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.06,
+      "contrast": 1.2,
+      "saturation": 0.82,
+      "temperature": -0.24,
+      "tint": -0.18,
+      "shadows": -0.13,
+      "highlights": -0.06,
+      "whites": 0.051,
+      "blacks": -0.02,
+      "fade": 0.025,
+      "vignette": 0.18,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.029
+        },
+        {
+          "x": 0.2,
+          "y": 0.1487
+        },
+        {
+          "x": 0.5,
+          "y": 0.4984
+        },
+        {
+          "x": 0.8,
+          "y": 0.8786
+        },
+        {
+          "x": 1,
+          "y": 0.9954
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0131
+        },
+        {
+          "x": 0.2,
+          "y": 0.1633
+        },
+        {
+          "x": 0.5,
+          "y": 0.4727
+        },
+        {
+          "x": 0.8,
+          "y": 0.8205
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.022
+        },
+        {
+          "x": 0.2,
+          "y": 0.2215
+        },
+        {
+          "x": 0.5,
+          "y": 0.539
+        },
+        {
+          "x": 0.8,
+          "y": 0.8157
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0249
+        },
+        {
+          "x": 0.2,
+          "y": 0.1981
+        },
+        {
+          "x": 0.5,
+          "y": 0.5127
+        },
+        {
+          "x": 0.8,
+          "y": 0.8046
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.12
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.196,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.055,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.065
+      ],
+      "midtones": [
+        -0.045,
+        0.0825,
+        0.0104
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-night-04-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-04-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.15,
+            "threshold": 0.56,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-night-04-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-04-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.25,
+            "size": 0.12,
+            "seed": 0.343
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-night-05",
+      "name": "Chuva em Tóquio",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "night",
+        "noite"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.1,
+      "contrast": 1.28,
+      "saturation": 0.82,
+      "temperature": -0.24,
+      "tint": -0.18,
+      "shadows": -0.13,
+      "highlights": -0.06,
+      "whites": 0.015,
+      "blacks": -0.02,
+      "fade": 0.025,
+      "vignette": 0.215,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.016
+        },
+        {
+          "x": 0.2,
+          "y": 0.1288
+        },
+        {
+          "x": 0.5,
+          "y": 0.4872
+        },
+        {
+          "x": 0.8,
+          "y": 0.8186
+        },
+        {
+          "x": 1,
+          "y": 0.9974
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0072
+        },
+        {
+          "x": 0.2,
+          "y": 0.1591
+        },
+        {
+          "x": 0.5,
+          "y": 0.4629
+        },
+        {
+          "x": 0.8,
+          "y": 0.8025
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0148
+        },
+        {
+          "x": 0.2,
+          "y": 0.2292
+        },
+        {
+          "x": 0.5,
+          "y": 0.553
+        },
+        {
+          "x": 0.8,
+          "y": 0.8082
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0301
+        },
+        {
+          "x": 0.2,
+          "y": 0.2072
+        },
+        {
+          "x": 0.5,
+          "y": 0.527
+        },
+        {
+          "x": 0.8,
+          "y": 0.8098
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.12
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.208,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.069,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.065
+      ],
+      "midtones": [
+        -0.045,
+        0.0895,
+        0.0221
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-night-05-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-05-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.15,
+            "threshold": 0.56,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-night-05-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-05-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.31,
+            "size": 0.12,
+            "seed": 0.414
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-night-06",
+      "name": "Kansai Petrol",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "night",
+        "noite"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.04,
+      "contrast": 1.14,
+      "saturation": 0.82,
+      "temperature": -0.24,
+      "tint": -0.18,
+      "shadows": -0.13,
+      "highlights": -0.06,
+      "whites": 0.0228,
+      "blacks": -0.02,
+      "fade": 0.025,
+      "vignette": 0.25,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.043
+        },
+        {
+          "x": 0.2,
+          "y": 0.1649
+        },
+        {
+          "x": 0.5,
+          "y": 0.4914
+        },
+        {
+          "x": 0.8,
+          "y": 0.8316
+        },
+        {
+          "x": 1,
+          "y": 0.9931
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0193
+        },
+        {
+          "x": 0.2,
+          "y": 0.1552
+        },
+        {
+          "x": 0.5,
+          "y": 0.4538
+        },
+        {
+          "x": 0.8,
+          "y": 0.8064
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0297
+        },
+        {
+          "x": 0.2,
+          "y": 0.2363
+        },
+        {
+          "x": 0.5,
+          "y": 0.566
+        },
+        {
+          "x": 0.8,
+          "y": 0.8137
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.035
+        },
+        {
+          "x": 0.2,
+          "y": 0.2005
+        },
+        {
+          "x": 0.5,
+          "y": 0.5165
+        },
+        {
+          "x": 0.8,
+          "y": 0.806
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.12
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.22,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.18,
+          "saturation": 0.082,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.065
+      ],
+      "midtones": [
+        -0.045,
+        0.096,
+        0.0135
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-night-06-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-06-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.15,
+            "threshold": 0.56,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-night-06-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-06-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.33,
+            "size": 0.12,
+            "seed": 0.485
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-night-07",
+      "name": "Midnight Run",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "night",
+        "noite"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.17,
+      "contrast": 1.16,
+      "saturation": 0.82,
+      "temperature": -0.24,
+      "tint": -0.18,
+      "shadows": -0.13,
+      "highlights": -0.06,
+      "whites": 0.0378,
+      "blacks": -0.02,
+      "fade": 0.025,
+      "vignette": 0.18,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.035
+        },
+        {
+          "x": 0.2,
+          "y": 0.1585
+        },
+        {
+          "x": 0.5,
+          "y": 0.4823
+        },
+        {
+          "x": 0.8,
+          "y": 0.8566
+        },
+        {
+          "x": 1,
+          "y": 0.9944
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0158
+        },
+        {
+          "x": 0.2,
+          "y": 0.1603
+        },
+        {
+          "x": 0.5,
+          "y": 0.4657
+        },
+        {
+          "x": 0.8,
+          "y": 0.8139
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0253
+        },
+        {
+          "x": 0.2,
+          "y": 0.227
+        },
+        {
+          "x": 0.5,
+          "y": 0.549
+        },
+        {
+          "x": 0.8,
+          "y": 0.8141
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0373
+        },
+        {
+          "x": 0.2,
+          "y": 0.2054
+        },
+        {
+          "x": 0.5,
+          "y": 0.5242
+        },
+        {
+          "x": 0.8,
+          "y": 0.8088
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.12
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.232,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.065,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.065
+      ],
+      "midtones": [
+        -0.045,
+        0.0875,
+        0.0198
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-night-07-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-07-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.15,
+            "threshold": 0.56,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-night-07-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-07-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.23,
+            "size": 0.12,
+            "seed": 0.556
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-night-08",
+      "name": "Neon Verde",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "night",
+        "noite"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.03,
+      "contrast": 1.24,
+      "saturation": 0.82,
+      "temperature": -0.24,
+      "tint": -0.18,
+      "shadows": -0.13,
+      "highlights": -0.06,
+      "whites": 0.0408,
+      "blacks": -0.02,
+      "fade": 0.025,
+      "vignette": 0.215,
+      "clarity": 0.025,
+      "texture": 0.06,
+      "sharpness": 0.04
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.022
+        },
+        {
+          "x": 0.2,
+          "y": 0.1386
+        },
+        {
+          "x": 0.5,
+          "y": 0.4963
+        },
+        {
+          "x": 0.8,
+          "y": 0.8616
+        },
+        {
+          "x": 1,
+          "y": 0.9965
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0099
+        },
+        {
+          "x": 0.2,
+          "y": 0.1573
+        },
+        {
+          "x": 0.5,
+          "y": 0.4587
+        },
+        {
+          "x": 0.8,
+          "y": 0.8154
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0181
+        },
+        {
+          "x": 0.2,
+          "y": 0.2325
+        },
+        {
+          "x": 0.5,
+          "y": 0.559
+        },
+        {
+          "x": 0.8,
+          "y": 0.8174
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0295
+        },
+        {
+          "x": 0.2,
+          "y": 0.2044
+        },
+        {
+          "x": 0.5,
+          "y": 0.5225
+        },
+        {
+          "x": 0.8,
+          "y": 0.8082
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.12
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.244,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.075,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.08,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.065
+      ],
+      "midtones": [
+        -0.045,
+        0.0925,
+        0.0185
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.2
+    },
+    "effects": [
+      {
+        "id": "jdm-night-08-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-08-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.15,
+            "threshold": 0.56,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-night-08-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-night-08-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.29,
+            "size": 0.12,
+            "seed": 0.627
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-chrome-01",
+      "name": "Chrome 88",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "chrome",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0,
+      "contrast": 1.27,
+      "saturation": 0.62,
+      "temperature": -0.09,
+      "tint": -0.12,
+      "shadows": -0.16,
+      "highlights": -0.06,
+      "whites": 0.12,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.18,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.1
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.012
+        },
+        {
+          "x": 0.2,
+          "y": 0.1296
+        },
+        {
+          "x": 0.5,
+          "y": 0.49
+        },
+        {
+          "x": 0.8,
+          "y": 0.8544
+        },
+        {
+          "x": 1,
+          "y": 0.9981
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0054
+        },
+        {
+          "x": 0.2,
+          "y": 0.1651
+        },
+        {
+          "x": 0.5,
+          "y": 0.4769
+        },
+        {
+          "x": 0.8,
+          "y": 0.81
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0126
+        },
+        {
+          "x": 0.2,
+          "y": 0.2182
+        },
+        {
+          "x": 0.5,
+          "y": 0.533
+        },
+        {
+          "x": 0.8,
+          "y": 0.8079
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0141
+        },
+        {
+          "x": 0.2,
+          "y": 0.1963
+        },
+        {
+          "x": 0.5,
+          "y": 0.5099
+        },
+        {
+          "x": 0.8,
+          "y": 0.8036
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.16,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.06,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.17,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.085,
+        0.0081
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-chrome-01-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-01-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.1,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-chrome-01-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-01-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.18,
+            "size": 0.12,
+            "seed": 0.13
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-chrome-02",
+      "name": "Metal Frio",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "chrome",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.06,
+      "contrast": 1.2,
+      "saturation": 0.62,
+      "temperature": -0.09,
+      "tint": -0.12,
+      "shadows": -0.16,
+      "highlights": -0.06,
+      "whites": 0.1092,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.215,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.1
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.024
+        },
+        {
+          "x": 0.2,
+          "y": 0.1472
+        },
+        {
+          "x": 0.5,
+          "y": 0.4942
+        },
+        {
+          "x": 0.8,
+          "y": 0.8364
+        },
+        {
+          "x": 1,
+          "y": 0.9962
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0108
+        },
+        {
+          "x": 0.2,
+          "y": 0.1618
+        },
+        {
+          "x": 0.5,
+          "y": 0.4692
+        },
+        {
+          "x": 0.8,
+          "y": 0.8046
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0192
+        },
+        {
+          "x": 0.2,
+          "y": 0.2242
+        },
+        {
+          "x": 0.5,
+          "y": 0.544
+        },
+        {
+          "x": 0.8,
+          "y": 0.8073
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0169
+        },
+        {
+          "x": 0.2,
+          "y": 0.1938
+        },
+        {
+          "x": 0.5,
+          "y": 0.506
+        },
+        {
+          "x": 0.8,
+          "y": 0.8022
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.172,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.071,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.17,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0905,
+        0.0049
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-chrome-02-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-02-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.1,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-chrome-02-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-02-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.21,
+            "size": 0.12,
+            "seed": 0.201
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-chrome-03",
+      "name": "Prata 90",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "chrome",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.08,
+      "contrast": 1.32,
+      "saturation": 0.62,
+      "temperature": -0.09,
+      "tint": -0.12,
+      "shadows": -0.16,
+      "highlights": -0.06,
+      "whites": 0.1332,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.25,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.1
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.006
+        },
+        {
+          "x": 0.2,
+          "y": 0.1178
+        },
+        {
+          "x": 0.5,
+          "y": 0.4844
+        },
+        {
+          "x": 0.8,
+          "y": 0.8764
+        },
+        {
+          "x": 1,
+          "y": 0.999
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0027
+        },
+        {
+          "x": 0.2,
+          "y": 0.16
+        },
+        {
+          "x": 0.5,
+          "y": 0.465
+        },
+        {
+          "x": 0.8,
+          "y": 0.8166
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0093
+        },
+        {
+          "x": 0.2,
+          "y": 0.2275
+        },
+        {
+          "x": 0.5,
+          "y": 0.55
+        },
+        {
+          "x": 0.8,
+          "y": 0.816
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0129
+        },
+        {
+          "x": 0.2,
+          "y": 0.1977
+        },
+        {
+          "x": 0.5,
+          "y": 0.5121
+        },
+        {
+          "x": 0.8,
+          "y": 0.8044
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.184,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.18,
+          "saturation": 0.077,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.17,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0935,
+        0.0099
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-chrome-03-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-03-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.1,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-chrome-03-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-03-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.25,
+            "size": 0.12,
+            "seed": 0.272
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-chrome-04",
+      "name": "Showroom 89",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "chrome",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.12,
+      "contrast": 1.29,
+      "saturation": 0.62,
+      "temperature": -0.09,
+      "tint": -0.12,
+      "shadows": -0.16,
+      "highlights": -0.06,
+      "whites": 0.141,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.18,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.1
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.016
+        },
+        {
+          "x": 0.2,
+          "y": 0.1268
+        },
+        {
+          "x": 0.5,
+          "y": 0.4984
+        },
+        {
+          "x": 0.8,
+          "y": 0.8894
+        },
+        {
+          "x": 1,
+          "y": 0.9974
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0072
+        },
+        {
+          "x": 0.2,
+          "y": 0.1666
+        },
+        {
+          "x": 0.5,
+          "y": 0.4804
+        },
+        {
+          "x": 0.8,
+          "y": 0.8205
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0148
+        },
+        {
+          "x": 0.2,
+          "y": 0.2154
+        },
+        {
+          "x": 0.5,
+          "y": 0.528
+        },
+        {
+          "x": 0.8,
+          "y": 0.813
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0112
+        },
+        {
+          "x": 0.2,
+          "y": 0.1925
+        },
+        {
+          "x": 0.5,
+          "y": 0.5039
+        },
+        {
+          "x": 0.8,
+          "y": 0.8014
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.196,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.055,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.17,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0825,
+        0.0031
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-chrome-04-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-04-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.1,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-chrome-04-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-04-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.16,
+            "size": 0.12,
+            "seed": 0.343
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-chrome-05",
+      "name": "Farol Aceso",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "chrome",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.04,
+      "contrast": 1.37,
+      "saturation": 0.62,
+      "temperature": -0.09,
+      "tint": -0.12,
+      "shadows": -0.16,
+      "highlights": -0.06,
+      "whites": 0.105,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.215,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.1
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.003
+        },
+        {
+          "x": 0.2,
+          "y": 0.1069
+        },
+        {
+          "x": 0.5,
+          "y": 0.4872
+        },
+        {
+          "x": 0.8,
+          "y": 0.8294
+        },
+        {
+          "x": 1,
+          "y": 0.9995
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0014
+        },
+        {
+          "x": 0.2,
+          "y": 0.1624
+        },
+        {
+          "x": 0.5,
+          "y": 0.4706
+        },
+        {
+          "x": 0.8,
+          "y": 0.8025
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0077
+        },
+        {
+          "x": 0.2,
+          "y": 0.2231
+        },
+        {
+          "x": 0.5,
+          "y": 0.542
+        },
+        {
+          "x": 0.8,
+          "y": 0.8056
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0163
+        },
+        {
+          "x": 0.2,
+          "y": 0.2016
+        },
+        {
+          "x": 0.5,
+          "y": 0.5181
+        },
+        {
+          "x": 0.8,
+          "y": 0.8066
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.208,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.069,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.17,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0895,
+        0.0149
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-chrome-05-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-05-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.1,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-chrome-05-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-05-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.22,
+            "size": 0.12,
+            "seed": 0.414
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-chrome-06",
+      "name": "Azul Petrol",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "chrome",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.02,
+      "contrast": 1.23,
+      "saturation": 0.62,
+      "temperature": -0.09,
+      "tint": -0.12,
+      "shadows": -0.16,
+      "highlights": -0.06,
+      "whites": 0.1128,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.25,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.1
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.03
+        },
+        {
+          "x": 0.2,
+          "y": 0.143
+        },
+        {
+          "x": 0.5,
+          "y": 0.4914
+        },
+        {
+          "x": 0.8,
+          "y": 0.8424
+        },
+        {
+          "x": 1,
+          "y": 0.9952
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0135
+        },
+        {
+          "x": 0.2,
+          "y": 0.1585
+        },
+        {
+          "x": 0.5,
+          "y": 0.4615
+        },
+        {
+          "x": 0.8,
+          "y": 0.8064
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0225
+        },
+        {
+          "x": 0.2,
+          "y": 0.2303
+        },
+        {
+          "x": 0.5,
+          "y": 0.555
+        },
+        {
+          "x": 0.8,
+          "y": 0.811
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0213
+        },
+        {
+          "x": 0.2,
+          "y": 0.1949
+        },
+        {
+          "x": 0.5,
+          "y": 0.5077
+        },
+        {
+          "x": 0.8,
+          "y": 0.8028
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.22,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.18,
+          "saturation": 0.082,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.17,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.096,
+        0.0063
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-chrome-06-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-06-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.1,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-chrome-06-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-06-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.24,
+            "size": 0.12,
+            "seed": 0.485
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-chrome-07",
+      "name": "Carro de Rua",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "chrome",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": -0.11,
+      "contrast": 1.25,
+      "saturation": 0.62,
+      "temperature": -0.09,
+      "tint": -0.12,
+      "shadows": -0.16,
+      "highlights": -0.06,
+      "whites": 0.1278,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.18,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.1
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.022
+        },
+        {
+          "x": 0.2,
+          "y": 0.1366
+        },
+        {
+          "x": 0.5,
+          "y": 0.4823
+        },
+        {
+          "x": 0.8,
+          "y": 0.8674
+        },
+        {
+          "x": 1,
+          "y": 0.9965
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0099
+        },
+        {
+          "x": 0.2,
+          "y": 0.1636
+        },
+        {
+          "x": 0.5,
+          "y": 0.4734
+        },
+        {
+          "x": 0.8,
+          "y": 0.8139
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.0181
+        },
+        {
+          "x": 0.2,
+          "y": 0.2209
+        },
+        {
+          "x": 0.5,
+          "y": 0.538
+        },
+        {
+          "x": 0.8,
+          "y": 0.8115
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0236
+        },
+        {
+          "x": 0.2,
+          "y": 0.1998
+        },
+        {
+          "x": 0.5,
+          "y": 0.5154
+        },
+        {
+          "x": 0.8,
+          "y": 0.8056
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.232,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.12,
+          "saturation": 0.065,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.17,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0875,
+        0.0126
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-chrome-07-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-07-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.1,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-chrome-07-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-07-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.14,
+            "size": 0.12,
+            "seed": 0.556
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "jdm-chrome-08",
+      "name": "Pista 94",
+      "category": "JDM",
+      "version": 1,
+      "tags": [
+        "jdm",
+        "japão",
+        "japones",
+        "carro",
+        "carros",
+        "retrato",
+        "retratos",
+        "selfie",
+        "pessoas",
+        "retro",
+        "vintage",
+        "anos 80",
+        "anos 90",
+        "1980",
+        "1990",
+        "flash",
+        "verde",
+        "filme",
+        "camera antiga",
+        "chrome",
+        "compacta"
+      ]
+    },
+    "adjustments": {
+      "exposure": 0.09,
+      "contrast": 1.33,
+      "saturation": 0.62,
+      "temperature": -0.09,
+      "tint": -0.12,
+      "shadows": -0.16,
+      "highlights": -0.06,
+      "whites": 0.1308,
+      "blacks": -0.07,
+      "fade": 0.025,
+      "vignette": 0.215,
+      "clarity": 0.08,
+      "texture": 0.06,
+      "sharpness": 0.1
+    },
+    "savedIntensity": 0.75,
+    "curves": {
+      "rgb": [
+        {
+          "x": 0,
+          "y": 0.009
+        },
+        {
+          "x": 0.2,
+          "y": 0.1167
+        },
+        {
+          "x": 0.5,
+          "y": 0.4963
+        },
+        {
+          "x": 0.8,
+          "y": 0.8724
+        },
+        {
+          "x": 1,
+          "y": 0.9986
+        }
+      ],
+      "red": [
+        {
+          "x": 0,
+          "y": 0.0041
+        },
+        {
+          "x": 0.2,
+          "y": 0.1606
+        },
+        {
+          "x": 0.5,
+          "y": 0.4664
+        },
+        {
+          "x": 0.8,
+          "y": 0.8154
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "green": [
+        {
+          "x": 0,
+          "y": 0.011
+        },
+        {
+          "x": 0.2,
+          "y": 0.2264
+        },
+        {
+          "x": 0.5,
+          "y": 0.548
+        },
+        {
+          "x": 0.8,
+          "y": 0.8148
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ],
+      "blue": [
+        {
+          "x": 0,
+          "y": 0.0158
+        },
+        {
+          "x": 0.2,
+          "y": 0.1988
+        },
+        {
+          "x": 0.5,
+          "y": 0.5138
+        },
+        {
+          "x": 0.8,
+          "y": 0.805
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    "shadowTint": [
+      -0.1,
+      0.18,
+      0.055
+    ],
+    "highlightTint": [
+      -0.01,
+      0.025,
+      -0.008
+    ],
+    "grading": 0.62,
+    "color": {
+      "hsl": [
+        {
+          "hue": -0.018,
+          "saturation": -0.1,
+          "luminance": 0.015
+        },
+        {
+          "hue": -0.025,
+          "saturation": -0.15,
+          "luminance": 0.035
+        },
+        {
+          "hue": 0.244,
+          "saturation": -0.12,
+          "luminance": -0.025
+        },
+        {
+          "hue": 0.15,
+          "saturation": 0.075,
+          "luminance": -0.04
+        },
+        {
+          "hue": -0.1,
+          "saturation": 0.03,
+          "luminance": -0.025
+        },
+        {
+          "hue": -0.12,
+          "saturation": -0.17,
+          "luminance": -0.05
+        },
+        {
+          "hue": 0.02,
+          "saturation": -0.22,
+          "luminance": -0.02
+        },
+        {
+          "hue": 0,
+          "saturation": 0,
+          "luminance": 0
+        }
+      ],
+      "shadows": [
+        -0.055,
+        0.085,
+        0.012
+      ],
+      "midtones": [
+        -0.045,
+        0.0925,
+        0.0112
+      ],
+      "highlights": [
+        0.018,
+        0.025,
+        0.014
+      ],
+      "balance": [
+        -0.015,
+        0.024,
+        -0.009
+      ],
+      "rolloff": 0.08
+    },
+    "effects": [
+      {
+        "id": "jdm-chrome-08-bloom",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-08-bloom",
+            "name": "Luz de flash",
+            "category": "JDM"
+          },
+          "type": "bloom",
+          "parameters": {
+            "amount": 0.1,
+            "threshold": 0.74,
+            "radius": 0.13
+          }
+        },
+        "intensity": 0.65
+      },
+      {
+        "id": "jdm-chrome-08-grain",
+        "preset": {
+          "meta": {
+            "id": "jdm-chrome-08-grain",
+            "name": "Grão compacto",
+            "category": "JDM"
+          },
+          "type": "grain",
+          "parameters": {
+            "amount": 0.2,
+            "size": 0.12,
+            "seed": 0.627
+          }
+        },
+        "intensity": 0.7
+      }
+    ]
+  }
+]

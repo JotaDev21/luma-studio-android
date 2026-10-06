@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "meta": { "id": "couple-memories", "name": "Couple Memories", "category": "Couple", "version": 1, "tags": ["couple", "romantic", "film"] },
+  "width": 1080,
+  "height": 1920,
+  "layers": [
+    { "id": "PHOTO_1", "type": "photo", "placeholder": true, "transform": { "x": 60, "y": 200, "width": 960, "height": 1100, "rotation": -3 } },
+    { "id": "TEXT_TITLE", "type": "text", "content": "OUR MEMORIES", "transform": { "x": 80, "y": 1450, "width": 920, "height": 180 } }
+  ]
+}

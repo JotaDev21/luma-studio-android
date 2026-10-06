@@ -1,0 +1,13 @@
+# Máscaras locais — 0.5.0
+
+LocalMask contém geometria, ajustes, intensidade, inversão, visibilidade e identidade. EditState.masks guarda máscaras de fotos simples; StoryLayer.masks guarda as máscaras de cada foto da composição. Fontes nunca recebem pixels processados. O schema de projeto é 7 e aceita versões anteriores. Desde 0.6.0, o tipo person contém RasterMask, limite de seleção e opção cutout; detalhes em SEGMENTATION.md.
+
+MaskCoordinates converte entre coordenadas normalizadas da fonte com EXIF aplicado e a foto recortada/espelhada/girada. Pincéis são listas de pontos e raio relativo ao menor lado da fonte; borracha remove cobertura acumulada. Área circular usa dois raios, e degradê linear usa dois pontos. A suavização controla a transição da cobertura. Limites de geometria são validados ao editar, salvar, abrir e importar packs.
+
+MaskRasterizer desenha cobertura em Canvas, transformada para a resolução de saída. GpuLocalMasks mistura o resultado de cada conjunto de ajustes com os pixels de entrada conforme essa cobertura, intensidade e inversão, mantendo alpha premultiplicado. ColorShader compartilha os operadores entre ajustes globais e locais. Dois targets alternam sem ler/escrever a mesma textura. A última geometria rasterizada permanece carregada na GPU para mudanças de ajuste/intensidade; mudar geometria ou resolução invalida esse cache. Efeitos são executados depois dos ajustes locais.
+
+O editor usa o mesmo GpuRenderer para a foto isolada e atualiza o mesmo histórico do projeto. Concluir retorna ao editor principal, que renderiza a composição completa. A área rosa e os pontos de controle são sobreposições de UI; nunca passam pelo renderer de exportação. Traços só entram no histórico ao soltar o dedo. Controles e arraste de pontos atualizam a prévia durante o gesto e fazem um commit ao terminar.
+
+StoryRenderer inclui máscaras por foto na chave de seu cache. Conversão de foto para Story transfere a geometria para a camada. Fotos fixas de templates/packs conservam máscaras; placeholders e troca de fonte removem os retoques específicos da imagem anterior. Filtros/StylePreset guardam somente tratamento global e elementos gráficos, deixando os ajustes locais ligados à fonte do projeto.
+
+A exportação rasteriza as máscaras novamente na resolução solicitada. O orçamento de memória considera cobertura e targets adicionais. Máscaras vetoriais não dependem de inferência. A seleção automática de pessoa em 0.6.0 guarda cobertura pequena e reutiliza este pipeline; o modelo não executa novamente durante a exportação. Processamento em tiles permanece pendente.

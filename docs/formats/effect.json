@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "meta": { "id": "grain-fine", "name": "Fine Grain", "category": "Film", "version": 1, "tags": ["film"] },
+  "type": "grain",
+  "parameters": { "amount": 0.3, "size": 1.0, "seed": 0.23 }
+}

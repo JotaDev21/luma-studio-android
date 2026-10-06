@@ -1,0 +1,30 @@
+.gradle/
+.kotlin/
+**/build/
+local.properties
+.idea/
+*.iml
+.tools/
+captures/
+*.log
+
+# Machine-specific files and private signing credentials
+.DS_Store
+Thumbs.db
+Desktop.ini
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+
+# Generated artifacts and local verification reports
+*.apk
+*.aab
+__pycache__/
+*.pyc
+/app-checks-before-mask-retry.xml
+/mask-retry-results.xml
+/docs/*-checks.xml

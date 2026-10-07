@@ -2,7 +2,7 @@ plugins { id("com.android.application"); kotlin("android"); kotlin("plugin.seria
 android {
     namespace = "studio.luma"
     compileSdk = 36
-    defaultConfig { applicationId = "studio.luma.personal"; minSdk = 29; targetSdk = 36; versionCode = 14; versionName = "1.4.1"; testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner" }
+    defaultConfig { applicationId = "studio.luma.personal"; minSdk = 29; targetSdk = 36; versionCode = 15; versionName = "1.5.0"; testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner" }
     buildFeatures { compose = true }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
     kotlinOptions { jvmTarget = "17" }
@@ -15,6 +15,7 @@ android {
     } }
 }
 dependencies {
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation(project(":core")); implementation(project(":renderer"))
     implementation(platform("androidx.compose:compose-bom:2025.04.01"))
     implementation("androidx.compose.material3:material3")

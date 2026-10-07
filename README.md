@@ -1,6 +1,6 @@
 # Luma Studio
 
-Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.4.1: fotos, efeitos, Stories, colagens, biblioteca pessoal, máscaras e seleção automática de pessoa/fundo e enquadramento inteligente. Android 10 ou superior. Sem conta, anúncios, backend ou permissão de rede.
+Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.5.0: fotos, efeitos, Stories, colagens, biblioteca pessoal, máscaras, enquadramento inteligente e melhoria opcional com IA no PC. Android 10 ou superior. Sem conta ou anúncios; a edição funciona localmente, e o botão de melhoria conecta ao servidor pessoal escolhido.
 
 ## Disponível na fase 1
 
@@ -46,7 +46,7 @@ Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.4.1: fotos, efeito
 ## Pessoa e fundo (0.6.0)
 
 - Em Máscaras, abra Pessoa / fundo: Selecionar pessoa, Selecionar fundo ou Remover fundo. Funciona em fotos simples e nas fotos de Stories/colagens. A seleção pode incluir várias pessoas e objetos próximos; confira as bordas.
-- Modelo ML Kit Selfie Segmentation 16.0.0-beta6 incorporado ao APK, em modo de foto única. A inferência é local e não exige download no celular. Permissões de internet/rede das dependências são removidas do manifesto final.
+- Modelo ML Kit Selfie Segmentation 16.0.0-beta6 incorporado ao APK, em modo de foto única. A inferência é local e não exige download no celular. Desde 1.5.0, o app possui permissão de internet para a melhoria opcional no PC; a segmentação continua local.
 - A confiança por pixel é salva junto com o projeto, em mapa de até 256 × 256, quantizado em 8 bits e comprimido com zlib/Base64. Reabrir/exportar não executa novamente o modelo. Pessoa e fundo da mesma fonte reutilizam o resultado inicial e mantêm correções manuais independentes.
 - Controles de limite, suavização, inversão, intensidade, pintura e borracha. Para máscaras de fundo, Pintar e Apagar atuam sobre a área selecionada. Limpar correções restaura o resultado automático; Comparar original ajuda a revisar o recorte.
 - Remover fundo preserva os pixels da fonte e aplica transparência pelo renderer. PNG/WebP preservam transparência; JPEG preenche com branco. Em Story, a área removida mostra o fundo e as camadas inferiores do canvas. O quadriculado e a marcação rosa existem só na UI.
@@ -107,6 +107,16 @@ Pipeline e limites em [docs/SMART-FRAMING.md](docs/SMART-FRAMING.md).
 - Os 69 efeitos anteriores conservam suas definições e renderização. Ao adicionar outro efeito, o editor seleciona a nova camada para o controle de intensidade. Busca de efeitos também aceita múltiplas palavras sem acentos.
 - Detalhes e limites em [docs/FLASH-EFFECTS.md](docs/FLASH-EFFECTS.md).
 
+## Melhorar com IA no PC (1.5.0)
+
+- Botão **Melhorar com IA** no editor de foto. Real-ESRGAN x4plus recupera definição; GFPGAN v1.4 restaura rostos opcionalmente. Processamento real na GPU NVIDIA do PC, sem hospedagem paga.
+- Ampliação de até 2×/4×, força ajustável, restauração de rostos e comparação deslizante antes/depois. A IA pode inventar detalhes ou alterar traços; confira o resultado antes de aceitar.
+- Aceitar cria outro projeto com a imagem melhorada e conserva o projeto anterior, suas edições e o arquivo original. Descartar apaga o resultado temporário.
+- O app envia somente a imagem editada, sem EXIF/GPS, ao servidor conectado. Entrada preparada em até 2048 px, saída até 4096 px no maior lado. O servidor processa em memória, uma foto por vez.
+- Conexão por endereço e código temporário de seis números; credencial salva com Android Keystore. Celular e PC precisam estar na mesma rede, com o serviço ligado. As outras ferramentas continuam funcionando sem esse servidor.
+
+Instruções de instalação, uso e limites em [server/README.md](server/README.md). Não é a tecnologia proprietária do Remini; os resultados dependem da foto e dos modelos usados.
+
 ## Compilar
 
 Abra a pasta no Android Studio, configure SDK 36 e JDK 17. Ajuste `local.properties` para o SDK instalado (arquivo específico desta máquina, ignorado pelo Git).
@@ -143,7 +153,7 @@ Os catálogos são próprios. Filtros podem ser regenerados com `python tools/ge
 
 ## Pendente
 
-Vídeo, HDR/RAW, processamento em tiles e IA generativa opcional ficam para versões futuras. Seleção de pessoas/rostos e aproximação estética são locais; nenhum upload acontece nesta versão.
+Vídeo, HDR/RAW e exportação Android em tiles ficam para versões futuras. A melhoria opcional de fotos já utiliza tiles no PC. Seleção de pessoas/rostos e aproximação estética continuam locais; o envio de fotos ao PC acontece quando o usuário solicita Melhorar com IA.
 
 Arquitetura, armazenamento, pipeline e decisões em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Exemplos em `docs/formats/`; especificação do pack em [docs/PACKS.md](docs/PACKS.md).
 

@@ -14,6 +14,7 @@ import studio.luma.data.*
 import studio.luma.renderer.*
 
 enum class Page { HOME, LIBRARY, PROJECTS, TEMPLATES, STYLES, PACKS, EDITOR }
+data class EnhancementProposal(val file:java.io.File,val before:Bitmap,val after:Bitmap,val width:Int,val height:Int)
 data class StudioUi(
     val page: Page = Page.HOME, val filters: List<FilterPreset> = emptyList(), val favorites: Set<String> = emptySet(),
     val projects: List<Project> = emptyList(), val project: Project? = null,
@@ -26,6 +27,7 @@ data class StudioUi(
     val edit: EditState = EditState(), val thumbnails: Map<String, Bitmap> = emptyMap(),
     val smartProposal:SmartProposal?=null,val recentStyles:List<String> = emptyList(),
     val batchProgress:Int=0,val batchTotal:Int=0,
+    val enhancementConnected:Boolean=false,val enhancementEndpoint:String="",val enhancing:Boolean=false,val enhancementProposal:EnhancementProposal?=null,
     val busy: Boolean = true, val rendering: Boolean = false, val error: String? = null,
     val canUndo: Boolean = false, val canRedo: Boolean = false, val savedEdit: EditState = EditState(), val exported: Uri? = null
 ) { val dirty get() = project != null && edit != savedEdit }
@@ -39,6 +41,9 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
     private var filterRequest=0
     private val stories=StoryRenderer(renderer)
     private val exporter = ExportEngine(application, store, renderer,stories)
+    private val enhancementClient=EnhancementClient()
+    private val enhancementConnections=EnhancementConnectionStore(application)
+    private var enhancementJob:Job?=null
     private val mutable = MutableStateFlow(StudioUi())
     val ui = mutable.asStateFlow()
     private var history = EditHistory(EditState())
@@ -51,12 +56,84 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
     private val focusCache=linkedMapOf<String,PhotoFocus>()
     init { viewModelScope.launch { try {
         val filters=store.catalog(); val effects=store.effects(); val templates=store.templates();val styles=store.styles();val library=store.snapshot(); val favorites=store.favorites(); val projects=store.list()
+        refreshEnhancementConnection()
         mutable.update { it.copy(filters = filters, effects=effects, templates=templates,styles=styles,library=library, favorites = favorites, projects = projects, recentStyles=getApplication<Application>().getSharedPreferences("studio",0).getString("recentStyles","")!!.split(",").filter {it.isNotBlank()},busy = false) }
     } catch (e: Exception) { fail(e) } } }
 
     fun page(page: Page) { if (!ui.value.busy) mutable.update { it.copy(page = page) } }
     fun clearError() { mutable.update { it.copy(error = null) } }
     fun clearNotice() {mutable.update {it.copy(notice=null)}}
+    private fun refreshEnhancementConnection() {
+        val connection=enhancementConnections.load()
+        mutable.update {it.copy(enhancementConnected=connection!=null,enhancementEndpoint=connection?.endpoint ?: "")}
+    }
+    fun connectEnhancement(endpoint:String,code:String)=viewModelScope.launch {
+        if(ui.value.busy) return@launch
+        mutable.update {it.copy(busy=true)}
+        try {
+            val connection=enhancementClient.pair(endpoint,code)
+            withContext(Dispatchers.IO) {enhancementConnections.save(connection)}
+            refreshEnhancementConnection()
+            mutable.update {it.copy(busy=false,notice="PC conectado. A IA está pronta para suas fotos.")}
+        } catch(e:Exception) {fail(e)}
+    }
+    fun disconnectEnhancement() {if(!ui.value.busy) {enhancementConnections.clear();refreshEnhancementConnection()}}
+    fun cancelEnhancement() {enhancementJob?.cancel()}
+    fun discardEnhancement() {
+        ui.value.enhancementProposal?.file?.delete()
+        mutable.update {it.copy(enhancementProposal=null)}
+    }
+    fun enhancePhoto(scale:Int=2,faces:Boolean=true,strength:Float=.7f) {
+        val state=ui.value
+        if(state.busy || state.rendering || state.enhancementProposal!=null) return
+        val project=state.project ?: return
+        if(state.edit.story!=null) return
+        val before=state.preview ?: return
+        val connection=enhancementConnections.load() ?: run {mutable.update {it.copy(error="Conecte seu PC para melhorar com IA.")};return}
+        require(scale in listOf(2,4) && strength in .1f..1f)
+        finishGesture()
+        mutable.update {it.copy(busy=true,enhancing=true,exported=null)}
+        enhancementJob=viewModelScope.launch {
+            val cache=getApplication<Application>().cacheDir
+            val input=java.io.File.createTempFile("luma-ai-input-",".png",cache)
+            val output=java.io.File.createTempFile("luma-ai-result-",".png",cache)
+            var keepOutput=false
+            try {
+                previewJob?.cancelAndJoin()
+                val original=withContext(Dispatchers.IO) {ImageSource.decode(store.source(project),2048)}
+                val rendered=try {renderer.render(original,state.edit,2048,store.directory(project.id))} finally {original.recycle()}
+                try {withContext(Dispatchers.IO) {input.outputStream().use {check(rendered.compress(Bitmap.CompressFormat.PNG,100,it))}}} finally {rendered.recycle()}
+                enhancementClient.enhance(connection,input,output,scale,faces,strength)
+                val size=withContext(Dispatchers.IO) {ImageSource.dimensions(output)}
+                val after=withContext(Dispatchers.IO) {ImageSource.decode(output,1280)}
+                ensureActive()
+                mutable.update {it.copy(enhancementProposal=EnhancementProposal(output,before,after,size.first,size.second))}
+                keepOutput=true
+            } catch(e:CancellationException) {throw e}
+            catch(e:Exception) {fail(e)}
+            finally {input.delete();if(!keepOutput) output.delete();mutable.update {it.copy(busy=false,enhancing=false)};render()}
+        }
+    }
+    fun applyEnhancement()=viewModelScope.launch {
+        val state=ui.value
+        if(state.busy) return@launch
+        val proposal=state.enhancementProposal ?: return@launch
+        val original=state.project ?: return@launch
+        mutable.update {it.copy(busy=true)}
+        var created:Project?=null
+        try {
+            val saved=original.copy(schemaVersion=8,edit=state.edit,history=history.snapshot(),updatedAt=System.currentTimeMillis())
+            store.save(saved,state.preview)
+            mutable.update {it.copy(project=saved,savedEdit=state.edit)}
+            val imported=store.import(Uri.fromFile(proposal.file))
+            created=imported
+            val improved=imported.copy(name=(original.name+" · IA").take(100))
+            store.save(improved)
+            openInternal(improved)
+            discardEnhancement()
+            mutable.update {it.copy(projects=store.list(),notice="Cópia melhorada salva. O projeto original continua em Projetos.")}
+        } catch(e:Exception) {created?.let {store.deleteProject(it.id)};fail(e)}
+    }
     private fun fail(e: Exception) { if (e is CancellationException) throw e; mutable.update { it.copy(busy = false, rendering = false, error = e.message ?: "Não foi possível concluir esta operação.") } }
     fun import(uri: Uri, filter: FilterPreset? = null,style:StylePreset?=null) = viewModelScope.launch {
         if (ui.value.busy) return@launch
@@ -443,6 +520,7 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
         if (ui.value.busy || ui.value.dirty && !discard) return@launch
         mutable.update {it.copy(busy=true)}
         try {
+            discardEnhancement()
             filterJob?.cancel();filterRequest++;previewJob?.cancelAndJoin(); generation++
             val projects=store.list()
             mutable.update { it.copy(busy=false,rendering=false,smartProposal=null,page = Page.HOME, project = null, source = null, preview = null, before = null, thumbnails = emptyMap(), projects = projects) }
@@ -526,5 +604,5 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
     }
     fun thumbFile(project: Project) = store.thumbnail(project)
     suspend fun templatePreview(template:StoryTemplate)=stories.render(template.document(),store.templateDirectory(),template.editState(),maxEdge=320)
-    override fun onCleared() { super.onCleared(); CoroutineScope(Dispatchers.Default).launch { stories.close(); renderer.close();thumbnailRenderer.close() } }
+    override fun onCleared() { super.onCleared(); ui.value.enhancementProposal?.file?.delete(); CoroutineScope(Dispatchers.Default).launch { stories.close(); renderer.close();thumbnailRenderer.close() } }
 }

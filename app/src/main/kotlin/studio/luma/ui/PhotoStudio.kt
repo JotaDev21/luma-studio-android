@@ -66,6 +66,7 @@ private fun collectionNote(category:String)=when(category) {
     var tool by remember(state.project?.id) {mutableStateOf("Filtros")}
     var pro by remember {mutableStateOf(false)}
     var export by remember {mutableStateOf(false)};var save by remember {mutableStateOf(false)}
+    var enhancement by remember {mutableStateOf(false)}
     var compare by remember {mutableStateOf(false)};var holding by remember {mutableStateOf(false)};var split by remember {mutableFloatStateOf(.5f)}
     val context=LocalContext.current
     Column(Modifier.fillMaxSize().background(StudioGround).statusBarsPadding().navigationBarsPadding()) {
@@ -89,6 +90,10 @@ private fun collectionNote(category:String)=when(category) {
                 Spacer(Modifier.width(8.dp))
                 Text(if(pro) "Modo Pro" else "Modo rápido",fontSize=10.sp,color=if(pro) StudioAccent else Muted,modifier=Modifier.clip(RoundedCornerShape(6.dp)).clickable {pro=!pro;if(!pro && tool=="Avançado") tool="Filtros"}.padding(8.dp))
             }
+        }
+        Row(Modifier.fillMaxWidth().padding(horizontal=20.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.SpaceBetween) {
+            Text("Mais detalhe na sua foto",fontSize=11.sp,color=Muted)
+            FilledTonalButton(onClick={vm.finishGesture();enhancement=true},enabled=!state.busy && !state.rendering && state.preview!=null,contentPadding=PaddingValues(horizontal=12.dp,vertical=0.dp),shape=RoundedCornerShape(10.dp),modifier=Modifier.height(34.dp).testTag("photo-enhance")) {Icon(Icons.Rounded.AutoAwesome,null,Modifier.size(16.dp));Spacer(Modifier.width(6.dp));Text("Melhorar com IA",fontSize=11.sp)}
         }
         BoxWithConstraints(Modifier.weight(1f).fillMaxWidth().padding(horizontal=18.dp,vertical=12.dp),contentAlignment=Alignment.Center) {
             val bitmap=if(tool=="Recorte") state.source else state.preview ?: state.source
@@ -140,6 +145,8 @@ private fun collectionNote(category:String)=when(category) {
         state.exported?.let {uri->Row(Modifier.fillMaxWidth().padding(horizontal=18.dp),verticalAlignment=Alignment.CenterVertically) {Text("Salva na galeria",fontSize=11.sp,color=StudioAccent,modifier=Modifier.weight(1f));TextButton(onClick={context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {type=context.contentResolver.getType(uri);putExtra(Intent.EXTRA_STREAM,uri);addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)},"Compartilhar foto"))}) {Text("Compartilhar",fontSize=11.sp)}}}
     }
     if(export) ExportDialog({export=false}) {export=false;vm.finishGesture();vm.export(it)}
+    if(enhancement) EnhancementControls(state,vm) {enhancement=false}
+    state.enhancementProposal?.let {EnhancementComparison(it,state.busy,vm::applyEnhancement,vm::discardEnhancement)}
     if(save) {
         var name by remember {mutableStateOf(state.project?.name ?: "Minha foto")}
         AlertDialog(onDismissRequest={save=false},title={Text("Guardar no estúdio")},text={OutlinedTextField(name,{name=it.take(100)},label={Text("Nome do projeto")},singleLine=true)},confirmButton={TextButton(onClick={save=false;vm.finishGesture();vm.save(name)}) {Text("Salvar")}},dismissButton={TextButton(onClick={save=false}) {Text("Cancelar")}})

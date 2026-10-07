@@ -90,7 +90,8 @@ import java.io.File
             if (state.busy) Box(Modifier.fillMaxSize().background(Ink.copy(alpha = .85f)).clickable(enabled = true, onClick = {}), contentAlignment = Alignment.Center) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
                     CircularProgressIndicator(color = Acid)
-                    Text(if(state.batchTotal>0) "Lote: ${state.batchProgress} de ${state.batchTotal} fotos" else "Processando no seu dispositivo", color = Muted)
+                    Text(if(state.enhancing) "Seu PC está melhorando a foto com IA…" else if(state.batchTotal>0) "Lote: ${state.batchProgress} de ${state.batchTotal} fotos" else "Processando no seu dispositivo", color = Muted)
+                    if(state.enhancing) TextButton(onClick=vm::cancelEnhancement) {Text("Cancelar melhoria")}
                     if(state.batchTotal>0) TextButton(onClick=vm::cancelBatch) {Text("Parar após esta foto")}
                 }
             }

@@ -22,7 +22,11 @@ class AdvancedFlowTest {
         compose.runOnUiThread {compose.activity.setShowWhenLocked(true);compose.activity.setTurnScreenOn(true);compose.activity.window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)}
         compose.waitUntil(10000) {compose.onAllNodes(isRoot()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()};ready()
     }
-    private fun ready()=compose.waitUntil(45000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
+    private fun ready() {
+        compose.waitUntil(45000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
+        // These regression cases exercise the complete editor; the guide has separate tests.
+        if(compose.onAllNodesWithTag("story-guide-full").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()) compose.onNodeWithTag("story-guide-full").performScrollTo().performClick()
+    }
     private fun capture(name:String,dialog:Boolean=true) {
         val directory=File(InstrumentationRegistry.getArguments().getString("additionalTestOutputDir")!!).apply {mkdirs()}
         File(directory,name).outputStream().use {compose.onNode(if(dialog) isDialog() else isRoot()).captureToImage().asAndroidBitmap().compress(Bitmap.CompressFormat.PNG,100,it)}

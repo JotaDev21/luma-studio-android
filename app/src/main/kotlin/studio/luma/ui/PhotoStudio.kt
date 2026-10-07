@@ -79,7 +79,8 @@ private fun collectionNote(category:String)=when(category) {
     var enhancement by remember {mutableStateOf(false)}
     var compare by remember {mutableStateOf(false)};var holding by remember {mutableStateOf(false)};var split by remember {mutableFloatStateOf(.5f)}
     val context=LocalContext.current
-    val scrollLayout=LocalDensity.current.fontScale>=1.3f || LocalConfiguration.current.screenHeightDp<640
+    val scrollLayout=useScrollableEditor()
+    var accessibility by remember {mutableStateOf(false)}
     val scroll=rememberScrollState()
     Column(Modifier.fillMaxSize().background(StudioGround).statusBarsPadding().navigationBarsPadding().then(if(scrollLayout) Modifier.verticalScroll(scroll) else Modifier)) {
         Row(Modifier.fillMaxWidth().heightIn(min=56.dp).padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically) {
@@ -97,20 +98,21 @@ private fun collectionNote(category:String)=when(category) {
                     DropdownMenuItem(text={Text("Cor e ferramentas avançadas")},onClick={more=false;vm.finishGesture();tool="Avançado";pro=true})
                     DropdownMenuItem(text={Text(if(pro) "Usar modo simples" else "Mostrar todas as ferramentas")},onClick={more=false;pro=!pro;if(!pro && tool !in listOf("Filtros","Ajustes","Recorte","Efeitos")) tool="Filtros"})
                     DropdownMenuItem(text={Text("Como usar")},onClick={more=false;help=true})
+                    DropdownMenuItem(text={Text("Facilidade de uso")},onClick={more=false;accessibility=true})
                     DropdownMenuItem(text={Text("Descartar rascunho")},enabled=state.dirty,onClick={more=false;discard=true})
                 }
             }
         }
         if(scrollLayout) Button(onClick={export=true},enabled=state.preview!=null && !state.rendering,modifier=Modifier.fillMaxWidth().padding(horizontal=16.dp).heightIn(min=48.dp).testTag("photo-save")) {Text("Salvar foto na galeria",fontSize=16.sp)}
         Row(Modifier.fillMaxWidth().padding(horizontal=16.dp).heightIn(min=48.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.SpaceBetween) {
-            Text(draftLabel(state),fontSize=13.sp,color=if(state.draftState==DraftState.FAILED) MaterialTheme.colorScheme.error else Muted,modifier=Modifier.weight(1f).semantics {liveRegion=LiveRegionMode.Polite}.testTag("draft-status"))
+            Text(draftLabel(state),fontSize=14.sp,color=if(state.draftState==DraftState.FAILED) MaterialTheme.colorScheme.error else Muted,modifier=Modifier.weight(1f).semantics {liveRegion=LiveRegionMode.Polite}.testTag("draft-status"))
             Row(verticalAlignment=Alignment.CenterVertically) {
                 IconButton(onClick=vm::undo,enabled=state.canUndo,modifier=Modifier.size(48.dp)) {Icon(Icons.AutoMirrored.Rounded.Undo,"Desfazer",tint=if(state.canUndo) StudioPaper else Muted)}
                 IconButton(onClick=vm::redo,enabled=state.canRedo,modifier=Modifier.size(48.dp)) {Icon(Icons.AutoMirrored.Rounded.Redo,"Refazer",tint=if(state.canRedo) StudioPaper else Muted)}
             }
         }
         Row(Modifier.fillMaxWidth().padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.SpaceBetween) {
-            if(!scrollLayout) Text(if(pro) "Todas as ferramentas" else "Modo simples",fontSize=13.sp,color=Muted,modifier=Modifier.weight(1f))
+            if(!scrollLayout) Text(if(pro) "Todas as ferramentas" else "Modo simples",fontSize=14.sp,color=Muted,modifier=Modifier.weight(1f))
             TextButton(onClick={vm.finishGesture();enhancement=true},enabled=!state.busy && !state.rendering && state.preview!=null,modifier=Modifier.heightIn(min=48.dp).testTag("photo-enhance")) {Icon(Icons.Rounded.AutoAwesome,null);Spacer(Modifier.width(6.dp));Text("Melhorar com IA",fontSize=14.sp)}
         }
         BoxWithConstraints((if(scrollLayout) Modifier.height(240.dp) else Modifier.weight(1f)).fillMaxWidth().padding(horizontal=16.dp,vertical=8.dp),contentAlignment=Alignment.Center) {
@@ -124,15 +126,15 @@ private fun collectionNote(category:String)=when(category) {
                         state.before?.let {before->if(holding || compare) Image(before.asImageBitmap(),"Original",Modifier.fillMaxSize().drawWithContent {clipRect(right=if(holding) size.width else size.width*split) {this@drawWithContent.drawContent()}},contentScale=ContentScale.FillBounds)}
                         if(compare && !holding) Canvas(Modifier.fillMaxSize()) {drawLine(StudioPaper,Offset(size.width*split,0f),Offset(size.width*split,size.height),2.dp.toPx())}
                     }
-                    if(state.rendering) LinearProgressIndicator(Modifier.align(Alignment.BottomCenter).fillMaxWidth().height(2.dp),color=StudioAccent,trackColor=Color.Transparent)
+                    if(state.rendering) LumaLinearProgressIndicator(Modifier.align(Alignment.BottomCenter).fillMaxWidth().height(2.dp),color=StudioAccent,trackColor=Color.Transparent)
                 }
             }
         }
         if(compare && tool!="Recorte") Slider(split,{split=it},valueRange=.05f.. .95f,modifier=Modifier.fillMaxWidth().padding(horizontal=24.dp).heightIn(min=48.dp).semantics {contentDescription="Posição da comparação antes e depois"})
         Row(Modifier.fillMaxWidth().padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically) {
-            Text(if(tool=="Recorte") "Arraste os cantos para recortar" else state.edit.filter?.preset?.meta?.name ?: "Foto original",fontSize=13.sp,color=StudioPaper,maxLines=2,overflow=TextOverflow.Ellipsis,modifier=Modifier.weight(1f))
+            Text(if(tool=="Recorte") "Arraste os cantos para recortar" else state.edit.filter?.preset?.meta?.name ?: "Foto original",fontSize=14.sp,color=StudioPaper,maxLines=2,overflow=TextOverflow.Ellipsis,modifier=Modifier.weight(1f))
             if(state.edit.filter!=null) IconButton(onClick={vm.applyFilter(null)},modifier=Modifier.size(48.dp)) {Icon(Icons.Rounded.Close,"Remover filtro",tint=Muted)}
-            if(tool!="Recorte") TextButton(onClick={compare=!compare}) {Text(if(compare) "Fechar comparação" else "Comparar",fontSize=13.sp)}
+            if(tool!="Recorte") TextButton(onClick={compare=!compare}) {Text(if(compare) "Fechar comparação" else "Comparar",fontSize=14.sp)}
         }
         Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(topStart=24.dp,topEnd=24.dp)).background(StudioSurface).padding(top=8.dp,bottom=6.dp)) {
             Box(Modifier.fillMaxWidth().heightIn(min=166.dp,max=if(scrollLayout) 480.dp else if(pro) 340.dp else 310.dp)) {
@@ -153,11 +155,12 @@ private fun collectionNote(category:String)=when(category) {
                 tools.forEach {(id,icon,label)->PhotoTool(id,label,icon,tool==id,Modifier.weight(1f)) {vm.finishGesture();tool=id}}
             }
         }
-        state.exported?.let {uri->Row(Modifier.fillMaxWidth().padding(horizontal=18.dp),verticalAlignment=Alignment.CenterVertically) {Text("Salva na galeria",fontSize=11.sp,color=StudioAccent,modifier=Modifier.weight(1f));TextButton(onClick={context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {type=context.contentResolver.getType(uri);putExtra(Intent.EXTRA_STREAM,uri);addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)},"Compartilhar foto"))}) {Text("Compartilhar",fontSize=11.sp)}}}
+        state.exported?.let {uri->Row(Modifier.fillMaxWidth().padding(horizontal=18.dp),verticalAlignment=Alignment.CenterVertically) {Text("Salva na galeria",fontSize=14.sp,color=StudioAccent,modifier=Modifier.weight(1f));TextButton(onClick={context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {type=context.contentResolver.getType(uri);putExtra(Intent.EXTRA_STREAM,uri);addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)},"Compartilhar foto"))}) {Text("Compartilhar",fontSize=14.sp)}}}
     }
     if(export) ExportDialog({export=false}) {export=false;vm.finishGesture();vm.export(it)}
     if(enhancement) EnhancementControls(state,vm) {enhancement=false}
     if(help) StudioHelpDialog {help=false}
+    if(accessibility) AccessibilityDialog {accessibility=false}
     if(discard) AlertDialog(onDismissRequest={discard=false},title={Text("Descartar este rascunho?")},text={Text("As alterações desde o último salvamento do projeto serão removidas. A foto original será mantida.")},confirmButton={TextButton(onClick={discard=false;vm.closeEditor(true)}) {Text("Descartar alterações")}},dismissButton={TextButton(onClick={discard=false}) {Text("Continuar editando")}})
     state.enhancementProposal?.let {EnhancementComparison(it,state.busy,vm::applyEnhancement,vm::discardEnhancement)}
     if(save) {
@@ -167,9 +170,9 @@ private fun collectionNote(category:String)=when(category) {
 }
 
 @Composable private fun PhotoTool(id:String,label:String,icon:ImageVector,active:Boolean,modifier:Modifier,action:()->Unit) {
-    Column(modifier.heightIn(min=64.dp).clip(RoundedCornerShape(10.dp)).clickable(onClickLabel=label,onClick=action).semantics {selected=active;role=Role.Tab}.padding(vertical=10.dp,horizontal=4.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(5.dp)) {
-        Icon(icon,null,tint=if(active) StudioAccent else Muted)
-        Text(label,fontSize=13.sp,lineHeight=17.sp,color=if(active) StudioPaper else Muted,maxLines=2)
+    Column(modifier.heightIn(min=56.dp).clip(RoundedCornerShape(8.dp)).clickable(onClickLabel=label,onClick=action).semantics {selected=active;role=Role.Tab}.padding(vertical=6.dp,horizontal=4.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(3.dp)) {
+        Icon(icon,null,tint=if(active) StudioAccent else Muted,modifier=Modifier.size(22.dp))
+        Text(label,fontSize=12.sp,lineHeight=16.sp,color=if(active) StudioPaper else Muted,maxLines=2)
     }
 }
 
@@ -185,10 +188,11 @@ private fun collectionNote(category:String)=when(category) {
     var category by remember {mutableStateOf("Todos")};var browser by remember {mutableStateOf(false)}
     val filters=if(simple) (state.filters.filter {it.meta.id in state.favorites}.take(8)+state.filters.filter {it.meta.category=="JDM"}.take(6)+state.filters.filter {it.meta.category=="Instagram"}.take(6)+state.filters.filter {it.meta.category=="Portrait"}.take(4)+state.filters.take(4)+listOfNotNull(state.edit.filter?.preset)).distinctBy {it.meta.id} else state.filters.filter {category=="Todos" || category=="Favoritos" && it.meta.id in state.favorites || it.meta.category==category}
     val carousel=rememberLazyListState()
-    LaunchedEffect(state.edit.filter?.preset?.meta?.id,category,filters.map {it.meta.id}) {
+    val reducedMotion=LocalReducedMotion.current
+    LaunchedEffect(state.edit.filter?.preset?.meta?.id,category,filters.map {it.meta.id},reducedMotion) {
         val index=filters.indexOfFirst {it.meta.id==state.edit.filter?.preset?.meta?.id}
-        if(index>=0) carousel.animateScrollToItem(index+1)
-        else if(state.edit.filter==null) carousel.animateScrollToItem(0)
+        val target=if(index>=0) index+1 else if(state.edit.filter==null) 0 else null
+        if(target!=null) {if(reducedMotion) carousel.scrollToItem(target) else carousel.animateScrollToItem(target)}
     }
     Column(verticalArrangement=Arrangement.spacedBy(9.dp)) {
         Row(Modifier.fillMaxWidth().padding(horizontal=20.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.SpaceBetween) {
@@ -199,7 +203,7 @@ private fun collectionNote(category:String)=when(category) {
         LazyRow(Modifier.testTag("look-carousel"),state=carousel,contentPadding=PaddingValues(horizontal=20.dp),horizontalArrangement=Arrangement.spacedBy(10.dp)) {
             item {LookCard(null,state,vm,Modifier.width(108.dp).height(148.dp))}
             items(filters,key={it.meta.id}) {preset->LookCard(preset,state,vm,Modifier.width(108.dp).height(148.dp))}
-            if(filters.isEmpty()) item {Text("Marque os looks que mais gosta com o coração.",fontSize=11.sp,color=Muted,modifier=Modifier.width(240.dp).padding(16.dp))}
+            if(filters.isEmpty()) item {Text("Marque os looks que mais gosta com o coração.",fontSize=14.sp,color=Muted,modifier=Modifier.width(240.dp).padding(16.dp))}
         }
         LookIntensity(state,vm,Modifier.padding(horizontal=20.dp))
     }
@@ -219,17 +223,18 @@ private fun collectionNote(category:String)=when(category) {
     val focus=LocalFocusManager.current
     val selected=if(preset==null) state.edit.filter==null else state.edit.filter?.preset?.meta?.id==preset.meta.id
     Box(modifier.clip(RoundedCornerShape(12.dp)).background(StudioGround).border(if(selected) 2.dp else 1.dp,if(selected) StudioAccent else StudioLine,RoundedCornerShape(12.dp)).clickable {focus.clearFocus();vm.applyFilter(preset)}.semantics {this.selected=selected;role=Role.Button}.testTag("look-${candidate.meta.id}")) {
-        bitmap?.let {Image(it.asImageBitmap(),null,Modifier.fillMaxSize(),contentScale=ContentScale.Crop)} ?: Box(Modifier.fillMaxSize(),contentAlignment=Alignment.Center) {CircularProgressIndicator(Modifier.size(16.dp),color=StudioAccent,strokeWidth=1.dp)}
+        bitmap?.let {Image(it.asImageBitmap(),null,Modifier.fillMaxSize(),contentScale=ContentScale.Crop)} ?: Box(Modifier.fillMaxSize(),contentAlignment=Alignment.Center) {LumaProgressIndicator(Modifier.size(16.dp),color=StudioAccent,strokeWidth=1.dp)}
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.Transparent,Color.Transparent,Color.Black.copy(alpha=.82f)))))
         if(selected) Box(Modifier.align(Alignment.TopStart).padding(7.dp).size(19.dp).background(StudioAccent,RoundedCornerShape(50)),contentAlignment=Alignment.Center) {Icon(Icons.Rounded.Check,null,Modifier.size(12.dp),tint=StudioGround)}
         if(preset!=null) IconButton(onClick={vm.toggleFavorite(preset.meta.id)},modifier=Modifier.align(Alignment.TopEnd).size(48.dp)) {Icon(if(preset.meta.id in state.favorites) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,"Favoritar ${preset.meta.name}",Modifier.size(32.dp).background(StudioGround.copy(alpha=.75f),RoundedCornerShape(50)).padding(4.dp),tint=if(preset.meta.id in state.favorites) StudioAccent else StudioPaper)}
         Column(Modifier.align(Alignment.BottomStart).padding(horizontal=9.dp,vertical=9.dp),verticalArrangement=Arrangement.spacedBy(2.dp)) {
             Text(preset?.meta?.name ?: "Original",fontSize=14.sp,lineHeight=18.sp,color=StudioPaper,fontWeight=FontWeight.Medium,maxLines=2,overflow=TextOverflow.Ellipsis)
-            if(preset!=null && LocalDensity.current.fontScale<1.3f) Text(collectionName(preset.meta.category),fontSize=12.sp,color=StudioPaper.copy(alpha=.85f),maxLines=1)
+            if(preset!=null && LocalDensity.current.fontScale<1.3f) Text(collectionName(preset.meta.category),fontSize=14.sp,color=StudioPaper.copy(alpha=.85f),maxLines=1)
         }
     }
 }
 @Composable private fun LookBrowser(state:StudioUi,vm:StudioViewModel,category:String,chooseCategory:(String)->Unit,dismiss:()->Unit) {
+    val largeText=LocalDensity.current.fontScale>=1.3f
     var query by remember {mutableStateOf("")}
     val sheet=rememberModalBottomSheetState(skipPartiallyExpanded=true)
     val categories=lookCollections(state.filters)
@@ -240,18 +245,18 @@ private fun collectionNote(category:String)=when(category) {
         val focus=LocalFocusManager.current
         Column(Modifier.fillMaxWidth().fillMaxHeight(.91f).testTag("look-browser").navigationBarsPadding(),verticalArrangement=Arrangement.spacedBy(10.dp)) {
             Row(Modifier.padding(horizontal=20.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(14.dp)) {
-                state.preview?.let {Image(it.asImageBitmap(),"Prévia do look selecionado",Modifier.size(66.dp).clip(RoundedCornerShape(10.dp)),contentScale=ContentScale.Crop)}
-                Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(4.dp)) {Text("Escolha um filtro",fontFamily=FontFamily.Serif,fontSize=24.sp);Text(state.edit.filter?.preset?.meta?.name ?: "Original",color=StudioAccent,fontSize=14.sp,maxLines=2)}
+                if(!largeText) state.preview?.let {Image(it.asImageBitmap(),"Prévia do look selecionado",Modifier.size(66.dp).clip(RoundedCornerShape(10.dp)),contentScale=ContentScale.Crop)}
+                Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(4.dp)) {Text("Escolha um filtro",fontFamily=FontFamily.Serif,fontSize=24.sp);if(!largeText) Text(state.edit.filter?.preset?.meta?.name ?: "Original",color=StudioAccent,fontSize=14.sp,maxLines=2)}
                 IconButton(onClick=dismiss) {Icon(Icons.Rounded.Close,"Fechar galeria de looks")}
             }
-            OutlinedTextField(query,{query=it.take(100)},modifier=Modifier.fillMaxWidth().padding(horizontal=20.dp).testTag("look-search"),singleLine=true,keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search),keyboardActions=KeyboardActions(onSearch={focus.clearFocus()}),placeholder={Text("Buscar: retrato, neon, filme…",fontSize=12.sp)},leadingIcon={Icon(Icons.Rounded.Search,null,Modifier.size(18.dp))},shape=RoundedCornerShape(12.dp),colors=OutlinedTextFieldDefaults.colors(focusedBorderColor=StudioAccent,unfocusedBorderColor=StudioLine,cursorColor=StudioAccent))
+            OutlinedTextField(query,{query=it.take(100)},modifier=Modifier.fillMaxWidth().padding(horizontal=20.dp).testTag("look-search"),singleLine=true,keyboardOptions=KeyboardOptions(imeAction=ImeAction.Search),keyboardActions=KeyboardActions(onSearch={focus.clearFocus()}),placeholder={Text("Buscar: retrato, neon, filme…",fontSize=14.sp)},leadingIcon={Icon(Icons.Rounded.Search,null,Modifier.size(18.dp))},shape=RoundedCornerShape(12.dp),colors=OutlinedTextFieldDefaults.colors(focusedBorderColor=StudioAccent,unfocusedBorderColor=StudioLine,cursorColor=StudioAccent))
             EditorCollections(categories,category,{focus.clearFocus();chooseCategory(it)},Modifier.testTag("look-collections"))
-            Row(Modifier.padding(horizontal=20.dp).fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween) {Text(if(category=="Todos") "TODAS AS COLEÇÕES" else collectionName(category).uppercase(),fontSize=9.sp,letterSpacing=1.4.sp,color=Muted);Text("${filters.size} ${if(filters.size==1) "look" else "looks"}",fontSize=10.sp,color=Muted)}
-            Text(collectionNote(category),fontSize=10.sp,color=Muted,modifier=Modifier.padding(horizontal=20.dp))
-            LazyVerticalGrid(columns=GridCells.Adaptive(98.dp),modifier=Modifier.weight(1f).testTag("look-grid"),contentPadding=PaddingValues(horizontal=20.dp,vertical=8.dp),horizontalArrangement=Arrangement.spacedBy(11.dp),verticalArrangement=Arrangement.spacedBy(11.dp)) {
+            Text("${filters.size} filtros · ${collectionName(category)}",fontSize=14.sp,color=Muted,modifier=Modifier.padding(horizontal=20.dp))
+            if(!largeText) Text(collectionNote(category),fontSize=14.sp,color=Muted,modifier=Modifier.padding(horizontal=20.dp))
+            LazyVerticalGrid(columns=GridCells.Adaptive(if(largeText) 150.dp else 98.dp),modifier=Modifier.weight(1f).testTag("look-grid"),contentPadding=PaddingValues(horizontal=20.dp,vertical=8.dp),horizontalArrangement=Arrangement.spacedBy(11.dp),verticalArrangement=Arrangement.spacedBy(11.dp)) {
                 item {LookCard(null,state,vm,Modifier.fillMaxWidth().aspectRatio(.75f))}
                 items(filters,key={it.meta.id}) {preset->LookCard(preset,state,vm,Modifier.fillMaxWidth().aspectRatio(.75f))}
-                if(filters.isEmpty()) item(span={GridItemSpan(maxLineSpan)}) {Column(Modifier.fillMaxWidth().padding(vertical=24.dp),horizontalAlignment=Alignment.CenterHorizontally) {Text("Nenhum look por aqui",fontFamily=FontFamily.Serif,fontSize=21.sp);Text("Tente outra busca ou coleção.",fontSize=12.sp,color=Muted)}}
+                if(filters.isEmpty()) item(span={GridItemSpan(maxLineSpan)}) {Column(Modifier.fillMaxWidth().padding(vertical=24.dp),horizontalAlignment=Alignment.CenterHorizontally) {Text("Nenhum look por aqui",fontFamily=FontFamily.Serif,fontSize=21.sp);Text("Tente outra busca ou coleção.",fontSize=14.sp,color=Muted)}}
             }
             LookIntensity(state,vm,Modifier.padding(horizontal=20.dp))
             Button(onClick=dismiss,modifier=Modifier.fillMaxWidth().padding(horizontal=20.dp).padding(bottom=12.dp).heightIn(min=48.dp),shape=RoundedCornerShape(12.dp),colors=ButtonDefaults.buttonColors(containerColor=StudioPaper,contentColor=StudioGround)) {Text("Usar este filtro",fontSize=16.sp,fontWeight=FontWeight.SemiBold)}

@@ -23,7 +23,11 @@ class ExpansionFlowTest {
         compose.runOnUiThread {compose.activity.setShowWhenLocked(true);compose.activity.setTurnScreenOn(true);compose.activity.window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)}
         ready()
     }
-    private fun ready()=compose.waitUntil(45000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
+    private fun ready() {
+        compose.waitUntil(45000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
+        // These regression cases exercise the complete editor; the guide has separate tests.
+        if(compose.onAllNodesWithTag("story-guide-full").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()) compose.onNodeWithTag("story-guide-full").performScrollTo().performClick()
+    }
     private fun fixture()=File(compose.activity.cacheDir,"expansion-flow.jpg").apply {
         InstrumentationRegistry.getInstrumentation().context.assets.open("portrait-nasa.jpg").use {input->outputStream().use {input.copyTo(it)}}
     }
@@ -48,7 +52,7 @@ class ExpansionFlowTest {
             compose.onNodeWithTag("template-search").assertIsNotFocused().performTextClearance()
             compose.onNode(hasText("Novos") and hasAnyAncestor(hasTestTag("template-categories"))).performClick()
             compose.onNodeWithTag("template-list").performScrollToIndex(0)
-            compose.waitUntil(20000) {compose.onAllNodesWithContentDescription("Dump do fim de semana").fetchSemanticsNodes().isNotEmpty()}
+            compose.waitUntil(20000) {compose.onAllNodesWithTag("template-social-template-01-01").fetchSemanticsNodes().isNotEmpty()}
             capture("expanded-template-gallery.png")
             compose.onNodeWithTag("template-list").performScrollToNode(hasTestTag("template-search"))
             compose.onNodeWithTag("template-search").performTextReplacement("seis momentos")

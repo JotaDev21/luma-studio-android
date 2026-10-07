@@ -21,6 +21,7 @@ import androidx.compose.ui.input.pointer.*
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.*
+import androidx.compose.ui.semantics.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import studio.luma.*
@@ -44,65 +45,74 @@ import kotlin.math.*
     var maskLook by remember {mutableStateOf(false)}
     var automatic by remember {mutableStateOf(false)}
     var original by remember {mutableStateOf(false)}
-    Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding()) {
+    val scrollLayout=useScrollableEditor()
+    Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().then(if(scrollLayout) Modifier.verticalScroll(rememberScrollState()) else Modifier)) {
         Row(Modifier.fillMaxWidth().padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically) {
             IconButton(onClick=vm::closeMasks) {Icon(Icons.AutoMirrored.Rounded.ArrowBack,"Voltar à edição")}
-            Column(Modifier.weight(1f)) {Text("Máscaras",fontSize=17.sp);Text("Ajustes só na área escolhida",color=Muted,fontSize=10.sp)}
+            Column(Modifier.weight(1f)) {Text("Máscaras",fontSize=17.sp);Text("Ajustes só na área escolhida",color=Muted,fontSize=14.sp)}
             IconButton(onClick={original=!original}) {Icon(Icons.Rounded.Compare,"Comparar original",tint=if(original) Acid else Muted)}
             IconButton(onClick=vm::undo,enabled=state.canUndo) {Icon(Icons.AutoMirrored.Rounded.Undo,"Desfazer")}
             IconButton(onClick=vm::redo,enabled=state.canRedo) {Icon(Icons.AutoMirrored.Rounded.Redo,"Refazer")}
         }
-        MaskPhoto(state,edit,selected,radius,opacity,erase,showArea,original,vm,Modifier.weight(1f).fillMaxWidth().padding(12.dp))
-        Row(Modifier.fillMaxWidth().padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.SpaceBetween) {
-            TextButton(onClick={showArea=!showArea}) {Text(if(showArea) "Ocultar área" else "Mostrar área",fontSize=11.sp)}
-            TextButton(onClick={automatic=true},enabled=edit.masks.size<8) {Text("Pessoa / fundo",fontSize=11.sp)}
-            TextButton(onClick={stack=true}) {Text("${edit.masks.size}/8 máscaras",fontSize=11.sp)}
-            if(state.rendering) CircularProgressIndicator(Modifier.size(16.dp),strokeWidth=2.dp,color=Acid)
+        MaskPhoto(state,edit,selected,radius,opacity,erase,showArea,original,vm,(if(scrollLayout) Modifier.height(240.dp) else Modifier.weight(1f)).fillMaxWidth().padding(12.dp))
+        LazyRow(Modifier.fillMaxWidth().padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+            item {TextButton(onClick={showArea=!showArea}) {Text(if(showArea) "Ocultar área" else "Mostrar área",fontSize=14.sp)}}
+            item {TextButton(onClick={automatic=true},enabled=edit.masks.size<8) {Text("Pessoa / fundo",fontSize=14.sp)}}
+            item {TextButton(onClick={stack=true}) {Text("${edit.masks.size}/8 máscaras",fontSize=14.sp)}}
+            if(state.rendering) item {LumaProgressIndicator(Modifier.size(16.dp),strokeWidth=2.dp,color=Acid)}
         }
         LazyRow(Modifier.testTag("mask-add"),contentPadding=PaddingValues(horizontal=16.dp),horizontalArrangement=Arrangement.spacedBy(6.dp)) {
-            items(listOf("Pincel" to "brush","Circular" to "radial","Degradê" to "linear")) {(name,type)->OutlinedButton(onClick={vm.addMask(type)},enabled=edit.masks.size<8) {Text("+ $name",fontSize=11.sp)}}
+            items(listOf("Pincel" to "brush","Circular" to "radial","Degradê" to "linear")) {(name,type)->OutlinedButton(onClick={vm.addMask(type)},enabled=edit.masks.size<8) {Text("+ $name",fontSize=14.sp)}}
         }
         if(selected==null) {
-            Text("Crie uma máscara. Pinte com o pincel ou arraste os pontos da área circular e do degradê.",Modifier.padding(20.dp),color=Muted,fontSize=12.sp)
+            Text("Crie uma máscara. Pinte com o pincel ou arraste os pontos da área circular e do degradê.",Modifier.padding(20.dp),color=Muted,fontSize=14.sp)
         } else {
             LazyRow(contentPadding=PaddingValues(horizontal=16.dp),horizontalArrangement=Arrangement.spacedBy(6.dp)) {
-                items(edit.masks,key={it.id}) {mask->FilterChip(mask.id==selected.id,{vm.selectMask(mask.id)},label={Text(mask.name+(if(!mask.enabled) " · oculta" else ""),fontSize=11.sp)})}
+                items(edit.masks,key={it.id}) {mask->FilterChip(mask.id==selected.id,{vm.selectMask(mask.id)},label={Text(mask.name+(if(!mask.enabled) " · oculta" else ""),fontSize=14.sp)})}
             }
             Row(Modifier.padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically) {
-                FilterChip(tab=="Área",{tab="Área"},label={Text("Área",fontSize=11.sp)})
-                Spacer(Modifier.width(8.dp));FilterChip(tab=="Ajuste",{tab="Ajuste"},label={Text("Ajuste",fontSize=11.sp)})
-                Spacer(Modifier.weight(1f));TextButton(onClick={rename=true}) {Text("Renomear",fontSize=10.sp)}
+                FilterChip(tab=="Área",{tab="Área"},label={Text("Área",fontSize=14.sp)})
+                Spacer(Modifier.width(8.dp));FilterChip(tab=="Ajuste",{tab="Ajuste"},label={Text("Ajuste",fontSize=14.sp)})
+                Spacer(Modifier.weight(1f));TextButton(onClick={rename=true}) {Text("Renomear",fontSize=14.sp)}
             }
-            Column(Modifier.fillMaxWidth().height(208.dp).padding(horizontal=20.dp).verticalScroll(rememberScrollState())) {
+            Column(Modifier.fillMaxWidth().heightIn(max=if(scrollLayout) 480.dp else 256.dp).padding(horizontal=20.dp).verticalScroll(rememberScrollState())) {
                 if(tab=="Ajuste") {
                     val spec=adjustments.first {it.name==adjustment}
                     CategoryRow(adjustments.map {it.name},adjustment) {adjustment=it}
                     MaskSlider(spec.name,spec.read(selected.adjustments),spec.min..spec.max,{v->vm.changeMask(selected.id,false) {it.copy(adjustments=spec.write(it.adjustments,v))}},vm::finishGesture,"local-adjustment")
                     LazyRow {item {TextButton(onClick={colorPro=true}) {Text("Cor Pro")}};item {TextButton(onClick={maskLook=true}) {Text("Filtros e efeitos")}}}
                     GradientControls(selected.fill) {fill->vm.changeMask(selected.id) {it.copy(fill=fill)}}
-                    TextButton(onClick={vm.changeMask(selected.id) {it.copy(adjustments=Adjustments(),color=ColorTreatment(),effects=emptyList(),filter=null,fill=null)}}) {Text("Limpar ajustes desta máscara",fontSize=11.sp)}
+                    TextButton(onClick={vm.changeMask(selected.id) {it.copy(adjustments=Adjustments(),color=ColorTreatment(),effects=emptyList(),filter=null,fill=null)}}) {Text("Limpar ajustes desta máscara",fontSize=14.sp)}
                 } else {
                     when(selected.type) {
                         "brush","person"->{
                             if(selected.type=="person") {
-                                Text("Corrija a seleção pintando ou apagando. Para manter o recorte transparente, exporte em PNG ou WebP.",color=Muted,fontSize=10.sp)
+                                Text("Corrija a seleção pintando ou apagando. Para manter o recorte transparente, exporte em PNG ou WebP.",color=Muted,fontSize=14.sp)
                                 MaskSlider("Limite da seleção",selected.threshold,.05f.. .95f,{v->vm.changeMask(selected.id,false) {it.copy(threshold=v)}},vm::finishGesture)
-                                Row(verticalAlignment=Alignment.CenterVertically) {Checkbox(selected.cutout,{v->vm.changeMask(selected.id) {it.copy(cutout=v)}});Text("Manter só a área selecionada",fontSize=11.sp)}
+                                Row(verticalAlignment=Alignment.CenterVertically) {Checkbox(selected.cutout,{v->vm.changeMask(selected.id) {it.copy(cutout=v)}});Text("Manter só a área selecionada",fontSize=14.sp)}
                             }
                             CategoryRow(listOf("Pintar","Apagar"),if(erase) "Apagar" else "Pintar") {erase=it=="Apagar"}
                             MaskSlider("Tamanho do pincel",radius,.002f.. .3f,{radius=it},{})
                             MaskSlider("Fluxo do pincel",opacity,.05f..1f,{opacity=it},{})
-                            TextButton(onClick={vm.changeMask(selected.id) {it.copy(strokes=emptyList())}}) {Text(if(selected.type=="person") "Limpar correções manuais" else "Limpar traços",fontSize=11.sp)}
+                            TextButton(onClick={vm.changeMask(selected.id) {it.copy(strokes=emptyList())}}) {Text(if(selected.type=="person") "Limpar correções manuais" else "Limpar traços",fontSize=14.sp)}
                         }
                         "radial"->{
-                            Text("Arraste o centro na foto para posicionar.",color=Muted,fontSize=10.sp)
+                            Text("Arraste o centro na foto para posicionar.",color=Muted,fontSize=14.sp)
+                            MaskSlider("Centro horizontal",selected.center.x,0f..1f,{v->vm.changeMask(selected.id,false) {it.copy(center=it.center.copy(x=v))}},vm::finishGesture)
+                            MaskSlider("Centro vertical",selected.center.y,0f..1f,{v->vm.changeMask(selected.id,false) {it.copy(center=it.center.copy(y=v))}},vm::finishGesture)
                             MaskSlider("Raio horizontal",selected.radiusX,.002f..1f,{v->vm.changeMask(selected.id,false) {it.copy(radiusX=v)}},vm::finishGesture)
                             MaskSlider("Raio vertical",selected.radiusY,.002f..1f,{v->vm.changeMask(selected.id,false) {it.copy(radiusY=v)}},vm::finishGesture)
                         }
-                        "linear"->Text("Arraste os dois pontos na foto. O primeiro recebe o ajuste; o segundo encerra a transição.",color=Muted,fontSize=11.sp)
+                        "linear"->{
+                            Text("Use os pontos na foto ou os controles abaixo. O início recebe o ajuste; o fim encerra a transição.",color=Muted,fontSize=14.sp)
+                            MaskSlider("Início horizontal",selected.start.x,0f..1f,{v->vm.changeMask(selected.id,false) {it.copy(start=it.start.copy(x=v))}},vm::finishGesture)
+                            MaskSlider("Início vertical",selected.start.y,0f..1f,{v->vm.changeMask(selected.id,false) {it.copy(start=it.start.copy(y=v))}},vm::finishGesture)
+                            MaskSlider("Fim horizontal",selected.end.x,0f..1f,{v->vm.changeMask(selected.id,false) {it.copy(end=it.end.copy(x=v))}},vm::finishGesture)
+                            MaskSlider("Fim vertical",selected.end.y,0f..1f,{v->vm.changeMask(selected.id,false) {it.copy(end=it.end.copy(y=v))}},vm::finishGesture)
+                        }
                     }
                     MaskSlider("Suavização",selected.feather,0f..1f,{v->vm.changeMask(selected.id,false) {it.copy(feather=v)}},vm::finishGesture)
-                    Row(verticalAlignment=Alignment.CenterVertically) {Checkbox(selected.inverted,{v->vm.changeMask(selected.id) {it.copy(inverted=v)}});Text("Inverter área",fontSize=12.sp)}
+                    Row(verticalAlignment=Alignment.CenterVertically) {Checkbox(selected.inverted,{v->vm.changeMask(selected.id) {it.copy(inverted=v)}});Text("Inverter área",fontSize=14.sp)}
                 }
                 MaskSlider("Intensidade",selected.strength,0f..1f,{v->vm.changeMask(selected.id,false) {it.copy(strength=v)}},vm::finishGesture)
             }
@@ -112,7 +122,7 @@ import kotlin.math.*
     if(colorPro && selected!=null) ColorDialog(selected.color,{colorPro=false},vm::finishGesture,state.maskPreview) {color,commit->vm.changeMask(selected.id,commit) {it.copy(color=color)}}
     if(maskLook && selected!=null) MaskLooks(selected,state,vm) {maskLook=false}
     if(automatic) AlertDialog(onDismissRequest={automatic=false},title={Text("Pessoa e fundo")},text={Column {
-        Text("A seleção é feita no celular. Funciona melhor em retratos; confira a área marcada e use o pincel para corrigir bordas.",color=Muted,fontSize=12.sp)
+        Text("A seleção é feita no celular. Funciona melhor em retratos; confira a área marcada e use o pincel para corrigir bordas.",color=Muted,fontSize=14.sp)
         TextButton(onClick={automatic=false;vm.automaticMask()}) {Text("Selecionar pessoa")}
         TextButton(onClick={automatic=false;vm.automaticMask(background=true)}) {Text("Selecionar fundo")}
         TextButton(onClick={automatic=false;vm.automaticMask(cutout=true)}) {Text("Remover fundo")}
@@ -135,13 +145,13 @@ import kotlin.math.*
 }
 
 @Composable private fun MaskSlider(label:String,value:Float,range:ClosedFloatingPointRange<Float>,change:(Float)->Unit,finish:()->Unit,tag:String=label) {
-    Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween) {Text(label,fontSize=11.sp);Text(java.lang.String.format(java.util.Locale.ROOT,"%.2f",value),fontSize=11.sp,color=Acid)}
-    Slider(value,change,onValueChangeFinished=finish,valueRange=range,modifier=Modifier.height(32.dp).testTag(tag))
+    Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(8.dp)) {Text(label,fontSize=14.sp,modifier=Modifier.weight(1f));Text(java.lang.String.format(java.util.Locale.ROOT,"%.2f",value),fontSize=14.sp,color=Acid)}
+    Slider(value,change,onValueChangeFinished=finish,valueRange=range,modifier=Modifier.heightIn(min=48.dp).testTag(tag).semantics {contentDescription=label})
 }
 
 @Composable private fun MaskPhoto(state:StudioUi,edit:EditState,mask:LocalMask?,radius:Float,opacity:Float,erase:Boolean,showArea:Boolean,showOriginal:Boolean,vm:StudioViewModel,modifier:Modifier) {
     val source=state.maskSource ?: return
-    val photo=state.maskPreview ?: return Box(modifier,contentAlignment=Alignment.Center) {CircularProgressIndicator(color=Acid)}
+    val photo=state.maskPreview ?: return Box(modifier,contentAlignment=Alignment.Center) {LumaProgressIndicator(color=Acid)}
     var live by remember(mask?.id) {mutableStateOf<List<Point>>(emptyList())}
     val geometry=mask?.geometry()
     val overlay by produceState<android.graphics.Bitmap?>(null,geometry,edit.transform,photo.width,photo.height,mask?.inverted,showArea) {

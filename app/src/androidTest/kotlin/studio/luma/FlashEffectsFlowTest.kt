@@ -17,7 +17,11 @@ import java.io.File
 @RunWith(AndroidJUnit4::class)
 class FlashEffectsFlowTest {
     @get:Rule val compose=createAndroidComposeRule<MainActivity>()
-    private fun ready()=compose.waitUntil(45000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
+    private fun ready() {
+        compose.waitUntil(45000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
+        // These regression cases exercise the complete editor; the guide has separate tests.
+        if(compose.onAllNodesWithTag("story-guide-full").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()) compose.onNodeWithTag("story-guide-full").performScrollTo().performClick()
+    }
     @Before fun show() {
         val instrumentation=InstrumentationRegistry.getInstrumentation()
         instrumentation.uiAutomation.executeShellCommand("input keyevent KEYCODE_WAKEUP").close()

@@ -36,7 +36,7 @@ private val layouts=linkedMapOf("Grid" to "grid","Livre" to "freeform","Photo Du
     var config by remember {mutableStateOf(CollageSettings())}
     val document=remember(config) {CollageEngine.create(config)}
     AlertDialog(onDismissRequest=dismiss,title={Text("Montar colagem")},text={Column(Modifier.verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-        Text("Prévia do layout · preencha suas fotos no editor",color=Muted,fontSize=11.sp)
+        Text("Prévia do layout · preencha suas fotos no editor",color=Muted,fontSize=14.sp)
         Canvas(Modifier.fillMaxWidth().height(170.dp).background(Panel)) {
             val scale=minOf(size.width/document.width,size.height/document.height);val dx=(size.width-document.width*scale)/2
             document.layers.forEachIndexed {index,layer->val t=layer.transform
@@ -44,9 +44,9 @@ private val layouts=linkedMapOf("Grid" to "grid","Livre" to "freeform","Photo Du
             }
         }
         CategoryRow(layouts.keys.toList(),layouts.entries.first {it.value==config.layout}.key) {config=config.copy(layout=layouts.getValue(it))}
-        Text("${config.count} fotos",fontSize=12.sp)
+        Text("${config.count} fotos",fontSize=14.sp)
         Slider(config.count.toFloat(),{config=config.copy(count=it.roundToInt())},valueRange=2f..20f,steps=17)
-        Text("Você poderá mudar layout, bordas e enquadramento depois.",color=Muted,fontSize=11.sp)
+        Text("Você poderá mudar layout, bordas e enquadramento depois.",color=Muted,fontSize=14.sp)
     }},confirmButton={TextButton(onClick={vm.createCollage(config);dismiss()}) {Text("Montar colagem")}},dismissButton={TextButton(onClick=dismiss) {Text("Cancelar")}})
 }
 
@@ -58,9 +58,9 @@ private val layouts=linkedMapOf("Grid" to "grid","Livre" to "freeform","Photo Du
     Column(Modifier.padding(horizontal=16.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
         CategoryRow(layouts.keys.toList(),layouts.entries.first {it.value==config.layout}.key) {vm.changeCollage(config.copy(layout=layouts.getValue(it)))}
         CategoryRow(listOf("Espaço","Borda","Cantos","Sombra","Inclinação"),control) {control=it}
-        Text("$control · ${value.roundToInt()}",color=Muted,fontSize=11.sp)
-        Slider(value,{v->vm.changeCollage(when(control) {"Espaço"->config.copy(spacing=v);"Borda"->config.copy(border=v);"Cantos"->config.copy(cornerRadius=v);"Sombra"->config.copy(shadow=v);else->config.copy(rotation=v)},false)},valueRange=0f..max,onValueChangeFinished=vm::finishGesture,modifier=Modifier.height(32.dp))
-        TextButton(onClick={vm.proposeSmartLayout()},enabled=state.edit.story!!.layers.any {it.asset!=null && it.visible && !it.locked}) {Text("Organizar fotos",fontSize=12.sp)}
+        Text("$control · ${value.roundToInt()}",color=Muted,fontSize=14.sp)
+        Slider(value,{v->vm.changeCollage(when(control) {"Espaço"->config.copy(spacing=v);"Borda"->config.copy(border=v);"Cantos"->config.copy(cornerRadius=v);"Sombra"->config.copy(shadow=v);else->config.copy(rotation=v)},false)},valueRange=0f..max,onValueChangeFinished=vm::finishGesture,modifier=Modifier.heightIn(min=48.dp))
+        TextButton(onClick={vm.proposeSmartLayout()},enabled=state.edit.story!!.layers.any {it.asset!=null && it.visible && !it.locked}) {Text("Organizar fotos",fontSize=14.sp)}
     }
 }
 
@@ -71,16 +71,16 @@ private val layouts=linkedMapOf("Grid" to "grid","Livre" to "freeform","Photo Du
     var texts by remember {mutableStateOf(story.layers.filter {it.type=="text"}.map {it.id}.toSet())}
     AlertDialog(onDismissRequest=dismiss,title={Text("Salvar como template")},text={Column(Modifier.verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         OutlinedTextField(name,{name=it.take(100)},label={Text("Nome do template")},singleLine=true)
-        Text("Escolha as fotos que serão substituídas a cada uso.",color=Muted,fontSize=11.sp)
+        Text("Escolha as fotos que serão substituídas a cada uso.",color=Muted,fontSize=14.sp)
         story.layers.filter {it.type=="photo"}.forEachIndexed {index,layer -> Row(verticalAlignment=Alignment.CenterVertically) {
             Checkbox(layer.id in photos,{checked->photos=if(checked) photos+layer.id else photos-layer.id},enabled=layer.asset!=null,modifier=Modifier.testTag("template-photo-${layer.id}"))
-            Text("Foto ${index+1} · espaço preenchível",fontSize=12.sp)
+            Text("Foto ${index+1} · espaço preenchível",fontSize=14.sp)
         }}
         story.layers.filter {it.type=="text"}.forEach {layer->Row(verticalAlignment=Alignment.CenterVertically) {
             Checkbox(layer.id in texts,{checked->texts=if(checked) texts+layer.id else texts-layer.id})
-            Text("Texto editável · ${layer.content.take(25)}",fontSize=11.sp)
+            Text("Texto editável · ${layer.content.take(25)}",fontSize=14.sp)
         }}
-        Text("Fotos desmarcadas permanecem fixas no template e entram no pack se você exportar a biblioteca. Textos desmarcados ficam bloqueados; você pode desbloqueá-los no editor.",color=Muted,fontSize=11.sp)
+        Text("Fotos desmarcadas permanecem fixas no template e entram no pack se você exportar a biblioteca. Textos desmarcados ficam bloqueados; você pode desbloqueá-los no editor.",color=Muted,fontSize=14.sp)
     }},confirmButton={TextButton(onClick={vm.saveCurrentTemplate(name.trim(),photos,texts);dismiss()},enabled=name.isNotBlank()) {Text("Salvar na biblioteca")}},dismissButton={TextButton(onClick=dismiss) {Text("Cancelar")}})
 }
 
@@ -91,19 +91,19 @@ private val layouts=linkedMapOf("Grid" to "grid","Livre" to "freeform","Photo Du
     Column(Modifier.fillMaxWidth().padding(horizontal=16.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
         Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.SpaceBetween) {
             Text("Estilos · ${state.styles.size}",fontSize=20.sp,fontFamily=FontFamily.Serif)
-            TextButton(onClick={browsing=true}) {Icon(Icons.Rounded.GridView,null,Modifier.size(16.dp));Spacer(Modifier.width(5.dp));Text("Explorar estilos",fontSize=11.sp)}
+            TextButton(onClick={browsing=true}) {Icon(Icons.Rounded.GridView,null,Modifier.size(16.dp));Spacer(Modifier.width(5.dp));Text("Explorar estilos",fontSize=14.sp)}
         }
-        Text("Cor e efeitos prontos. As versões com textos também mudam a composição.",color=Muted,fontSize=10.sp)
+        Text("Cor e efeitos prontos. As versões com textos também mudam a composição.",color=Muted,fontSize=14.sp)
         LazyRow(Modifier.testTag("style-carousel"),horizontalArrangement=Arrangement.spacedBy(8.dp)) {items(ordered,key={it.meta.id}) {style->
             Column(Modifier.width(158.dp).clip(RoundedCornerShape(12.dp)).background(Panel).clickable(enabled=!state.busy) {vm.applyStyle(style)}.padding(12.dp),verticalArrangement=Arrangement.spacedBy(6.dp)) {
-                Text(style.meta.name,fontSize=12.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
-                Text(if(style.layers.isEmpty()) "Foto · cor e efeitos" else "Moldura e textos",fontSize=10.sp,color=Muted)
+                Text(style.meta.name,fontSize=14.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
+                Text(if(style.layers.isEmpty()) "Foto · cor e efeitos" else "Moldura e textos",fontSize=14.sp,color=Muted)
             }
         }}
         LazyRow(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-            item {TextButton(onClick={saving="style"}) {Text("Salvar estilo",fontSize=11.sp)}}
-            item {TextButton(onClick={saving="filter"}) {Text("Salvar filtro",fontSize=11.sp)}}
-            if(state.edit.story==null) item {TextButton(onClick={vm.convertPhotoToStory()}) {Text("+ Texto e gráficos",fontSize=11.sp)}}
+            item {TextButton(onClick={saving="style"}) {Text("Salvar estilo",fontSize=14.sp)}}
+            item {TextButton(onClick={saving="filter"}) {Text("Salvar filtro",fontSize=14.sp)}}
+            if(state.edit.story==null) item {TextButton(onClick={vm.convertPhotoToStory()}) {Text("+ Texto e gráficos",fontSize=14.sp)}}
         }
     }
     if(browsing) StyleBrowser(state,vm,{vm.applyStyle(it);browsing=false}) {browsing=false}
@@ -113,10 +113,10 @@ private val layouts=linkedMapOf("Grid" to "grid","Livre" to "freeform","Photo Du
         AlertDialog(onDismissRequest={saving=null},title={Text(if(kind=="style") "Salvar estilo" else "Salvar filtro")},text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
             OutlinedTextField(name,{name=it.take(100)},singleLine=true,label={Text("Nome")})
             if(kind=="style") {
-                Text("Guarda filtro, ajustes e a sequência completa de efeitos.",color=Muted,fontSize=11.sp)
-                if(state.edit.story!=null) Row(verticalAlignment=Alignment.CenterVertically) {Checkbox(graphics,{graphics=it});Text("Incluir textos, formas e stickers",fontSize=11.sp)}
-                Text("Fotos e layout ficam no projeto. Ao aplicar outro estilo, seus elementos anteriores são substituídos.",color=Muted,fontSize=11.sp)
-            } else Text("Guarda o tratamento de cor e sua intensidade. Para incluir efeitos, salve como estilo.",color=Muted,fontSize=11.sp)
+                Text("Guarda filtro, ajustes e a sequência completa de efeitos.",color=Muted,fontSize=14.sp)
+                if(state.edit.story!=null) Row(verticalAlignment=Alignment.CenterVertically) {Checkbox(graphics,{graphics=it});Text("Incluir textos, formas e stickers",fontSize=14.sp)}
+                Text("Fotos e layout ficam no projeto. Ao aplicar outro estilo, seus elementos anteriores são substituídos.",color=Muted,fontSize=14.sp)
+            } else Text("Guarda o tratamento de cor e sua intensidade. Para incluir efeitos, salve como estilo.",color=Muted,fontSize=14.sp)
         }},confirmButton={TextButton(onClick={if(kind=="style") vm.saveCurrentStyle(name.trim(),graphics) else vm.saveCurrentFilter(name.trim());saving=null},enabled=name.isNotBlank()) {Text("Salvar na biblioteca")}},dismissButton={TextButton(onClick={saving=null}) {Text("Cancelar")}})
     }
 }
@@ -133,8 +133,8 @@ private fun styleCategories(state:StudioUi)=listOf("Novos","Todos","Favoritos","
             IconButton(onClick={vm.toggleFavorite(style.meta.id)},modifier=Modifier.size(32.dp)) {Icon(if(style.meta.id in state.favorites) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,"Favoritar ${style.meta.name}",tint=Acid,modifier=Modifier.size(18.dp))}
         }
         Text(style.meta.name,fontSize=14.sp,fontWeight=FontWeight.Medium,maxLines=2,overflow=TextOverflow.Ellipsis)
-        Text(style.filter?.preset?.meta?.name ?: "Cor personalizada",fontSize=10.sp,color=Muted,maxLines=1,overflow=TextOverflow.Ellipsis)
-        Text(if(style.layers.isEmpty()) "Só foto" else "Textos editáveis",fontSize=10.sp,color=Lilac)
+        Text(style.filter?.preset?.meta?.name ?: "Cor personalizada",fontSize=14.sp,color=Muted,maxLines=1,overflow=TextOverflow.Ellipsis)
+        Text(if(style.layers.isEmpty()) "Só foto" else "Textos editáveis",fontSize=14.sp,color=Lilac)
     }
 }
 
@@ -144,9 +144,9 @@ private fun styleCategories(state:StudioUi)=listOf("Novos","Todos","Favoritos","
     ModalBottomSheet(onDismissRequest=dismiss,sheetState=rememberModalBottomSheetState(skipPartiallyExpanded=true)) {
         Column(Modifier.fillMaxWidth().fillMaxHeight(.90f).navigationBarsPadding().padding(horizontal=20.dp).testTag("style-browser"),verticalArrangement=Arrangement.spacedBy(10.dp)) {
             Row(verticalAlignment=Alignment.CenterVertically) {Text("Sua próxima estética",Modifier.weight(1f),fontSize=26.sp,fontFamily=FontFamily.Serif);IconButton(onClick=dismiss) {Icon(Icons.Rounded.Close,"Fechar estilos")}}
-            OutlinedTextField(query,{query=it.take(100)},Modifier.fillMaxWidth().testTag("style-search"),singleLine=true,placeholder={Text("Buscar: social, papel, noite…",fontSize=12.sp)},leadingIcon={Icon(Icons.Rounded.Search,null)})
+            OutlinedTextField(query,{query=it.take(100)},Modifier.fillMaxWidth().testTag("style-search"),singleLine=true,placeholder={Text("Buscar: social, papel, noite…",fontSize=14.sp)},leadingIcon={Icon(Icons.Rounded.Search,null)})
             CatalogCategories(styleCategories(state),category,{category=it},"style-categories")
-            Text("${styles.size} estilos · toque para aplicar",color=Muted,fontSize=11.sp)
+            Text("${styles.size} estilos · toque para aplicar",color=Muted,fontSize=14.sp)
             LazyVerticalGrid(GridCells.Adaptive(145.dp),Modifier.weight(1f).testTag("style-grid"),horizontalArrangement=Arrangement.spacedBy(12.dp),verticalArrangement=Arrangement.spacedBy(12.dp),contentPadding=PaddingValues(bottom=20.dp)) {
                 items(styles,key={it.meta.id}) {style->StyleCard(style,state,vm,Modifier.fillMaxWidth()) {choose(style)}}
                 if(styles.isEmpty()) item(span={GridItemSpan(maxLineSpan)}) {Text("Nenhum estilo encontrado. Tente outra busca ou categoria.",color=Muted,modifier=Modifier.padding(vertical=24.dp))}
@@ -160,10 +160,10 @@ private fun styleCategories(state:StudioUi)=listOf("Novos","Todos","Favoritos","
     val styles=matchingStyles(state,category,query)
     LazyColumn(modifier.fillMaxSize(),contentPadding=PaddingValues(22.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
         item {Text("Style Lab",fontSize=30.sp,fontFamily=FontFamily.Serif)}
-        item {Text("Explore combinações prontas ou salve sua assinatura pela aba Estilos do editor.",color=Muted,fontSize=13.sp)}
+        item {Text("Explore combinações prontas ou salve sua assinatura pela aba Estilos do editor.",color=Muted,fontSize=14.sp)}
         item {OutlinedTextField(query,{query=it.take(100)},Modifier.fillMaxWidth(),singleLine=true,placeholder={Text("Buscar estilos")},leadingIcon={Icon(Icons.Rounded.Search,null)})}
         item {CatalogCategories(styleCategories(state),category,{category=it},"lab-style-categories")}
-        item {Text("${styles.size} estilos · escolha sua foto ao tocar",color=Muted,fontSize=11.sp)}
+        item {Text("${styles.size} estilos · escolha sua foto ao tocar",color=Muted,fontSize=14.sp)}
         items(styles.chunked(2),key={it.first().meta.id}) {row->Row(horizontalArrangement=Arrangement.spacedBy(12.dp)) {
             row.forEach {style->StyleCard(style,state,vm,Modifier.weight(1f)) {choose(style)}}
             if(row.size==1) Spacer(Modifier.weight(1f))
@@ -180,17 +180,17 @@ private fun styleCategories(state:StudioUi)=listOf("Novos","Todos","Favoritos","
     var remove by remember {mutableStateOf<Pair<String,String>?>(null)}
     LazyColumn(modifier.fillMaxSize(),contentPadding=PaddingValues(22.dp),verticalArrangement=Arrangement.spacedBy(18.dp)) {
         item {Text("Sua biblioteca cresce.",fontSize=28.sp)}
-        item {Text("Importe packs Luma de filtros, estilos e templates. Seus conteúdos ficam disponíveis nos mesmos editores.",color=Muted,fontSize=13.sp)}
+        item {Text("Importe packs Luma de filtros, estilos e templates. Seus conteúdos ficam disponíveis nos mesmos editores.",color=Muted,fontSize=14.sp)}
         item {Button(onClick={importer.launch(arrayOf("*/*"))},modifier=Modifier.fillMaxWidth()) {Text("Importar pack")}}
         item {OutlinedButton(onClick={exporter.launch("Minha_biblioteca.lumapack")},enabled=custom.filters.isNotEmpty() || custom.effects.isNotEmpty() || custom.templates.isNotEmpty() || custom.styles.isNotEmpty() || custom.resources.isNotEmpty(),modifier=Modifier.fillMaxWidth()) {Text("Exportar minha biblioteca")}}
-        item {Text("${custom.filters.size} filtros · ${custom.effects.size} efeitos · ${custom.templates.size} templates · ${custom.styles.size} estilos pessoais",color=Acid,fontSize=12.sp)}
-        item {Text("O pack exportado inclui imagens que você manteve fixas nos templates. Fotos dos projetos e imagens marcadas como espaços preenchíveis ficam fora dele.",color=Muted,fontSize=12.sp)}
+        item {Text("${custom.filters.size} filtros · ${custom.effects.size} efeitos · ${custom.templates.size} templates · ${custom.styles.size} estilos pessoais",color=Acid,fontSize=14.sp)}
+        item {Text("O pack exportado inclui imagens que você manteve fixas nos templates. Fotos dos projetos e imagens marcadas como espaços preenchíveis ficam fora dele.",color=Muted,fontSize=14.sp)}
         item {OutlinedButton(onClick={resources=true},modifier=Modifier.fillMaxWidth()) {Text("Fontes, LUTs, stickers e texturas")}}
         item {Text("Itens pessoais",fontSize=17.sp)}
-        items(custom.filters.map {it.meta}+custom.styles.map {it.meta}+custom.templates.map {it.meta},key={it.id}) {meta->Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {Text(meta.name,Modifier.weight(1f),fontSize=12.sp);TextButton(onClick={vm.duplicateLibrary(meta.id)}) {Text("Duplicar",fontSize=10.sp)};TextButton(onClick={remove=meta.id to meta.name}) {Text("Excluir",fontSize=10.sp)}}}
+        items(custom.filters.map {it.meta}+custom.styles.map {it.meta}+custom.templates.map {it.meta},key={it.id}) {meta->Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {Text(meta.name,Modifier.weight(1f),fontSize=14.sp);TextButton(onClick={vm.duplicateLibrary(meta.id)}) {Text("Duplicar",fontSize=14.sp)};TextButton(onClick={remove=meta.id to meta.name}) {Text("Excluir",fontSize=14.sp)}}}
         item {Text("Packs instalados",fontSize=17.sp)}
-        if(custom.packs.isEmpty()) item {Text("Seus packs importados aparecerão aqui.",color=Muted,fontSize=12.sp)}
-        items(custom.packs,key={it.id}) {pack ->Row(Modifier.fillMaxWidth().background(Panel).padding(16.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)) {Icon(Icons.Rounded.Inventory2,null,tint=Lilac);Column(Modifier.weight(1f)) {Text(pack.name);Text("${pack.itemIds.size} itens adicionados",color=Muted,fontSize=11.sp)};TextButton(onClick={remove=pack.id to pack.name}) {Text("Remover")}}}
+        if(custom.packs.isEmpty()) item {Text("Seus packs importados aparecerão aqui.",color=Muted,fontSize=14.sp)}
+        items(custom.packs,key={it.id}) {pack ->Row(Modifier.fillMaxWidth().background(Panel).padding(16.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)) {Icon(Icons.Rounded.Inventory2,null,tint=Lilac);Column(Modifier.weight(1f)) {Text(pack.name);Text("${pack.itemIds.size} itens adicionados",color=Muted,fontSize=14.sp)};TextButton(onClick={remove=pack.id to pack.name}) {Text("Remover")}}}
     }
     if(resources) ResourceDialog(state,vm) {resources=false}
     remove?.let {(id,name)->AlertDialog(onDismissRequest={remove=null},title={Text("Remover $name?")},text={Text("Os projetos já criados continuam editáveis com os recursos que usaram.")},confirmButton={TextButton(onClick={vm.removeLibrary(id);remove=null}) {Text("Remover")}},dismissButton={TextButton(onClick={remove=null}) {Text("Cancelar")}})}

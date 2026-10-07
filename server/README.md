@@ -6,7 +6,13 @@ Serviço privado para restaurar fotos com Real-ESRGAN x4plus e rostos com GFPGAN
 
 Depois da instalação, abrir `Iniciar Luma IA.cmd` inicia o serviço em segundo plano. `Parar Luma IA.cmd` encerra somente os processos identificados do serviço. Os scripts guardam o endereço/porta escolhidos no primeiro início. Não há tarefa automática de inicialização do Windows.
 
-No app: **Melhorar com IA → Conectar seu PC**. Usar o endereço do servidor e seu código temporário de seis números, mostrado por **Ver conexão Luma IA.cmd** ou `tools/show_ai_connection.ps1`. O código vence em dez minutos, aceita uma conexão e no máximo dez tentativas. Gerar outro código ou reiniciar o servidor não invalida a conexão já salva no app. O token permanente é cifrado com uma chave do Android Keystore; não consta do APK.
+No app: **Melhorar com IA → Ler QR do PC**. No computador, abrir **Ver conexão Luma IA.cmd** mostra uma página local com QR e código temporário. Aponte o leitor do Luma para esse QR e confirme o endereço apresentado. O QR contém somente endereço, código temporário e vencimento; o token permanente não entra no QR. Não há envio de foto ao ler ou revisar o QR.
+
+A entrada manual de endereço/código continua disponível. O código vence em dez minutos, aceita uma conexão e no máximo dez tentativas. A página esconde o QR e o código quando vencem; abra o comando novamente para gerar outro. Gerar outro código ou reiniciar o servidor não invalida a conexão já salva no app. O token permanente é cifrado com uma chave do Android Keystore; não consta do APK.
+
+O leitor usa o Google Play Services e não exige permissão de câmera do Luma. Na primeira utilização, seu módulo pode precisar de download. Em aparelho sem o leitor disponível, use a entrada manual. Depois de conectar, **Verificar PC novamente** confere se a IA está pronta, carregando, ocupada ou indisponível antes de liberar a melhoria. Uma resposta pronta não garante que o PC continuará ligado durante a operação.
+
+O QR requer `qrcode==8.2`, incluído nos requisitos atualizados. Para atualizar apenas essa dependência: `.tools/luma-ai-venv/Scripts/python.exe -m pip install qrcode==8.2`. A página privada fica em `.tools/luma-ai/connection-qr.html`; não a publique. Para gerar sem abrir navegador: `tools/show_ai_connection.ps1 -NoBrowser`.
 
 O celular e o PC devem estar na mesma rede e o servidor precisa estar aberto. Uma mudança de IP exige reconectar pelo novo endereço. Fora da rede privada o cliente exige HTTPS; não segue redirecionamentos. Na rede local, HTTP precisa ser usado apenas em rede confiável. Não exponha a porta diretamente na internet; uma implantação remota exige HTTPS e revisão da autenticação.
 
@@ -33,6 +39,8 @@ python -m pytest server/test_service.py -q
 ```
 
 No ambiente com PyTorch instalado, `python -m pytest server/test_runtime.py -q` verifica a composição dos tiles e a propagação de falhas. `python server/verify_gpu.py` executa os modelos reais pelo servidor usando apenas a fixture pública de retrato NASA; requer o serviço pronto e salva as comparações locais em `.tools/luma-ai/checks`.
+
+`python -m pytest server/test_connection_qr.py -q` verifica a geração e decodificação real do QR, vencimento da página e rejeição de entradas inválidas. Esse teste usa OpenCV já presente nos requisitos do servidor.
 
 ## Comportamento e limites
 

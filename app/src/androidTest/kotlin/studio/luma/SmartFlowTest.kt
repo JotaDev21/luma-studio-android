@@ -27,7 +27,11 @@ class SmartFlowTest {
         // Internet permission now supports optional PC enhancement; framing uses bundled models.
         assertFalse(compose.activity.studio.ui.value.enhancementConnected)
     }
-    private fun ready()=compose.waitUntil(45000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
+    private fun ready() {
+        compose.waitUntil(45000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
+        // These regression cases exercise the complete editor; the guide has separate tests.
+        if(compose.onAllNodesWithTag("story-guide-full").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()) compose.onNodeWithTag("story-guide-full").performScrollTo().performClick()
+    }
     private fun portrait():Bitmap=InstrumentationRegistry.getInstrumentation().context.assets.open("portrait-nasa.jpg").use {BitmapFactory.decodeStream(it)}
     private fun smartTool() {
         compose.onNodeWithTag("story-tools").performScrollToNode(hasText("Inteligente"));compose.onNodeWithText("Inteligente").performClick()

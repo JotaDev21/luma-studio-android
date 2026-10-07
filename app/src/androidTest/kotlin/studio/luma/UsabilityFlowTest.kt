@@ -34,10 +34,10 @@ class UsabilityFlowTest {
         compose.runOnUiThread {compose.activity.setShowWhenLocked(true);compose.activity.setTurnScreenOn(true);compose.activity.window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)}
         compose.waitUntil(30000) {compose.onAllNodes(isRoot()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()};ready()
     }
-    private fun capture(name:String) {
+    private fun capture(name:String,tag:String?=null) {
         val path=InstrumentationRegistry.getArguments().getString("additionalTestOutputDir") ?: return
         File(path).mkdirs()
-        File(path,name).outputStream().use {compose.onNode(isRoot()).captureToImage().asAndroidBitmap().compress(Bitmap.CompressFormat.PNG,100,it)}
+        File(path,name).outputStream().use {(if(tag==null) compose.onNode(isRoot()) else compose.onNodeWithTag(tag)).captureToImage().asAndroidBitmap().compress(Bitmap.CompressFormat.PNG,100,it)}
     }
     private fun withPhoto(action:(StudioViewModel,StudioStore,Project)->Unit) {
         val vm=compose.activity.studio;val store=StudioStore(compose.activity)
@@ -53,7 +53,7 @@ class UsabilityFlowTest {
         compose.onNodeWithTag("home-story").assertIsDisplayed()
         compose.onNodeWithTag("home-collage").assertIsDisplayed()
         compose.onNodeWithText("Photo editor").assertDoesNotExist()
-        capture("easy-home.png")
+        capture("easy-home.png","home-actions")
         compose.onNodeWithTag("home-story").performClick()
         assertEquals(Page.TEMPLATES,compose.activity.studio.ui.value.page)
         compose.onNodeWithText("Criar Story em branco").performScrollTo().performClick();ready()

@@ -1,6 +1,23 @@
-# Uso mais simples — 1.6.0
+# Uso e acesso às ferramentas — 1.7.0
 
-O início organiza o app pelas tarefas: Editar foto, Criar Story e Fazer colagem. Projetos recentes vêm em seguida. Estilos prontos, edição em lote e recursos próprios continuam abaixo. Criar Story abre a mesma biblioteca da aba Stories, com modelos e uma opção em branco; o editor de camadas ainda não possui um assistente por etapas.
+O início organiza o app pelas tarefas: Editar foto, Criar Story e Fazer colagem. Projetos recentes vêm em seguida. Estilos prontos, edição em lote e recursos próprios continuam abaixo. Os cards têm menos altura e espaço interno, títulos de 17 sp e ícones de 22 dp. A barra de ferramentas de foto usa ícones de 22 dp e rótulos de 12 sp. O tamanho padrão é compacto; a letra acompanha a escala escolhida no Android.
+
+Criar Story abre a mesma biblioteca da aba Stories, com modelos e uma opção em branco. O projeto abre no editor completo. **Passo a passo** é uma opção do usuário; não há assistente obrigatório.
+
+## Story com passo a passo opcional
+
+1. Escolha um modelo ou um Story em branco. Abra **Passo a passo** no editor se quiser orientação por tarefa.
+2. Adicione as fotos do modelo. Cada foto possui troca e ajuste de enquadramento; a próxima etapa fica indisponível enquanto houver foto visível faltando. Um Story em branco pode continuar somente com texto.
+3. Toque em cada texto para mudar a mensagem. A edição inicial mostra mensagem, tamanho e cor; **Mais opções de texto** abre as configurações tipográficas detalhadas.
+4. Confira e salve na galeria. A resolução usa o mesmo diálogo das fotos, incluindo 1440p/4K. Compartilhar fica disponível após salvar.
+
+Voltar às fotos ou textos conserva as alterações; undo/redo e rascunhos usam o mecanismo existente. **Todas as ferramentas** retorna à edição completa no mesmo projeto. Os botões de posição em **Ajustar camada** permitem mover sem arrastar. A etapa do assistente não é persistida no rascunho; o conteúdo editável é recuperado ao reabrir.
+
+## Conexão com a IA por QR
+
+No PC, abrir **Ver conexão Luma IA.cmd** mostra QR, endereço e código temporário por até dez minutos. No app, abrir **Melhorar com IA → Ler QR do PC**, ler o QR e conferir o endereço antes de **Conectar PC**. Ler ou revisar o QR não envia fotos. O app verifica novamente o vencimento na confirmação.
+
+Depois da conexão, o status distingue pronto, carregando, ocupado e indisponível. **Verificar PC novamente** atualiza a disponibilidade; o início da melhoria exige uma resposta pronta. O PC precisa continuar ligado e alcançável. A entrada manual continua disponível, inclusive se o leitor do Google Play Services precisar de download inicial ou não estiver disponível. Detalhes em [server/README.md](../server/README.md).
 
 ## Editar uma foto
 
@@ -31,24 +48,32 @@ Salvar projeto editável, em Mais ferramentas, confirma nome, edição, históri
 
 ## Leitura e interação
 
-Foram aumentados os textos funcionais do início, editor de foto, filtros, ajustes, efeitos, categorias e salvamento. Controles essenciais usam áreas mínimas de 48 dp; sliders recebem descrições do ajuste e o estado do rascunho usa anúncio sem interromper a navegação. O modo simples mostra quatro ferramentas sem exigir rolagem horizontal da barra.
+Os textos funcionais acompanham a configuração do Android. Botões, categorias e ações essenciais conservam espaço para toque sem ampliar seus ícones; a aparência padrão usa menos altura e espaço interno. Sliders recebem descrições do ajuste e o estado do rascunho usa anúncio sem interromper a navegação. O modo simples mostra quatro ferramentas sem exigir rolagem horizontal da barra.
 
-Fonte a partir de 130% ou janela abaixo de 640 dp ativa rolagem vertical no editor de foto e uma ação de salvar em linha própria. O teste de 200% usa uma substituição de densidade dentro do app QA: não altera a preferência de fonte do celular. Ajustar luz e salvar uma imagem na galeria foram verificados nessa configuração, com captura conferida visualmente. Isso não comprova a acessibilidade de cada tela ou de cada ferramenta avançada.
+Fonte a partir de 130% ou janela abaixo de 640 dp ativa rolagem vertical nos editores de foto, Story e máscaras; no editor de foto, salvar ganha uma linha própria. Filtros e modelos acomodam letras ampliadas em grades com mais largura. O teste de 200% usa uma substituição de densidade dentro do app QA: não altera a preferência de fonte do celular. Ações avançadas oferecem movimento de camada por botões, coordenadas de máscaras e ajuste de bordas do recorte por sliders. Pincel e desenho livre continuam visuais.
+
+**Facilidade de uso → Reduzir movimento** conserva uma preferência local e torna mudanças de filtro imediatas, com indicadores estáticos durante espera. Animações desativadas no Android também ativam esse comportamento.
 
 Ajuda curta está no início e em Mais ferramentas; explica foto, filtro, ajustes, galeria, rascunhos, Stories e IA. Não há tutorial obrigatório.
 
-## Próximos pontos de usabilidade
+## Limites da avaliação
 
-Stories guiados por tarefa, conexão da IA por QR, revisão completa de fonte ampliada/contraste/foco nas telas avançadas, testes com TalkBack e comportamento com movimento reduzido continuam pendentes. Também falta observar usuários iniciantes e pessoas com diferentes necessidades concluindo tarefas sem ajuda; não é possível garantir facilidade a partir de um diagnóstico.
+O assistente opcional, QR, disponibilidade do PC, alternativas aos gestos e movimento reduzido estão implementados. As verificações realizadas e seus limites estão em [VERIFICATION.md](VERIFICATION.md). Falta observar usuários iniciantes e pessoas com diferentes necessidades concluindo tarefas sem ajuda; o [protocolo](USABILITY-USER-TEST.md) está preparado, sem resultados inventados. Não é possível garantir facilidade a partir de um diagnóstico.
 
-A recuperação foi testada com um novo ViewModel lendo o rascunho do disco e com fechamento/reabertura da edição. Não foi testado o encerramento forçado do processo durante uma gravação. A IA não foi alterada nesta entrega: a entrada e o cancelamento foram testados, sem conexão ou envio de foto ao PC. Limitações anteriores estão em [VERIFICATION-1.5.0.md](VERIFICATION-1.5.0.md).
+A recuperação foi testada com um novo ViewModel lendo o rascunho do disco e com fechamento/reabertura da edição. Não foi testado o encerramento forçado do processo durante uma gravação. Os modelos de IA não foram alterados; a conexão completa do pacote pessoal ao PC continua não confirmada. Limitações anteriores estão em [VERIFICATION-1.5.0.md](VERIFICATION-1.5.0.md).
 
 ## Capturas do aparelho
 
-![Início com três tarefas](easy-home.png)
+![Três ações principais compactas](easy-home.png)
 
 ![Editor no modo simples](easy-photo-editor.png)
 
 ![Editor rolável com fonte em 200%](easy-font-200.png)
+
+![Etapa de texto no Story opcional](guided-story-texts.png)
+
+![Filtro e força com fonte em 200%](accessible-filters-font-200.png)
+
+![Posição da máscara sem arrastar, com fonte em 200%](accessible-mask-font-200.png)
 
 O retrato é uma fixture pública NASA, usada somente na instrumentação; crédito e origem em app/src/androidTest/assets/README.md. As capturas não incluem fotos pessoais e a fixture não entra no APK release.

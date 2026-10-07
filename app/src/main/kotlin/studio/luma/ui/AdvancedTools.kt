@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.*
+import androidx.compose.ui.semantics.*
 import studio.luma.*
 import studio.luma.core.*
 import studio.luma.data.*
@@ -72,13 +73,13 @@ import studio.luma.data.*
             }
             "LUT"->{Text(color.lut?.name ?: "Importe um arquivo .cube em Meus recursos.",color=Muted);AdvancedSlider("Intensidade",color.lutIntensity,0f..1f,{change(color.copy(lutIntensity=it),false)},finish);TextButton(onClick={change(color.copy(lut=null),true)}) {Text("Remover LUT")}}
         }
-        if(color.matrix!=ColorTreatment().matrix) {Text("Correspondência de referência aplicada",color=Acid,fontSize=11.sp);TextButton(onClick={change(color.copy(matrix=ColorTreatment().matrix),true)}) {Text("Remover correspondência")}}
+        if(color.matrix!=ColorTreatment().matrix) {Text("Correspondência de referência aplicada",color=Acid,fontSize=14.sp);TextButton(onClick={change(color.copy(matrix=ColorTreatment().matrix),true)}) {Text("Remover correspondência")}}
         TextButton(onClick={change(ColorTreatment(),true)}) {Text("Limpar tratamento de cor")}
     }},confirmButton={TextButton(onClick={finish();dismiss()}) {Text("Pronto")}})
 }
 @Composable internal fun AdvancedSlider(label:String,value:Float,range:ClosedFloatingPointRange<Float>,change:(Float)->Unit,finish:()->Unit={}) {
-    Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween) {Text(label,fontSize=11.sp);Text("%.2f".format(value),fontSize=11.sp,color=Acid)}
-    Slider(value.coerceIn(range),change,valueRange=range,onValueChangeFinished=finish,modifier=Modifier.height(30.dp).testTag(label))
+    Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(8.dp)) {Text(label,fontSize=14.sp,modifier=Modifier.weight(1f));Text("%.2f".format(value),fontSize=14.sp,color=Acid)}
+    Slider(value.coerceIn(range),change,valueRange=range,onValueChangeFinished=finish,modifier=Modifier.heightIn(min=48.dp).testTag(label).semantics {contentDescription=label})
 }
 @Composable internal fun ResourceDialog(state:StudioUi,vm:StudioViewModel,dismiss:()->Unit) {
     var kind by remember {mutableStateOf("lut")};var name by remember {mutableStateOf("")};var remove by remember {mutableStateOf<LocalAsset?>(null)}
@@ -87,7 +88,7 @@ import studio.luma.data.*
         CategoryRow(listOf("lut","font","sticker","texture","frame"),kind) {kind=it}
         OutlinedTextField(name,{name=it.take(100)},label={Text("Nome do recurso")},singleLine=true)
         Button(onClick={picker.launch(arrayOf("*/*"))}) {Text("Importar ${when(kind) {"font"->"TTF / OTF";"lut"->".cube 3D";else->"imagem"}}")}
-        Text("Arquivos ficam no celular e podem entrar no seu pack. Selecione um texto para aplicar uma fonte.",color=Muted,fontSize=11.sp)
+        Text("Arquivos ficam no celular e podem entrar no seu pack. Selecione um texto para aplicar uma fonte.",color=Muted,fontSize=14.sp)
         LazyColumn(Modifier.heightIn(max=250.dp),verticalArrangement=Arrangement.spacedBy(6.dp)) {items(state.library.resources.filter {it.kind==kind},key={it.meta.id}) {resource->Column {Text(resource.meta.name);Row {if(state.project!=null) TextButton(onClick={vm.useResource(resource)}) {Text("Aplicar")};TextButton(onClick={remove=resource}) {Text("Excluir")}}}}}
     }},confirmButton={TextButton(onClick=dismiss) {Text("Fechar")}})
     remove?.let {resource->AlertDialog(onDismissRequest={remove=null},title={Text("Excluir ${resource.meta.name}?")},text={Text("Projetos que já usam o recurso guardam sua própria cópia.")},confirmButton={TextButton(onClick={vm.removeLibrary(resource.meta.id);remove=null}) {Text("Excluir")}},dismissButton={TextButton(onClick={remove=null}) {Text("Cancelar")}})}
@@ -96,9 +97,9 @@ import studio.luma.data.*
     var style by remember {mutableStateOf<StylePreset?>(null)};var uris by remember {mutableStateOf<List<android.net.Uri>>(emptyList())};var export by remember {mutableStateOf(false)}
     val picker=rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(20)) {uris=it}
     AlertDialog(onDismissRequest=dismiss,title={Text("Exportar lote")},text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
-        Text("Até 20 fotos. Cada original vira um projeto editável.",color=Muted,fontSize=12.sp)
+        Text("Até 20 fotos. Cada original vira um projeto editável.",color=Muted,fontSize=14.sp)
         Button(onClick={picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))}) {Text("Selecionar fotos · ${uris.size}")}
-        Text("Tratamento comum",fontSize=12.sp)
+        Text("Tratamento comum",fontSize=14.sp)
         LazyColumn(Modifier.heightIn(max=240.dp)) {item {TextButton(onClick={style=null}) {Text(if(style==null) "✓ Original" else "Original")}};items(state.styles.filter {it.layers.isEmpty()},key={it.meta.id}) {s->TextButton(onClick={style=s}) {Text((if(style==s) "✓ " else "")+s.meta.name)}}}
     }},confirmButton={TextButton(onClick={export=true},enabled=uris.isNotEmpty()) {Text("Formato e resolução")}},dismissButton={TextButton(onClick=dismiss) {Text("Cancelar")}})
     if(export) ExportDialog({export=false}) {options->vm.batch(uris,style,options);export=false;dismiss()}
@@ -108,13 +109,13 @@ import studio.luma.data.*
     AlertDialog(onDismissRequest=dismiss,title={Text("Card de música")},text={Column(Modifier.verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         OutlinedTextField(title,{title=it.take(100)},label={Text("Música")});OutlinedTextField(artist,{artist=it.take(100)},label={Text("Artista")});OutlinedTextField(lyrics,{lyrics=it.take(500)},label={Text("Trecho / tempo")})
         AdvancedSlider("Progresso",progress,.01f..1f,{progress=it})
-        Text("Escolha a capa da sua galeria no espaço de foto. Todos os elementos continuam editáveis.",color=Muted,fontSize=11.sp)
+        Text("Escolha a capa da sua galeria no espaço de foto. Todos os elementos continuam editáveis.",color=Muted,fontSize=14.sp)
     }},confirmButton={TextButton(onClick={vm.music(title,artist,lyrics,progress);dismiss()},enabled=title.isNotBlank()) {Text("Criar card")}},dismissButton={TextButton(onClick=dismiss) {Text("Cancelar")}})
 }
 @Composable internal fun GradientControls(value:GradientSpec?,change:(GradientSpec?)->Unit) {
     val palettes=listOf(listOf(0xFF161322.toInt(),0xFFB7A9F5.toInt()),listOf(0xFFEA8EA8.toInt(),0xFFF4DDB3.toInt()),listOf(0xFF243E41.toInt(),0xFFB4D0C1.toInt()),listOf(0xFF161618.toInt(),0xFFD5FF69.toInt()))
-    Text("Degradê",fontSize=11.sp,color=Muted)
-    LazyRow(horizontalArrangement=Arrangement.spacedBy(8.dp)) {item {TextButton(onClick={change(null)}) {Text("Sem")}};items(palettes) {colors->Box(Modifier.size(40.dp).background(Brush.linearGradient(colors.map {Color(it)})).clickable {change(GradientSpec(colors,value?.angle ?: 90f))})}}
+    Text("Degradê",fontSize=14.sp,color=Muted)
+    LazyRow(horizontalArrangement=Arrangement.spacedBy(8.dp)) {item {TextButton(onClick={change(null)}) {Text("Sem")}};items(palettes) {colors->Box(Modifier.size(48.dp).background(Brush.linearGradient(colors.map {Color(it)})).clickable {change(GradientSpec(colors,value?.angle ?: 90f))}.semantics {contentDescription="Degradê de ${colorName(colors.first())} para ${colorName(colors.last())}";selected=value?.colors==colors;role=Role.RadioButton})}}
     value?.let {AdvancedSlider("Ângulo do degradê",it.angle,-180f..180f,{angle->change(it.copy(angle=angle))})}
 }
 @Composable internal fun DrawingSurface(state:StudioUi,vm:StudioViewModel,modifier:Modifier) {
@@ -131,7 +132,7 @@ import studio.luma.data.*
                 }) {live.zipWithNext().forEach {(a,b)->drawLine(if(erase) Color.Gray else Color(color),Offset(a.x*size.width,a.y*size.height),Offset(b.x*size.width,b.y*size.height),radius*minOf(size.width,size.height)*2,StrokeCap.Round)}}
             }
         }
-        LazyRow(horizontalArrangement=Arrangement.spacedBy(8.dp)) {items(listOf(-1,0xFFD5FF69.toInt(),0xFFEA8EA8.toInt(),0xFFB7A9F5.toInt(),0xFF151518.toInt())) {c->Box(Modifier.size(28.dp).background(Color(c)).clickable {color=c;erase=false})};item {TextButton(onClick={erase=!erase}) {Text(if(erase) "Apagando" else "Apagar")}}}
-        Slider(radius,{radius=it},valueRange=.001f.. .08f,modifier=Modifier.fillMaxWidth().height(30.dp))
+        LazyRow(horizontalArrangement=Arrangement.spacedBy(8.dp)) {items(listOf(-1,0xFFD5FF69.toInt(),0xFFEA8EA8.toInt(),0xFFB7A9F5.toInt(),0xFF151518.toInt())) {c->Box(Modifier.size(48.dp).background(Color(c)).clickable {color=c;erase=false}.semantics {contentDescription="Desenhar com ${colorName(c)}";selected=color==c && !erase;role=Role.RadioButton})};item {TextButton(onClick={erase=!erase}) {Text(if(erase) "Apagando" else "Apagar")}}}
+        Slider(radius,{radius=it},valueRange=.001f.. .08f,modifier=Modifier.fillMaxWidth().heightIn(min=48.dp).semantics {contentDescription="Tamanho do pincel de desenho"})
     }
 }

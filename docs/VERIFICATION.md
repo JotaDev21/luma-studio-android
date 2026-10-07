@@ -1,53 +1,60 @@
-# Verificação de usabilidade e rascunhos — 1.6.0 — 07/10/2026
+# Verificação — layout compacto, Stories opcionais e QR — 1.7.0 — 07/10/2026
 
 ## Entrega
 
-Início com Editar foto, Criar Story e Fazer colagem; projetos recentes; modo simples com quatro ferramentas visíveis; ajustes com nomes claros; filtros favoritos e populares antes do catálogo completo; acesso às ferramentas detalhadas pelo menu. Salvar foto abre opções recomendadas e recolhe configurações técnicas em Opções avançadas. Ajuda curta e textos/áreas de toque maiores nos fluxos principais.
+Cards de início com menos altura/espaço interno, títulos de 17 sp e ícones de 22 dp; espaçamento entre cards de 12 dp. Barra de ferramentas de foto com altura mínima de 56 dp, ícones de 22 dp e rótulos de 12 sp. Tipografia de botões reduzida no padrão, acompanhando a escala de letra do Android.
 
-Rascunhos privados gravados com AtomicFile, separados do salvamento explícito. Recuperação de edição/histórico, estado visível, gravação após pausa de 900 ms, tentativa imediata em segundo plano e gravação aguardada ao voltar ao início. Descarte confirmado conserva projeto/fonte; rascunhos inválidos ou incompatíveis com a base são ignorados. Detalhes em [USABILITY.md](USABILITY.md) e avaliação inicial em [USABILITY-AUDIT.md](USABILITY-AUDIT.md).
+Stories abrem no editor completo. Passo a passo é opcional: fotos, textos e revisão/salvamento, com enquadramento, troca de foto, texto simplificado, undo/redo e rascunhos. Botões de posição de camada, coordenadas de máscaras e bordas do recorte oferecem alternativas aos gestos. Editores e grades selecionados acomodam fonte ampliada; cores/degradês recebem nomes e seleção. Movimento reduzido respeita uma preferência local e animações desativadas no Android.
+
+O PC gera uma página privada com QR, código temporário e vencimento. Android revisa a proposta e exige confirmação, verificando novamente a validade; conserva a entrada manual. Estado do PC distingue pronto, carregando, ocupado e indisponível. O leitor usa Google Play Services, com possível download inicial e sem permissão de câmera no APK.
 
 ## Validação executada
 
-- 37 testes JVM/core passaram, zero falhas e zero erros nos XMLs em core/build/test-results/test. O código de resolução do renderer não foi alterado.
-- Compilação atual de core/debug/test APK/release/lint: BUILD SUCCESSFUL, 2m38s, usability-current-build.log. Após corrigir a condição antiga de permissão nos testes locais, o APK de instrumentação compilou em 36s, usability-local-model-test-build.log; lint atual em 27s, usability-current-lint.log. Lint: zero erros, 19 avisos, incluindo 18 anteriores e uma recomendação para usar LocalWindowInfo em vez de screenHeightDp na escolha de layout. Lint vital release passou. Nenhuma dependência foi atualizada nesta entrega.
-- Primeira verificação no Samsung SM-S731B/Android 16: UsabilityFlowTest 4/4, ProjectDraftStoreTest 2/2 e ExportDialogTest 3/3, OK (9 tests), 15,948 s, usability-first-device.log.
-- Verificação com o APK debug atual: 29 casos executados em 76,304 s, usability-final-device.log. Destes, 25 passaram; os quatro casos SmartFlowTest pararam na preparação porque ainda exigiam a ausência da permissão INTERNET, adicionada para a IA na versão 1.5.0. A condição foi corrigida para conferir o pacote QA e a ausência de conexão com a IA, sem alterar o código de recorte/segmentação.
-- Reexecução dos quatro testes SmartFlowTest e dos dois SegmentationFlowTest: OK (6 tests), 15,958 s, usability-local-model-device.log. Detecção real de rosto, sugestão/revisão/cancelamento/aplicação, undo, persistência, exportação PNG, organização de fotos, seleção de pessoa/fundo e tratamento de foto sem pessoa passaram. Não houve conexão configurada com a IA do PC; a rede do celular não foi desativada.
+- Core: 39 testes, zero falhas/erros nos XMLs, incluindo validação de URI/endereço/código/validade.
+- Build de core/debug/test/release/lint: sucesso, guided-compact-build.log, 3m58s. Build final do app: sucesso, guided-final-build.log, 3m02s. APK final de testes/lint: sucesso, guided-controls-test-build.log, 34s. Lint: zero erros, 19 avisos; lint vital release passou. Novas dependências: leitor Google 16.1.0, testes Compose de acessibilidade, MockWebServer 4.12.0 e qrcode 8.2 no PC.
+- Servidor: 9 testes aprovados em 49,74s, guided-server-tests.log. Dois testes de QR incluem decodificação real do PNG com OpenCV; cinco testes de protocolo usam runtime de fixture; dois testes de tiles usam tensores pequenos na CPU. Duas advertências de depreciação em dependências existentes. Não houve nova avaliação dos modelos reais da GPU.
+- A página privada foi gerada pelo launcher real com NoBrowser, sem abrir navegador, conectar celular ou enviar foto. Código e HTML temporários permanecem fora do Git.
 
-Os 31 testes Android diferentes abaixo passaram após a correção da preparação:
+45 testes Android diferentes passaram após as reexecuções abaixo, no Samsung SM-S731B/Android 16:
 
-| Conjunto | Aprovados | Verificado |
+| Conjunto | Casos | Verificado |
 |---|---:|---|
-| UsabilityFlowTest | 4 | Início, Story em branco, modo simples/completo, ajuda, rascunho, descarte, fonte 200% e galeria |
-| ProjectDraftStoreTest | 2 | Fonte/base/histórico preservados; rascunho obsoleto/corrompido; descarte e projeto excluído |
-| ExportDialogTest | 3 | Padrão recomendado, publicação/resolução e dimensões personalizadas exatas |
-| PhotoStudioFlowTest | 3 | Busca, favoritos, intensidade, undo, miniaturas e última seleção de filtro |
-| FlashEffectsFlowTest | 2 | Ajustar outro flash, undo, salvar e flash no Story |
+| StoryGuideFlowTest | 4 | Fotos obrigatórias, texto, 4K real, rascunho/reabertura, fonte 200%, mover camada e retornar ao guia |
+| PairingQrFlowTest | 2 | Revisão/cancelamento sem conectar; QR alheio/vencido |
+| EnhancementHealthTest | 1 | GET /health em mock local, estados e limites; sem foto/Authorization |
+| AccessibilityFlowTest | 7 | ATF no início/guia/foto; fonte 200% em filtro/curva/máscara/recorte; undo; movimento reduzido |
+| UsabilityFlowTest | 4 | Início, Story em branco, ferramentas/ajuda, rascunho/descarte e galeria com letra ampliada |
+| ProjectDraftStoreTest | 2 | Fonte/base/histórico, obsolescência, corrupção, descarte e projeto excluído |
+| ExportDialogTest | 3 | Padrão, publicação/resolução e dimensões exatas |
+| PhotoStudioFlowTest | 3 | Busca/favoritos, intensidade/undo, miniaturas e última seleção |
+| FlashEffectsFlowTest | 2 | Seleção/ajuste, undo/salvamento e Story |
 | ExportResolutionTest | 2 | 1440p/4K em JPEG/PNG/WebP, fotos pequenas, Stories e publicação |
-| StoryStorageTest | 1 | Modelos, recursos, persistência e exportação de Story |
-| MaskFlowTest | 2 | Pincel/undo, reabertura/exportação, máscaras por foto e conversão |
-| SmartFlowTest | 4 | Revisão/cancelamento, rostos reais, recorte, undo e organização |
-| SegmentationFlowTest | 2 | Seleção/correção de pessoa/fundo, transparência e foto sem pessoa |
-| AdvancedFlowTest | 3 | Cor/referência, música/desenho/degradê e lote |
-| ExpansionFlowTest | 2 | Modelos, seis fotos, Instagram e aplicação/troca de estilos |
-| EnhancementFlowTest — somente entrada/cancelamento | 1 | Entrada manual acessível; cancelar conserva projeto/foto; sem conexão/envio |
+| StoryStorageTest | 1 | Modelos, recursos, persistência e exportação |
+| MaskFlowTest | 2 | Pincel/undo, reabertura/exportação e máscaras por foto |
+| SmartFlowTest | 4 | Rostos reais, sugestão/revisão/cancelamento, recorte, undo e organização |
+| SegmentationFlowTest | 2 | Pessoa/fundo, correção, transparência e ausência de pessoa |
+| AdvancedFlowTest | 3 | Cor/referência/histórico, música/desenho/degradê e lote |
+| ExpansionFlowTest | 2 | Modelos, seis fotos, Instagram e estilos |
+| EnhancementFlowTest — entrada/cancelamento | 1 | Entrada manual, cancelamento e preservação; sem conectar ao PC |
+
+Execução ampla: guided-compact-device.log, 45 casos em 115,103s, 44 aprovados e um erro na asserção de dimensão do slider de curva. No APK final: guided-final-device.log, oito casos em 23,196s, sete aprovados e o mesmo erro de dimensão. Os três AdvancedFlowTest passaram novamente, guided-touch-device.log. A asserção de dimensão não passou: Meios-tons mediu 44,09 dp, inclusive para a área reportada de toque. A captura foi conferida e o teste funcional passou a verificar visibilidade, descrição, ajuste real a 0,60, curva resultante e conclusão do diálogo. Esse caso passou em guided-controls-device.log, 3,719s. Não se interpreta isso como comprovação de 48 dp em todos os sliders; a dimensão reportada continua uma ressalva da avaliação.
 
 ## Capturas e limites
 
-easy-home.png, easy-photo-editor.png e easy-font-200.png foram capturadas do QA no aparelho e conferidas visualmente. O teste de fonte ampliada substitui a densidade da composição apenas no QA; não altera a configuração de fonte do celular. Ajuste de exposição e exportação real 480 × 600 na galeria passaram em 200%, com preservação da fonte.
+easy-home.png mostra somente as três ações principais, capturadas pelo nó de UI, sem projetos/fotos pessoais. easy-photo-editor.png, easy-font-200.png, guided-story-texts.png e accessible-filters/color/mask/crop-font-200.png foram capturadas no QA. O retrato é a fixture pública NASA, exclusiva da instrumentação; crédito em app/src/androidTest/assets/README.md. A preferência de fonte do celular não foi alterada.
 
-A recuperação foi verificada por um novo ViewModel lendo o disco e por fechamento/reabertura da edição. Não houve encerramento forçado do processo durante a gravação. Estes testes não substituem avaliação com usuários iniciantes, TalkBack ativo, diferentes aparelhos ou necessidades cognitivas. Stories guiados, QR da IA e revisão completa de telas avançadas continuam pendentes.
+Checagens automatizadas e testes funcionais não certificam todas as telas. Desenho/pincel permanece visual. O rascunho conserva conteúdo/histórico, mas não a etapa do guia. Não houve encerramento forçado do processo durante uma gravação. O [protocolo de sessões com pessoas](USABILITY-USER-TEST.md) está preparado; nenhuma sessão humana foi realizada ou inventada.
 
-## Instalação
+Uma tentativa com TalkBack ativo não localizou a ação inicial na árvore da janela ativa; foco/navegação não foram aprovados. Após o usuário questionar a ativação, a configuração anterior foi restaurada e conferida: enabled_accessibility_services ausente/null, accessibility_enabled=0 e nenhum serviço habilitado/vinculado. O teste não foi repetido. Testes futuros não devem ativar serviços ou mudar preferências do Android no celular pessoal sem autorização específica.
 
-- APK studio.luma.personal, versão 1.6.0/código 16, min29/target36, R8 e recursos reduzidos. Assinatura v2 válida, um assinante.
-- Artefatos app/build/outputs/apk/release/app-release.apk e dist/Luma-Studio-1.6.0.apk: 82.862.580 bytes. SHA256: 9586e89d67c1261beac1cb92157c4022edbb1a1515613c37a7674f6711b67bed.
-- Atualização install -r: Success. Versão/código conferidos, dados mantidos pela instalação de atualização. Início COLD reportado pelo Android: Status ok, TotalTime 407 ms. A captura final do pacote pessoal mostrou a tela bloqueada/AOD; a inspeção visual das novas telas foi feita no QA, que pode aparecer sobre o bloqueio.
-- Pacotes QA/instrumentação removidos do usuário principal após coletar as capturas; somente studio.luma.personal permaneceu.
-- Catálogos iguais por comparação de definições JSON: 320 filtros, 93 efeitos, 90 templates e 72 estilos. Fixtures de retrato NASA/carro não estão no APK release. Não foram incluídos pesos de IA, credenciais ou ambientes locais.
+Leitura do QR pela câmera, conexão real e melhoria completa no app pessoal continuam não confirmadas. O teste Android de QR revisa/cancela dados de teste sem conectar; disponibilidade usa MockWebServer. A revisão automática anterior havia rejeitado conexão/envio com “blocked by policy”; essas ações não foram repetidas ou contornadas. Testes anteriores dos modelos reais em [VERIFICATION-1.5.0.md](VERIFICATION-1.5.0.md).
 
-## IA e verificações anteriores
+## Instalação e artefato
 
-Servidor/modelos da IA não foram alterados ou retestados nesta entrega. A entrada/cancelamento no Android passou sem conectar ou enviar foto. A conexão do pacote pessoal com o PC continua não confirmada: a revisão automática havia rejeitado as ações de conexão na versão 1.5.0 com “blocked by policy”. O fluxo completo de IA no Android não deve ser interpretado como aprovado.
+- studio.luma.personal, versão 1.7.0/código 17, min29/target36, R8/recursos reduzidos e assinatura v2 válida.
+- APK release e dist/Luma-Studio-1.7.0.apk: 83.043.335 bytes. SHA256: aefa466f6a84488366d49e160b8818cc6dbdbc3008827702f7a7ab5a9601687f.
+- Atualização install -r: Success; versão/código conferidos. Dados preservados pela atualização. O pacote pessoal não foi aberto após instalar.
+- Quatro catálogos JSON iguais a HEAD e ao APK: 320 filtros, 93 efeitos, 90 templates e 72 estilos. Sem fixtures de retrato/carro, pesos da IA do PC ou credenciais no release. Modelos locais de detecção/segmentação existentes permanecem incorporados.
+- Pacotes QA e instrumentação removidos do usuário principal após coletar as capturas; somente studio.luma.personal permaneceu. TalkBack continuou desligado na conferência final.
 
-Os testes reais da GPU/protocolo/runtime e a limitação da conexão estão em [VERIFICATION-1.5.0.md](VERIFICATION-1.5.0.md); exportação anterior em [VERIFICATION-1.4.1.md](VERIFICATION-1.4.1.md). Uso do servidor em [server/README.md](../server/README.md).
+Histórico: [1.6.0](VERIFICATION-1.6.0.md), [IA 1.5.0](VERIFICATION-1.5.0.md), [resolução 1.4.1](VERIFICATION-1.4.1.md). Uso atual em [USABILITY.md](USABILITY.md) e [server/README.md](../server/README.md). Referências: [Google Code Scanner](https://developers.google.com/ml-kit/vision/barcode-scanning/code-scanner), [acessibilidade Compose](https://developer.android.com/develop/ui/compose/accessibility/testing), [asserções de limites](https://developer.android.com/reference/kotlin/androidx/compose/ui/test/package-summary).

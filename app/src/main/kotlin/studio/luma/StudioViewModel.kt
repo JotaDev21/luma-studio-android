@@ -15,6 +15,7 @@ import studio.luma.renderer.*
 
 enum class Page { HOME, LIBRARY, PROJECTS, TEMPLATES, STYLES, PACKS, EDITOR }
 enum class DraftState { WAITING, SAVING, SAVED, FAILED }
+enum class AiAvailability { UNKNOWN, CHECKING, READY, LOADING, OCCUPIED, UNAVAILABLE }
 data class EnhancementProposal(val file:java.io.File,val before:Bitmap,val after:Bitmap,val width:Int,val height:Int)
 data class StudioUi(
     val page: Page = Page.HOME, val filters: List<FilterPreset> = emptyList(), val favorites: Set<String> = emptySet(),
@@ -29,6 +30,7 @@ data class StudioUi(
     val smartProposal:SmartProposal?=null,val recentStyles:List<String> = emptyList(),
     val batchProgress:Int=0,val batchTotal:Int=0,
     val enhancementConnected:Boolean=false,val enhancementEndpoint:String="",val enhancing:Boolean=false,val enhancementProposal:EnhancementProposal?=null,
+    val pairingProposal:EnhancementPairing?=null,val aiAvailability:AiAvailability=AiAvailability.UNKNOWN,
     val draftState:DraftState=DraftState.SAVED,
     val busy: Boolean = true, val rendering: Boolean = false, val error: String? = null,
     val canUndo: Boolean = false, val canRedo: Boolean = false, val savedEdit: EditState = EditState(), val exported: Uri? = null
@@ -49,6 +51,7 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
     private val enhancementClient=EnhancementClient()
     private val enhancementConnections=EnhancementConnectionStore(application)
     private var enhancementJob:Job?=null
+    private var healthJob:Job?=null
     private val mutable = MutableStateFlow(StudioUi())
     val ui = mutable.asStateFlow()
     private var history = EditHistory(EditState())
@@ -70,7 +73,28 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
     fun clearNotice() {mutable.update {it.copy(notice=null)}}
     private fun refreshEnhancementConnection() {
         val connection=enhancementConnections.load()
-        mutable.update {it.copy(enhancementConnected=connection!=null,enhancementEndpoint=connection?.endpoint ?: "")}
+        mutable.update {it.copy(enhancementConnected=connection!=null,enhancementEndpoint=connection?.endpoint ?: "",aiAvailability=AiAvailability.UNKNOWN)}
+    }
+    fun reviewEnhancementQr(value:String) {
+        if(ui.value.busy) return
+        try {val pairing=EnhancementPairing.parse(value);mutable.update {it.copy(pairingProposal=pairing)}}
+        catch(e:Exception) {mutable.update {it.copy(error=e.message ?: "Este QR não é uma conexão do Luma.")}}
+    }
+    fun cancelPairing() {mutable.update {it.copy(pairingProposal=null)}}
+    fun confirmPairing() {
+        if(ui.value.busy) return
+        val proposal=ui.value.pairingProposal ?: return
+        try {proposal.requireFresh();cancelPairing();connectEnhancement(proposal.endpoint,proposal.code)}
+        catch(e:Exception) {cancelPairing();mutable.update {it.copy(error=e.message)}}
+    }
+    fun checkEnhancementPc() {
+        val connection=enhancementConnections.load() ?: return
+        healthJob?.cancel()
+        mutable.update {it.copy(aiAvailability=AiAvailability.CHECKING)}
+        healthJob=viewModelScope.launch {
+            val status=try {enhancementClient.health(connection.endpoint)} catch(e:CancellationException) {throw e} catch(e:Exception) {AiAvailability.UNAVAILABLE}
+            if(enhancementConnections.load()?.endpoint==connection.endpoint) mutable.update {it.copy(aiAvailability=status)}
+        }
     }
     fun connectEnhancement(endpoint:String,code:String)=viewModelScope.launch {
         if(ui.value.busy) return@launch
@@ -79,10 +103,11 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
             val connection=enhancementClient.pair(endpoint,code)
             withContext(Dispatchers.IO) {enhancementConnections.save(connection)}
             refreshEnhancementConnection()
-            mutable.update {it.copy(busy=false,notice="PC conectado. A IA está pronta para suas fotos.")}
+            mutable.update {it.copy(busy=false,notice="Conexão salva. Confira se a IA do PC está pronta.")}
+            checkEnhancementPc()
         } catch(e:Exception) {fail(e)}
     }
-    fun disconnectEnhancement() {if(!ui.value.busy) {enhancementConnections.clear();refreshEnhancementConnection()}}
+    fun disconnectEnhancement() {if(!ui.value.busy) {healthJob?.cancel();enhancementConnections.clear();refreshEnhancementConnection()}}
     fun cancelEnhancement() {enhancementJob?.cancel()}
     fun discardEnhancement() {
         ui.value.enhancementProposal?.file?.delete()

@@ -9,6 +9,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import studio.luma.core.EnhancementEndpoint
+import studio.luma.AiAvailability
 import studio.luma.renderer.ImageSource
 import java.io.File
 import java.io.IOException
@@ -18,13 +19,26 @@ import kotlin.coroutines.resumeWithException
 
 class EnhancementClient {
     private val http=OkHttpClient.Builder().connectTimeout(10,TimeUnit.SECONDS).readTimeout(5,TimeUnit.MINUTES).writeTimeout(60,TimeUnit.SECONDS).callTimeout(6,TimeUnit.MINUTES).followRedirects(false).followSslRedirects(false).build()
-    private suspend fun response(request:Request):Response=suspendCancellableCoroutine {continuation->
-        val call=http.newCall(request)
+    private val shortHttp=http.newBuilder().callTimeout(7,TimeUnit.SECONDS).readTimeout(7,TimeUnit.SECONDS).build()
+    private suspend fun response(request:Request,client:OkHttpClient=http):Response=suspendCancellableCoroutine {continuation->
+        val call=client.newCall(request)
         continuation.invokeOnCancellation {call.cancel()}
         call.enqueue(object:Callback {
             override fun onFailure(call:Call,e:IOException) {if(continuation.isActive) continuation.resumeWithException(IOException("Não foi possível falar com seu PC. Confira se o servidor está ligado e conectado à mesma rede.",e))}
             override fun onResponse(call:Call,response:Response) {continuation.resume(response) {_,value,_->value.close()}}
         })
+    }
+    suspend fun health(address:String):AiAvailability=withContext(Dispatchers.IO) {
+        val endpoint=EnhancementEndpoint.normalize(address)
+        response(Request.Builder().url("$endpoint/health").get().build(),shortHttp).use {reply->
+            checkResponse(reply)
+            val body=requireNotNull(reply.body)
+            require(body.contentLength() in -1..4096)
+            val source=body.source();source.request(4097);require(source.buffer.size<=4096)
+            val info=JSONObject(source.readByteArray().toString(Charsets.UTF_8))
+            require(info.getString("service")=="Luma AI")
+            when { !info.getBoolean("ready")->AiAvailability.LOADING;info.getBoolean("busy")->AiAvailability.OCCUPIED;else->AiAvailability.READY }
+        }
     }
     private fun checkResponse(response:Response) {
         if(response.isSuccessful) return

@@ -2,10 +2,13 @@ package studio.luma.ui
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.automirrored.rounded.RotateRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,6 +21,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.*
+import androidx.compose.ui.semantics.*
 import studio.luma.StudioUi
 import studio.luma.StudioViewModel
 import studio.luma.core.*
@@ -51,16 +55,16 @@ internal val adjustments = listOf(
     var selected by remember { mutableStateOf("Exposição") }
     val spec = adjustments.first { it.name == selected }
     val a = state.edit.adjustments
-    Column(Modifier.fillMaxWidth().height(153.dp).padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Column(Modifier.fillMaxWidth().heightIn(min=153.dp).padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         CategoryRow(adjustments.map { it.name }, selected) { selected = it }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-            Text(selected, fontSize = 12.sp)
-            Text(java.lang.String.format(java.util.Locale.ROOT, "%.2f", spec.read(a)), color = Acid, fontSize = 12.sp)
+            Text(selected, fontSize=14.sp)
+            Text(java.lang.String.format(java.util.Locale.ROOT, "%.2f", spec.read(a)), color = Acid, fontSize=14.sp)
         }
-        Slider(spec.read(a), { value -> vm.update(state.edit.copy(adjustments = spec.write(a, value)), false) }, onValueChangeFinished = { vm.finishGesture() }, valueRange = spec.min..spec.max, modifier = Modifier.height(32.dp))
+        Slider(spec.read(a), { value -> vm.update(state.edit.copy(adjustments = spec.write(a, value)), false) }, onValueChangeFinished = { vm.finishGesture() }, valueRange = spec.min..spec.max, modifier = Modifier.heightIn(min=48.dp).semantics {contentDescription=selected})
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            TextButton(onClick = { vm.update(state.edit.copy(adjustments = spec.write(a, spec.default))) }, contentPadding = PaddingValues(0.dp)) { Text("Redefinir controle", fontSize = 10.sp) }
-            TextButton(onClick = { vm.update(state.edit.copy(adjustments = Adjustments())) }, contentPadding = PaddingValues(0.dp)) { Text("Limpar ajustes", fontSize = 10.sp, color = Muted) }
+            TextButton(onClick = { vm.update(state.edit.copy(adjustments = spec.write(a, spec.default))) }, contentPadding = PaddingValues(0.dp)) { Text("Redefinir controle", fontSize=14.sp) }
+            TextButton(onClick = { vm.update(state.edit.copy(adjustments = Adjustments())) }, contentPadding = PaddingValues(0.dp)) { Text("Limpar ajustes", fontSize=14.sp, color = Muted) }
         }
     }
 }
@@ -113,6 +117,7 @@ internal val adjustments = listOf(
 
 @Composable fun CropControls(state: StudioUi, vm: StudioViewModel) {
     var smart by remember { mutableStateOf(false) }
+    var edges by remember {mutableStateOf(false)}
     val transform = state.edit.transform
     val crop = transform.crop
     val source = state.source
@@ -130,12 +135,23 @@ internal val adjustments = listOf(
             vm.update(state.edit.copy(transform = transform.copy(crop = Crop((1-w)/2, (1-h)/2, (1+w)/2, (1+h)/2))))
         }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            IconButton(onClick = { vm.update(state.edit.copy(transform = transform.copy(quarterTurns = (transform.quarterTurns + 1) % 4))) }) { Icon(Icons.Rounded.RotateRight, "Girar 90 graus") }
+            IconButton(onClick = { vm.update(state.edit.copy(transform = transform.copy(quarterTurns = (transform.quarterTurns + 1) % 4))) }) { Icon(Icons.AutoMirrored.Rounded.RotateRight, "Girar 90 graus") }
             IconButton(onClick = { vm.update(state.edit.copy(transform = transform.copy(flipX = !transform.flipX))) }) { Icon(Icons.Rounded.Flip, "Espelhar horizontalmente", tint = if (transform.flipX) Acid else Muted) }
             IconButton(onClick = { vm.update(state.edit.copy(transform = transform.copy(flipY = !transform.flipY))) }) { Icon(Icons.Rounded.FlipCameraAndroid, "Espelhar verticalmente", tint = if (transform.flipY) Acid else Muted) }
             IconButton(onClick = { vm.update(state.edit.copy(transform = Transform())) }) { Icon(Icons.Rounded.RestartAlt, "Redefinir transformação") }
         }
         TextButton(onClick = { smart = true }, modifier = Modifier.heightIn(min=48.dp), contentPadding = PaddingValues(0.dp)) { Text("Recorte inteligente", fontSize = 14.sp) }
+        TextButton(onClick={edges=true},modifier=Modifier.heightIn(min=48.dp)) {Text("Ajustar bordas sem arrastar",fontSize=14.sp)}
     }
     if(smart) SmartCropFormatDialog(outputRatio,vm) {smart=false}
+    if(edges) AlertDialog(onDismissRequest={vm.finishGesture();edges=false},title={Text("Bordas do recorte")},text={
+        Column(Modifier.verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(8.dp)) {
+            Text("Ajuste cada borda. A foto original fica preservada.",fontSize=16.sp)
+            fun change(next:Crop) {vm.update(vm.ui.value.edit.copy(transform=vm.ui.value.edit.transform.copy(crop=next)),false)}
+            AdvancedSlider("Borda esquerda",crop.left,0f..maxOf(crop.left,crop.right-.02f),{change(crop.copy(left=it))},vm::finishGesture)
+            AdvancedSlider("Borda direita",crop.right,minOf(crop.right,crop.left+.02f)..1f,{change(crop.copy(right=it))},vm::finishGesture)
+            AdvancedSlider("Borda superior",crop.top,0f..maxOf(crop.top,crop.bottom-.02f),{change(crop.copy(top=it))},vm::finishGesture)
+            AdvancedSlider("Borda inferior",crop.bottom,minOf(crop.bottom,crop.top+.02f)..1f,{change(crop.copy(bottom=it))},vm::finishGesture)
+        }
+    },confirmButton={TextButton(onClick={vm.finishGesture();edges=false}) {Text("Pronto")}})
 }

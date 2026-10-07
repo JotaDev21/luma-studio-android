@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.*
 import studio.luma.StudioUi
 import studio.luma.StudioViewModel
@@ -45,10 +46,10 @@ import studio.luma.StudioViewModel
         LazyRow(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
             items(catalog.filter { category=="Todos" || category=="Favoritos" && it.meta.id in state.favorites || it.meta.category==category },key={it.meta.id}) { preset ->
                 Surface(shape=RoundedCornerShape(12.dp),color=Color(0xFF303036)) {
-                    Column(Modifier.width(116.dp).testTag("effect-${preset.meta.id}").combinedClickable(onClick={selected=null;vm.addEffect(preset)},onLongClick={vm.toggleFavorite(preset.meta.id)}).padding(10.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
+                    Column(Modifier.width(116.dp).testTag("effect-${preset.meta.id}").combinedClickable(role=Role.Button,onClickLabel="Adicionar ${preset.meta.name}",onLongClickLabel="Favoritar ${preset.meta.name}",onClick={selected=null;vm.addEffect(preset)},onLongClick={vm.toggleFavorite(preset.meta.id)}).padding(10.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
                         Icon(when(preset.type) { "flash"->Icons.Rounded.FlashOn;"grain","dust"->Icons.Rounded.Grain; "frame"->Icons.Rounded.CropSquare; "blur"->Icons.Rounded.BlurOn; else->Icons.Rounded.AutoAwesome },null,tint=Lilac,modifier=Modifier.size(18.dp))
                         Text(preset.meta.name,fontSize=14.sp,maxLines=2,modifier=Modifier.heightIn(min=36.dp))
-                        Text(if(preset.meta.id in state.favorites) "♥ favorito" else "+ adicionar",color=Muted,fontSize=9.sp)
+                        Text(if(preset.meta.id in state.favorites) "♥ favorito" else "+ adicionar",color=Muted,fontSize=14.sp)
                     }
                 }
             }
@@ -67,16 +68,16 @@ import studio.luma.StudioViewModel
         OutlinedTextField(query,{query=it},singleLine=true,placeholder={Text("Nome, categoria ou tags")})
         LazyColumn(Modifier.heightIn(max=320.dp)) {
             items(catalog.filter {preset->catalogMatches(preset.meta,query)},key={it.meta.id}) {preset->Row(verticalAlignment=Alignment.CenterVertically) {
-                TextButton(onClick={selected=null;vm.addEffect(preset);search=false},modifier=Modifier.weight(1f)) {Text(preset.meta.name,fontSize=12.sp)}
+                TextButton(onClick={selected=null;vm.addEffect(preset);search=false},modifier=Modifier.weight(1f)) {Text(preset.meta.name,fontSize=14.sp)}
                 IconButton(onClick={vm.toggleFavorite(preset.meta.id)}) {Icon(if(preset.meta.id in state.favorites) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,"Favoritar ${preset.meta.name}",tint=Acid)}
             }}
         }
     }},confirmButton={TextButton(onClick={search=false}) {Text("Fechar")}})
     if(flashSettings && layer!=null && "hardness" in layer.preset.parameters) AlertDialog(onDismissRequest={flashSettings=false},title={Text(layer.preset.meta.name)},text={
         Column(Modifier.heightIn(max=390.dp).verticalScroll(rememberScrollState())) {
-            Text("Ajuste a luz na sua foto. A intensidade mistura o efeito inteiro com a edição anterior.",color=Muted,fontSize=12.sp)
+            Text("Ajuste a luz na sua foto. A intensidade mistura o efeito inteiro com a edição anterior.",color=Muted,fontSize=14.sp)
             layer.preset.parameters.filterKeys {it!="amount"}.forEach {(key,value)->
-                Text(if(key=="radius") "Área iluminada" else effectParameterLabel(key),fontSize=12.sp,modifier=Modifier.padding(top=8.dp))
+                Text(if(key=="radius") "Área iluminada" else effectParameterLabel(key),fontSize=14.sp,modifier=Modifier.padding(top=8.dp))
                 Slider(value,{v->vm.changeEffect(layer.id,{it.copy(preset=it.preset.copy(parameters=it.preset.parameters+(key to v)))},false)},onValueChangeFinished={vm.finishGesture()},modifier=Modifier.heightIn(min=48.dp).testTag("flash-$key").semantics {contentDescription=if(key=="radius") "Área iluminada" else effectParameterLabel(key)})
             }
         }
@@ -87,14 +88,14 @@ import studio.luma.StudioViewModel
                 Column(verticalArrangement=Arrangement.spacedBy(4.dp)) {
                     Row(verticalAlignment=Alignment.CenterVertically) {
                         IconButton(onClick={vm.changeEffect(effect.id,{it.copy(enabled=!it.enabled)})},modifier=Modifier.size(48.dp)) { Icon(if(effect.enabled) Icons.Rounded.Visibility else Icons.Rounded.VisibilityOff,"Ativar ${effect.preset.meta.name}",tint=Acid) }
-                        Text(effect.preset.meta.name,Modifier.weight(1f),fontSize=12.sp)
+                        Text(effect.preset.meta.name,Modifier.weight(1f),fontSize=14.sp)
                         IconButton(onClick={vm.moveEffect(effect.id,-1)},modifier=Modifier.size(48.dp)) { Icon(Icons.Rounded.KeyboardArrowUp,"Subir efeito") }
                         IconButton(onClick={vm.moveEffect(effect.id,1)},modifier=Modifier.size(48.dp)) { Icon(Icons.Rounded.KeyboardArrowDown,"Descer efeito") }
                         IconButton(onClick={vm.removeEffect(effect.id)},modifier=Modifier.size(48.dp)) { Icon(Icons.Rounded.DeleteOutline,"Remover efeito") }
                     }
                     if(effect.preset.type=="timestamp") OutlinedTextField(effect.preset.text,{text->vm.changeEffect(effect.id,{it.copy(preset=it.preset.copy(text=text.take(120)))})},label={Text("Data / texto")},singleLine=true)
                     effect.preset.parameters.filterKeys { it!="amount" && it!="style" }.forEach { (key,value) ->
-                        Text(effectParameterLabel(key),color=Muted,fontSize=10.sp)
+                        Text(effectParameterLabel(key),color=Muted,fontSize=14.sp)
                         Slider(value,{v->vm.changeEffect(effect.id,{it.copy(preset=it.preset.copy(parameters=it.preset.parameters+(key to v)))},false)},onValueChangeFinished={vm.finishGesture()},modifier=Modifier.height(28.dp))
                     }
                 }

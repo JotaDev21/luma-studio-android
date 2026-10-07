@@ -1,6 +1,6 @@
 # Luma Studio
 
-Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.6.0: modo simples, rascunhos automáticos, fotos, efeitos, Stories, colagens, biblioteca pessoal, máscaras, enquadramento inteligente e melhoria opcional com IA no PC. Android 10 ou superior. Sem conta ou anúncios; a edição funciona localmente, e o botão de melhoria conecta ao servidor pessoal escolhido.
+Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.7.0: layout compacto, rascunhos automáticos, fotos, efeitos, Stories, colagens, biblioteca pessoal, máscaras, enquadramento inteligente e melhoria opcional com IA no PC. Android 10 ou superior. Sem conta ou anúncios; a edição funciona localmente, e o botão de melhoria conecta ao servidor pessoal escolhido.
 
 ## Disponível na fase 1
 
@@ -126,7 +126,17 @@ Instruções de instalação, uso e limites em [server/README.md](server/README.
 - Rascunho privado separado do salvamento explícito, com estado visível e recuperação de edição/histórico. O botão voltar guarda o rascunho; **Salvar projeto editável** atualiza o projeto definitivo. A foto original fica preservada.
 - Textos principais maiores e controles essenciais com área de pelo menos 48 dp. No editor de foto, fonte ampliada ou janela baixa ativam uma página rolável. Ajuda curta pode ser aberta novamente a qualquer momento.
 
-Comportamento e limites em [docs/USABILITY.md](docs/USABILITY.md). Fonte em 200% foi verificada no aparelho em um fluxo essencial; avaliação com TalkBack e usuários iniciantes ainda está pendente, assim como Stories guiados e conexão da IA por QR.
+Comportamento e limites em [docs/USABILITY.md](docs/USABILITY.md). Resultados históricos desta entrega em [docs/VERIFICATION-1.6.0.md](docs/VERIFICATION-1.6.0.md).
+
+## Layout compacto, Stories opcionais e QR do PC (1.7.0)
+
+- Cards de início mais baixos, espaçamento menor, títulos e ícones compactos. A barra de ferramentas de foto ocupa menos altura; textos de botões seguem a escala escolhida no Android.
+- O Story abre no editor completo. **Passo a passo** oferece fotos → textos → revisão/salvamento quando desejado, com enquadramento, troca de foto, texto simplificado, undo/redo e rascunho. **Todas as ferramentas** retorna ao editor completo.
+- **Ver conexão Luma IA.cmd** mostra um QR privado no PC. **Ler QR do PC** revisa endereço e validade antes da confirmação; a entrada manual continua disponível. O app confere se a IA está pronta, carregando, ocupada ou indisponível.
+- Fonte ampliada e janelas baixas permitem rolar os editores de foto, Story e máscaras. Botões de posição, sliders de máscara e **Ajustar bordas sem arrastar** oferecem alternativas aos gestos. Cores/degradês recebem nomes e estado de seleção.
+- **Facilidade de uso → Reduzir movimento** troca animações de filtro por mudança imediata e indicadores animados por indicação estática; também respeita animações desativadas no Android.
+
+Verificações e limitações em [docs/VERIFICATION.md](docs/VERIFICATION.md). O leitor QR depende do Google Play Services e seu módulo pode precisar de download inicial; não pede permissão de câmera do Luma. Avaliação com pessoas ainda precisa ser realizada: [protocolo preparado](docs/USABILITY-USER-TEST.md).
 
 ## Compilar
 
@@ -142,7 +152,7 @@ Verificação no computador: `./gradlew.bat :core:test :app:lintDebug :app:assem
 
 Para verificar os flashes e a interface no Android virtual local, compile `./gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest` e execute `./tools/test_emulator.ps1 -EmulatorSerial emulator-5580 -SdkPath 'CAMINHO_DO_SDK'`, usando o identificador do seu emulador. O script recusa identificadores de celulares físicos e dirige cada operação somente ao emulador informado. Logs e capturas ficam em `app/build/emulator-checks/`.
 
-Testes ou instalações no celular pessoal exigem um pedido explícito do usuário; não iniciar a instrumentação no aparelho enquanto ele está sendo usado.
+Testes ou instalações no celular pessoal exigem um pedido explícito do usuário; não iniciar a instrumentação no aparelho enquanto ele está sendo usado. Não ativar TalkBack nem alterar serviços de acessibilidade, fonte ou animações do Android para testar o app sem uma autorização específica para essa mudança. Os testes de letra ampliada usam uma substituição de densidade somente na composição QA; a preferência de movimento reduzido é do próprio Luma.
 
 ## Adicionar filtros
 

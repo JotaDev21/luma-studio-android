@@ -2,7 +2,7 @@ plugins { id("com.android.application"); kotlin("android"); kotlin("plugin.seria
 android {
     namespace = "studio.luma"
     compileSdk = 36
-    defaultConfig { applicationId = "studio.luma.personal"; minSdk = 29; targetSdk = 36; versionCode = 16; versionName = "1.6.0"; testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner" }
+    defaultConfig { applicationId = "studio.luma.personal"; minSdk = 29; targetSdk = 36; versionCode = 17; versionName = "1.7.0"; testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner" }
     buildFeatures { compose = true }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
     kotlinOptions { jvmTarget = "17" }
@@ -15,6 +15,7 @@ android {
     } }
 }
 dependencies {
+    implementation("com.google.android.gms:play-services-code-scanner:16.1.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation(project(":core")); implementation(project(":renderer"))
     implementation(platform("androidx.compose:compose-bom:2025.04.01"))
@@ -32,7 +33,9 @@ dependencies {
     implementation("com.google.mlkit:face-detection:16.1.7")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test:runner:1.6.2")
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
     androidTestImplementation(platform("androidx.compose:compose-bom:2025.04.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4-accessibility")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

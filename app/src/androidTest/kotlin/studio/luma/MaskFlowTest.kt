@@ -34,7 +34,11 @@ class MaskFlowTest {
         val bitmap=Bitmap.createBitmap(120,160,Bitmap.Config.ARGB_8888).apply {eraseColor(Color.rgb(80,100,120))}
         file.outputStream().use {bitmap.compress(Bitmap.CompressFormat.PNG,100,it)};bitmap.recycle();return file
     }
-    private fun ready()=compose.waitUntil(20000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
+    private fun ready() {
+        compose.waitUntil(20000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
+        // These regression cases exercise the complete editor; the guide has separate tests.
+        if(compose.onAllNodesWithTag("story-guide-full").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()) compose.onNodeWithTag("story-guide-full").performScrollTo().performClick()
+    }
     @Test fun brushUiUndoSaveReopenAndExportPreserveOriginal() {
         val vm=compose.activity.studio;val store=StudioStore(compose.activity);val file=fixture()
         val project=runBlocking {store.import(Uri.fromFile(file))};val bytes=store.source(project).readBytes()

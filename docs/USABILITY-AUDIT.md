@@ -11,7 +11,18 @@ O app já oferece prévias reais de filtros, favoritos/busca, comparação, desf
 - Verificado no aparelho: ações iniciais, troca entre modo simples/completo, acesso à ajuda, recuperação em um novo ViewModel, descarte preservando projeto/fonte e ajuste/salvamento na galeria com fonte de 200%.
 - Pendentes: revisão completa de telas avançadas e Stories com fonte ampliada, TalkBack, movimento reduzido, wizard de Stories, QR da IA e avaliação com pessoas. A recuperação em novo ViewModel verifica a leitura do disco; não simula encerramento abrupto do processo pelo Android.
 
-Detalhes da implementação em [USABILITY.md](USABILITY.md) e resultados desta entrega em [VERIFICATION.md](VERIFICATION.md).
+Resultados históricos da 1.6.0 em [VERIFICATION-1.6.0.md](VERIFICATION-1.6.0.md).
+
+## Acompanhamento — 1.7.0
+
+- Correção a partir do feedback do usuário: cards e barra de ferramentas mais compactos, tipografia de botões menor no padrão, menos espaço interno e entre cards. Ampliar letra no Android continua possível; facilitar acesso não exige impor botões visualmente grandes.
+- Stories abrem no editor completo. O assistente de fotos/textos/revisão é opcional em Passo a passo; alternar ferramentas conserva o projeto e o conteúdo editável.
+- QR temporário privado no PC, leitor no Android, revisão/confirmacão do endereço, entrada manual e estado de disponibilidade do servidor.
+- Fonte ampliada e rolagem também em Stories, máscaras e controles avançados selecionados. Movimento de camada por botões, coordenadas de máscaras e bordas de recorte por sliders; cores/degradês com nomes e seleção anunciada. Movimento reduzido persistido e preferência do Android respeitada.
+- Testes automáticos de acessibilidade são complementados por verificações funcionais e capturas. Os casos e limites efetivamente verificados estão em [VERIFICATION.md](VERIFICATION.md); não representam certificação de todas as telas.
+- Avaliação com pessoas continua pendente. O [protocolo de sessão](USABILITY-USER-TEST.md) foi preparado e não contém resultados simulados.
+
+Detalhes atuais em [USABILITY.md](USABILITY.md).
 
 ## Prioridade 1: começar e concluir sem ajuda
 

@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.*
@@ -25,21 +27,22 @@ import kotlinx.coroutines.CancellationException
 @Composable fun Templates(state:StudioUi,vm:StudioViewModel,modifier:Modifier) {
     var query by remember { mutableStateOf("") }
     var category by remember { mutableStateOf("Novos") }
+    val columns=if(LocalDensity.current.fontScale>=1.3f) 1 else 2
     val templates=state.templates.filter { template ->
         (category=="Todos" || category=="Novos" && template.meta.id.startsWith("social-template-") || category=="Favoritos" && template.meta.id in state.favorites || category=="Meus templates" && state.library.templates.any {it.meta.id==template.meta.id} || category==template.meta.category) && catalogMatches(template.meta,query)
     }
     LazyColumn(modifier.fillMaxSize().testTag("template-list"),contentPadding=PaddingValues(22.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
         item { Text("Criar Story",fontSize=30.sp,fontFamily=FontFamily.Serif) }
         item { Text("1. Escolha um modelo\n2. Adicione suas fotos e textos\n3. Salve na galeria",color=Muted,fontSize=16.sp,lineHeight=24.sp) }
-        item { OutlinedTextField(query,{query=it.take(100)},Modifier.fillMaxWidth().testTag("template-search"),placeholder={Text("Buscar: viagem, música, photo dump…",fontSize=12.sp)},singleLine=true,leadingIcon={Icon(Icons.Rounded.Search,null)}) }
+        item { OutlinedTextField(query,{query=it.take(100)},Modifier.fillMaxWidth().testTag("template-search"),placeholder={Text("Buscar: viagem, música, photo dump…",fontSize=14.sp)},singleLine=true,leadingIcon={Icon(Icons.Rounded.Search,null)}) }
         item { CatalogCategories(listOf("Novos","Todos","Favoritos","Meus templates")+state.templates.map {it.meta.category},category,{category=it},"template-categories") }
-        item { Text("${templates.size} templates · ${state.templates.size} no catálogo",color=Muted,fontSize=11.sp) }
+        item { Text("${templates.size} templates · ${state.templates.size} no catálogo",color=Muted,fontSize=14.sp) }
         item { OutlinedButton(onClick={vm.createStory()},modifier=Modifier.fillMaxWidth()) { Text("Criar Story em branco") } }
         if(templates.isEmpty()) item { Text("Nenhum template encontrado.",color=Muted) }
-        items(templates.chunked(2),key={it.first().meta.id}) { row ->
+        items(templates.chunked(columns),key={it.first().meta.id}) { row ->
             Row(horizontalArrangement=Arrangement.spacedBy(14.dp)) {
                 row.forEach { template -> TemplateCard(template,state,vm,Modifier.weight(1f)) }
-                if(row.size==1) Spacer(Modifier.weight(1f))
+                if(row.size==1 && columns==2) Spacer(Modifier.weight(1f))
             }
         }
     }
@@ -50,8 +53,8 @@ import kotlinx.coroutines.CancellationException
         try { value=vm.templatePreview(template) } catch(e:Exception) { if(e is CancellationException) throw e }
     }
     Column(modifier,verticalArrangement=Arrangement.spacedBy(6.dp)) {
-        Box(Modifier.fillMaxWidth().aspectRatio(template.width.toFloat()/template.height).clip(RoundedCornerShape(14.dp)).background(Panel).testTag("template-${template.meta.id}").clickable(enabled=!state.busy) {vm.createStory(template)}) {
-            bitmap?.let { Image(it.asImageBitmap(),template.meta.name,Modifier.fillMaxSize()) }
+        Box(Modifier.fillMaxWidth().aspectRatio(template.width.toFloat()/template.height).clip(RoundedCornerShape(14.dp)).background(Panel).testTag("template-${template.meta.id}").clickable(enabled=!state.busy,onClickLabel="Usar modelo ${template.meta.name}") {vm.createStory(template)}.semantics {contentDescription="Modelo ${template.meta.name}, ${template.document().missingPhotos} fotos";role=Role.Button}) {
+            bitmap?.let { Image(it.asImageBitmap(),null,Modifier.fillMaxSize()) }
             IconButton(onClick={vm.toggleFavorite(template.meta.id)},modifier=Modifier.align(Alignment.TopEnd)) {
                 Icon(if(template.meta.id in state.favorites) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,"Favoritar ${template.meta.name}",tint=Acid)
             }

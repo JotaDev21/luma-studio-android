@@ -103,7 +103,7 @@ Pipeline e limites em [docs/SMART-FRAMING.md](docs/SMART-FRAMING.md).
 ## Mais flash (1.4.0)
 
 - 24 efeitos de flash em Efeitos → Flash: direto, compacto CCD, descartável, verde retrô, azul/violeta noturno e editorial. Funcionam sobre a edição atual em fotos e Stories, com intensidade independente por camada.
-- Ajustar luz do flash abre controles de área iluminada, dureza, bordas escuras, temperatura, tonalidade, grão e posição. A luz tem geometria circular em canvases verticais/horizontais e preserva a transparência.
+- Ajustar luz do flash fica no topo do painel e abre controles de área iluminada, dureza, bordas escuras, temperatura, tonalidade, grão e posição. A seleção de camada e a intensidade ficam fixas abaixo do catálogo, inclusive em Stories. A luz tem geometria circular em canvases verticais/horizontais e preserva a transparência.
 - Os 69 efeitos anteriores conservam suas definições e renderização. Ao adicionar outro efeito, o editor seleciona a nova camada para o controle de intensidade. Busca de efeitos também aceita múltiplas palavras sem acentos.
 - Detalhes e limites em [docs/FLASH-EFFECTS.md](docs/FLASH-EFFECTS.md).
 

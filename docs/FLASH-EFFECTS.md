@@ -13,7 +13,7 @@
 
 ## Uso
 
-No editor, abra Efeitos → Flash e toque em um card. Intensidade mistura a luz, cor e textura com a edição anterior. Ajustar luz do flash permite mudar área, dureza, bordas escuras, temperatura, tonalidade, grão e posição. Camadas conserva visibilidade, ordenação, remoção e parâmetros. Novos efeitos passam a ser a seleção corrente; tocar numa camada anterior permite editá-la novamente. Busca e favoritos também funcionam com esses presets.
+No editor, abra Efeitos → Flash e toque em um card. Intensidade mistura a luz, cor e textura com a edição anterior. Ajustar luz do flash fica no topo e permite mudar área, dureza, bordas escuras, temperatura, tonalidade, grão e posição. Seleção de camada e intensidade ficam fixas na parte inferior; apenas o catálogo rola em painéis menores. Camadas conserva visibilidade, ordenação, remoção e parâmetros. Novos efeitos passam a ser a seleção corrente; tocar numa camada anterior permite editá-la novamente. Busca e favoritos também funcionam com esses presets.
 
 Os cards identificam presets; a foto principal apresenta o resultado real. O painel rola em alturas menores, inclusive Stories. Os nomes ISO são referências estéticas de grão, sem alteração de metadados ou simulação de sensor físico.
 
@@ -29,4 +29,6 @@ A nova passagem trata RGB sem premultiplicação, normaliza a distância pelo la
 
 [Original e 24 efeitos em retrato](flash-effects-portrait.png), renderizados pelo aplicativo. Retrato oficial de Christina Koch, crédito NASA; origem em app/src/androidTest/assets/README.md. Essa imagem de teste não integra o release.
 
-Os testes de renderização, transparência, intensidade, persistência e exportação passaram. A checagem dos controles pela interface continua pendente: o emulador local não concluiu a inicialização. Para uma máquina com Android virtual disponível, use tools/test_emulator.ps1 conforme o README; o script recusa identificadores de celulares físicos. Evidências e limites em VERIFICATION.md.
+Os testes de renderização, transparência, intensidade, persistência, exportação e controles pela interface em fotos/Stories passaram. [Editor de fotos](flash-effects-editor.png) e [editor de Stories](flash-effects-story.png) mostram os controles finais; o teste verifica que a intensidade não sobrepõe o botão de exportar Story. A versão 1.4.0 foi instalada após autorização explícita do usuário.
+
+Para uma máquina com Android virtual disponível, use tools/test_emulator.ps1 conforme o README; o script recusa identificadores de celulares físicos. Evidências e limites em VERIFICATION.md.

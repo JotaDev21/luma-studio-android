@@ -28,25 +28,29 @@ import studio.luma.StudioViewModel
     var flashSettings by remember {mutableStateOf(false)}
     val catalog=state.effects.sortedBy {if(it.meta.category=="Flash") 0 else 1}
     val layer=state.edit.effects.firstOrNull { it.id==selected } ?: state.edit.effects.lastOrNull()
-    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal=20.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
+    Column(Modifier.fillMaxWidth().padding(horizontal=20.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
         Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.SpaceBetween) {
-            Text("Combine seu look",color=Muted,fontSize=11.sp)
+            if(layer?.preset?.type=="flash" && "hardness" in layer.preset.parameters) {
+                TextButton(onClick={flashSettings=true},contentPadding=PaddingValues(0.dp)) {Text("Ajustar luz do flash",fontSize=11.sp)}
+            } else Text("Combine seu look",color=Muted,fontSize=11.sp)
             Row {
                 IconButton(onClick={search=true},modifier=Modifier.size(32.dp)) {Icon(Icons.Rounded.Search,"Buscar efeitos",modifier=Modifier.size(18.dp))}
                 TextButton(onClick={stack=true},contentPadding=PaddingValues(0.dp)) { Text("Camadas (${state.edit.effects.size})",fontSize=11.sp) }
             }
         }
+        Column(Modifier.weight(1f,fill=false).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(4.dp)) {
         CatalogCategories(listOf("Todos","Favoritos","Flash")+catalog.map { it.meta.category }.distinct(),category,{category=it},"effect-categories")
         LazyRow(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
             items(catalog.filter { category=="Todos" || category=="Favoritos" && it.meta.id in state.favorites || it.meta.category==category },key={it.meta.id}) { preset ->
                 Surface(shape=RoundedCornerShape(12.dp),color=Color(0xFF303036)) {
-                    Column(Modifier.width(116.dp).testTag("effect-${preset.meta.id}").combinedClickable(onClick={selected=null;vm.addEffect(preset)},onLongClick={vm.toggleFavorite(preset.meta.id)}).padding(12.dp),verticalArrangement=Arrangement.spacedBy(6.dp)) {
-                        Icon(when(preset.type) { "flash"->Icons.Rounded.FlashOn;"grain","dust"->Icons.Rounded.Grain; "frame"->Icons.Rounded.CropSquare; "blur"->Icons.Rounded.BlurOn; else->Icons.Rounded.AutoAwesome },null,tint=Lilac,modifier=Modifier.size(20.dp))
-                        Text(preset.meta.name,fontSize=10.sp,maxLines=2,modifier=Modifier.heightIn(min=28.dp))
+                    Column(Modifier.width(116.dp).testTag("effect-${preset.meta.id}").combinedClickable(onClick={selected=null;vm.addEffect(preset)},onLongClick={vm.toggleFavorite(preset.meta.id)}).padding(10.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
+                        Icon(when(preset.type) { "flash"->Icons.Rounded.FlashOn;"grain","dust"->Icons.Rounded.Grain; "frame"->Icons.Rounded.CropSquare; "blur"->Icons.Rounded.BlurOn; else->Icons.Rounded.AutoAwesome },null,tint=Lilac,modifier=Modifier.size(18.dp))
+                        Text(preset.meta.name,fontSize=10.sp,maxLines=2,modifier=Modifier.heightIn(min=26.dp))
                         Text(if(preset.meta.id in state.favorites) "♥ favorito" else "+ adicionar",color=Muted,fontSize=9.sp)
                     }
                 }
             }
+        }
         }
         if(layer!=null) {
             LazyRow(horizontalArrangement=Arrangement.spacedBy(6.dp)) { items(state.edit.effects,key={it.id}) { effect -> FilterChip(layer.id==effect.id,{selected=effect.id},label={Text(effect.preset.meta.name,fontSize=10.sp)},modifier=Modifier.testTag("effect-layer-${effect.id}")) } }
@@ -55,7 +59,6 @@ import studio.luma.StudioViewModel
                 Slider(layer.intensity,{value->vm.changeEffect(layer.id,{it.copy(intensity=value)},false)},Modifier.weight(1f).height(32.dp).testTag("effect-intensity"),onValueChangeFinished={vm.finishGesture()})
                 Text("${(layer.intensity*100).toInt()}%",color=Acid,fontSize=10.sp)
             }
-            if(layer.preset.type=="flash" && "hardness" in layer.preset.parameters) TextButton(onClick={flashSettings=true},contentPadding=PaddingValues(0.dp),modifier=Modifier.height(28.dp)) {Text("Ajustar luz do flash",fontSize=11.sp)}
         } else Text("Toque para adicionar. Pressione Camadas para ajustar a ordem.",color=Muted,fontSize=10.sp,modifier=Modifier.padding(vertical=10.dp))
     }
     if(search) AlertDialog(onDismissRequest={search=false},title={Text("Buscar efeitos")},text={Column {

@@ -117,7 +117,11 @@ APK de desenvolvimento: `app/build/outputs/apk/debug/app-debug.apk`, instalado c
 
 Se o cache Gradle padrão não estiver acessível, configure `GRADLE_USER_HOME` para uma pasta gravável. Exemplo no PowerShell: `$env:GRADLE_USER_HOME = Join-Path $env:LOCALAPPDATA 'LumaStudio\gradle-cache'`.
 
-Verificação: `./gradlew.bat :core:test :app:lintDebug :app:assembleRelease`. Com dispositivo/emulador Android: `./gradlew.bat :renderer:connectedDebugAndroidTest :app:connectedDebugAndroidTest --no-parallel` (um aplicativo de teste por vez no aparelho).
+Verificação no computador: `./gradlew.bat :core:test :app:lintDebug :app:assembleRelease`.
+
+Para verificar os flashes e a interface no Android virtual local, compile `./gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest` e execute `./tools/test_emulator.ps1 -EmulatorSerial emulator-5580 -SdkPath 'CAMINHO_DO_SDK'`, usando o identificador do seu emulador. O script recusa identificadores de celulares físicos e dirige cada operação somente ao emulador informado. Logs e capturas ficam em `app/build/emulator-checks/`.
+
+Testes ou instalações no celular pessoal exigem um pedido explícito do usuário; não iniciar a instrumentação no aparelho enquanto ele está sendo usado.
 
 ## Adicionar filtros
 

@@ -24,3 +24,9 @@ Tipo existente `flash`, com parâmetros adicionais `hardness`, `falloff`, `tint`
 A nova passagem trata RGB sem premultiplicação, normaliza a distância pelo lado menor do canvas e mistura iluminação, temperatura, tonalidade, escurecimento periférico e grão determinístico. O alfa original é preservado. Intensidade zero ignora a passagem. Preview e exportação usam o mesmo shader. Parâmetros são valores finitos entre 0 e 1, validados também na importação de packs.
 
 É um tratamento da luz existente, sem reconstrução de profundidade ou sombras físicas. Fotos já estouradas não recuperam detalhes; revise intensidade e temperatura em cada retrato. Todo processamento é local, sem recursos externos novos ou permissões de rede.
+
+## Prévia e testes
+
+[Original e 24 efeitos em retrato](flash-effects-portrait.png), renderizados pelo aplicativo. Retrato oficial de Christina Koch, crédito NASA; origem em app/src/androidTest/assets/README.md. Essa imagem de teste não integra o release.
+
+Os testes de renderização, transparência, intensidade, persistência e exportação passaram. A checagem dos controles pela interface continua pendente: o emulador local não concluiu a inicialização. Para uma máquina com Android virtual disponível, use tools/test_emulator.ps1 conforme o README; o script recusa identificadores de celulares físicos. Evidências e limites em VERIFICATION.md.

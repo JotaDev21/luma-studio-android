@@ -21,6 +21,13 @@ A rodada FlashEffectsFlowTest + PhotoStudioFlowTest não validou a interface: os
 
 Não iniciar testes, instalações ou navegação no aparelho sem novo pedido explícito do usuário. Continuar verificações no computador.
 
+### Continuação apenas no computador
+
+- Assinatura do APK conferida por apksigner 36.0.0: v2 válida, um assinante.
+- tools/test_emulator.ps1 aceita somente identificadores emulator-NNNN, direciona todas as operações ao identificador informado e não enumera dispositivos. Parser PowerShell sem erros; rejeição de identificador físico verificada antes de qualquer operação Android.
+- Tentativa local com Android Emulator 37.2.12 e imagem API 35: o modo acelerado recusou iniciar por falta do driver de hypervisor. Tentativa sem aceleração/sem janela também não concluiu o boot; processo encerrou e a espera local terminou por timeout. Nenhum teste de interface executou nessa tentativa. Não foram alterados recursos do Windows ou instalado driver de kernel.
+- Sem acesso, abertura de aplicativos ou instalação no celular pessoal nesta continuação. O APK permanece o mesmo artefato validado abaixo. A checagem de interface continua pendente.
+
 ## Artefato
 
 - Release studio.luma.personal, versionCode 13 / versionName 1.4.0; min29/target36. Compilado com R8 e recursos reduzidos.

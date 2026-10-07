@@ -1,6 +1,5 @@
 package studio.luma
 
-import android.content.pm.PackageManager
 import android.graphics.*
 import android.net.Uri
 import androidx.compose.ui.graphics.asAndroidBitmap
@@ -24,7 +23,9 @@ class SmartFlowTest {
         InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("input keyevent KEYCODE_WAKEUP").close()
         compose.runOnUiThread {compose.activity.setShowWhenLocked(true);compose.activity.setTurnScreenOn(true);compose.activity.window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)}
         compose.waitUntil(10000) {compose.onAllNodes(isRoot()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()};ready()
-        assertEquals(PackageManager.PERMISSION_DENIED,compose.activity.packageManager.checkPermission("android.permission.INTERNET",compose.activity.packageName))
+        assertTrue(compose.activity.packageName.endsWith(".qa"))
+        // Internet permission now supports optional PC enhancement; framing uses bundled models.
+        assertFalse(compose.activity.studio.ui.value.enhancementConnected)
     }
     private fun ready()=compose.waitUntil(45000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
     private fun portrait():Bitmap=InstrumentationRegistry.getInstrumentation().context.assets.open("portrait-nasa.jpg").use {BitmapFactory.decodeStream(it)}
@@ -64,7 +65,7 @@ class SmartFlowTest {
             val mask=LocalMask("retouch","Retoque",type="radial",adjustments=Adjustments(exposure=.2f))
             compose.runOnUiThread {vm.update(vm.ui.value.edit.copy(masks=listOf(mask)))};ready()
             val base=vm.ui.value.edit
-            compose.onNodeWithTag("photo-tools").performScrollToNode(hasText("Recorte"));compose.onNodeWithText("Recorte").performClick()
+            compose.onNode(hasText("Recortar") and hasAnyAncestor(hasTestTag("photo-tools"))).performClick()
             compose.onNodeWithText("Recorte inteligente").performClick();compose.onNodeWithText("Paisagem · 1.91:1").performClick();ready()
             assertNull(vm.ui.value.error);val suggestion=vm.ui.value.smartProposal!!
             assertEquals(base,vm.ui.value.edit);assertEquals(listOf(mask),suggestion.edit.masks)

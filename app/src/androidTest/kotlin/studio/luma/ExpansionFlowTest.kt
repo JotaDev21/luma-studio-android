@@ -80,7 +80,7 @@ class ExpansionFlowTest {
         val favorite="luma-style-social-12-01";val wasFavorite=favorite in vm.ui.value.favorites
         try {
             compose.runOnUiThread {vm.open(project)};ready()
-            compose.onNodeWithText("Explorar looks").performClick()
+            compose.onNodeWithTag("all-filters").performClick()
             compose.onNodeWithTag("look-collections").performScrollToNode(hasText("Instagram"))
             compose.onNode(hasText("Instagram") and hasAnyAncestor(hasTestTag("look-collections"))).performClick()
             compose.onNodeWithTag("look-search").performTextReplacement("juno soft")
@@ -89,9 +89,9 @@ class ExpansionFlowTest {
             compose.onNodeWithTag("look-search").performTextClearance()
             compose.onNode(hasText("Instagram") and hasAnyAncestor(hasTestTag("look-collections"))).performClick()
             capture("expanded-instagram-gallery.png","look-browser")
-            compose.onNodeWithText("Usar este look").performClick()
-            compose.onNodeWithTag("photo-tools").performScrollToNode(hasContentDescription("Estilos"))
-            compose.onNodeWithContentDescription("Estilos").performClick()
+            compose.onNodeWithText("Usar este filtro").performClick()
+            compose.onNodeWithContentDescription("Mais ferramentas").performClick()
+            compose.onNodeWithText("Estilos prontos").performClick()
             compose.onNodeWithText("Explorar estilos").performClick()
             compose.onNodeWithTag("style-search").performTextReplacement("instantaneo")
             if(!wasFavorite) compose.onNode(hasContentDescription("Favoritar Instantâneo / Natural") and hasAnyAncestor(hasTestTag("style-grid"))).performClick()

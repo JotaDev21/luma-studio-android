@@ -57,8 +57,8 @@ private val storyColors=listOf(0xFFFFFFFF.toInt(),0xFF151518.toInt(),0xFFE8E3D7.
         Row(Modifier.fillMaxWidth().padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically) {
             IconButton(onClick=back) { Icon(Icons.AutoMirrored.Rounded.ArrowBack,"Voltar") }
             Column(Modifier.weight(1f).clickable {rename=true}) {
-                Text(state.project?.name ?: "Meu Story",fontSize=14.sp,maxLines=1)
-                Text("${story.width} × ${story.height} · ${story.layers.size} camadas",color=Muted,fontSize=10.sp)
+                Text(state.project?.name ?: "Meu Story",fontSize=16.sp,maxLines=2)
+                Text(draftLabel(state),color=Muted,fontSize=13.sp)
             }
             IconButton(onClick={vm.undo()},enabled=state.canUndo) {Icon(Icons.AutoMirrored.Rounded.Undo,"Desfazer")}
             IconButton(onClick={vm.redo()},enabled=state.canRedo) {Icon(Icons.AutoMirrored.Rounded.Redo,"Refazer")}

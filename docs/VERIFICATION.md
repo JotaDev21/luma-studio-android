@@ -1,35 +1,53 @@
-# Verificação da melhoria com IA — 1.5.0 — 07/10/2026
+# Verificação de usabilidade e rascunhos — 1.6.0 — 07/10/2026
 
 ## Entrega
 
-Botão Melhorar com IA no editor de foto, conexão manual por endereço/código temporário, credencial cifrada no Android Keystore, ampliação de até 2×/4×, força e restauração de rostos opcionais. Comparação deslizante permite aceitar como novo projeto ou descartar o resultado. O projeto anterior e sua fonte são conservados. A imagem editada é enviada em PNG sem EXIF/GPS ao servidor pessoal no PC.
+Início com Editar foto, Criar Story e Fazer colagem; projetos recentes; modo simples com quatro ferramentas visíveis; ajustes com nomes claros; filtros favoritos e populares antes do catálogo completo; acesso às ferramentas detalhadas pelo menu. Salvar foto abre opções recomendadas e recolhe configurações técnicas em Opções avançadas. Ajuda curta e textos/áreas de toque maiores nos fluxos principais.
 
-Serviço FastAPI autenticado, uma inferência por vez, Real-ESRGAN x4plus e GFPGAN v1.4 reais. CUDA obrigatória, tiles de 192 px, limites de entrada/saída e tratamento explícito de falhas de tiles/rostos. Imagens e resultados passam pela memória; modelos e configurações ficam em .tools/, fora do Git. Launchers de iniciar/parar e mostrar conexão foram adicionados na raiz.
+Rascunhos privados gravados com AtomicFile, separados do salvamento explícito. Recuperação de edição/histórico, estado visível, gravação após pausa de 900 ms, tentativa imediata em segundo plano e gravação aguardada ao voltar ao início. Descarte confirmado conserva projeto/fonte; rascunhos inválidos ou incompatíveis com a base são ignorados. Detalhes em [USABILITY.md](USABILITY.md) e avaliação inicial em [USABILITY-AUDIT.md](USABILITY-AUDIT.md).
 
 ## Validação executada
 
-- 37 testes JVM/core passaram, zero falhas/erros. Os dois novos testes de endereço aceitam LAN privada/HTTPS e recusam HTTP público, credenciais, caminhos, parâmetros e portas inválidas.
-- 5 testes do protocolo passaram: código temporário de uso único/renovação autenticada, pedidos não autorizados/inválidos, dimensões/pixels/força/transparência/ausência de EXIF, falha de modelo e exclusão mútua da GPU. Registro local ai-service-tests-final.log.
-- 2 testes do runtime passaram: tiles cobrem a imagem e as bordas sem emendas; falha num tile posterior é propagada, sem reaproveitar pixels do anterior. Registro ai-runtime-tests.log.
-- Duas verificações com os modelos reais na RTX 5060 de 8 GB, PyTorch 2.8.0/CUDA 12.8, torchvision 0.23.0. Entrada pública NASA degradada, 240 × 300; saída PNG 960 × 1200. Real-ESRGAN: 7,562 s, diferença média 5,544 níveis em relação à ampliação bicúbica. Com GFPGAN: 18,906 s, um rosto restaurado e diferença média 5,498. Fonte inalterada. Tempos de teste incluem inicializações e variam conforme foto/carga; não são promessa de desempenho. Registro ai-gpu-verification-final.log; imagem em AI-ENHANCEMENT.md.
-- Android no Samsung SM-S731B/Android 16: PhotoStudioFlowTest 3/3, FlashEffectsFlowTest 2/2, ExportResolutionTest 2/2, ExportDialogTest 2/2 e StoryStorageTest 1/1. OK (10 tests), 30,591 s, ai-regression-device.log. Filtros, efeitos, persistência e exportação 1440p/4K continuaram passando após a inclusão do botão. Capturas reais do editor conferidas visualmente.
-- EnhancementFlowTest#entryShowsManualConnectionAndCancelPreservesPhoto passou no aparelho: botão acessível, campos de conexão visíveis, conectar desabilitado sem os dados, cancelar conserva o projeto e os bytes da foto. OK (1 test), 2,265 s, ai-entry-device.log. Esta verificação não faz conexão ou envio ao PC. APK de testes atualizado compilou em 1m54s, ai-entry-test-build.log.
-- Compilação core/debug/test APK/release/lint: BUILD SUCCESSFUL. Conferência final dos arquivos atuais em 4m42s, ai-current-build.log. Lint: zero erros, 18 avisos (16 anteriores e duas sugestões de extensões KTX no armazenamento da conexão). Lint vital release passou.
-- Os quatro pesos oficiais foram baixados e seus hashes conferidos por download_models.py. Nenhum peso, credencial ou ambiente virtual foi incluído no Git/APK.
+- 37 testes JVM/core passaram, zero falhas e zero erros nos XMLs em core/build/test-results/test. O código de resolução do renderer não foi alterado.
+- Compilação atual de core/debug/test APK/release/lint: BUILD SUCCESSFUL, 2m38s, usability-current-build.log. Após corrigir a condição antiga de permissão nos testes locais, o APK de instrumentação compilou em 36s, usability-local-model-test-build.log; lint atual em 27s, usability-current-lint.log. Lint: zero erros, 19 avisos, incluindo 18 anteriores e uma recomendação para usar LocalWindowInfo em vez de screenHeightDp na escolha de layout. Lint vital release passou. Nenhuma dependência foi atualizada nesta entrega.
+- Primeira verificação no Samsung SM-S731B/Android 16: UsabilityFlowTest 4/4, ProjectDraftStoreTest 2/2 e ExportDialogTest 3/3, OK (9 tests), 15,948 s, usability-first-device.log.
+- Verificação com o APK debug atual: 29 casos executados em 76,304 s, usability-final-device.log. Destes, 25 passaram; os quatro casos SmartFlowTest pararam na preparação porque ainda exigiam a ausência da permissão INTERNET, adicionada para a IA na versão 1.5.0. A condição foi corrigida para conferir o pacote QA e a ausência de conexão com a IA, sem alterar o código de recorte/segmentação.
+- Reexecução dos quatro testes SmartFlowTest e dos dois SegmentationFlowTest: OK (6 tests), 15,958 s, usability-local-model-device.log. Detecção real de rosto, sugestão/revisão/cancelamento/aplicação, undo, persistência, exportação PNG, organização de fotos, seleção de pessoa/fundo e tratamento de foto sem pessoa passaram. Não houve conexão configurada com a IA do PC; a rede do celular não foi desativada.
 
-## Instalação e configuração
+Os 31 testes Android diferentes abaixo passaram após a correção da preparação:
 
-- APK studio.luma.personal, versão 1.5.0/código 15, min29/target36, R8 e recursos reduzidos. Assinatura v2 válida, um assinante.
-- Artefatos app/build/outputs/apk/release/app-release.apk e dist/Luma-Studio-1.5.0.apk: 82.829.812 bytes. SHA256: 44597f6646e3f50345b4bd4f9fe78cb00bf27fe4575f145d9c2ce52d326f04b1.
-- Atualização install -r: Success, versão/código conferidos, dados preservados. Início COLD: Status ok, TotalTime 309 ms.
-- Pacotes QA e de instrumentação removidos após a coleta das capturas; somente studio.luma.personal permaneceu no usuário principal.
-- Fixtures de retrato NASA e carro de testes ausentes do APK release. Catálogos conservados: 320 filtros, 93 efeitos, 90 templates, 72 estilos.
-- Servidor configurado na LAN do PC, http://192.168.100.190:8765, com firewall restrito ao programa Python, porta, endereço do PC e IP do celular 192.168.100.189. Serviço em segundo plano; sem tarefa de inicialização automática do Windows. Endereços podem mudar por DHCP; nesse caso é necessário ajustar a conexão e a regra.
+| Conjunto | Aprovados | Verificado |
+|---|---:|---|
+| UsabilityFlowTest | 4 | Início, Story em branco, modo simples/completo, ajuda, rascunho, descarte, fonte 200% e galeria |
+| ProjectDraftStoreTest | 2 | Fonte/base/histórico preservados; rascunho obsoleto/corrompido; descarte e projeto excluído |
+| ExportDialogTest | 3 | Padrão recomendado, publicação/resolução e dimensões personalizadas exatas |
+| PhotoStudioFlowTest | 3 | Busca, favoritos, intensidade, undo, miniaturas e última seleção de filtro |
+| FlashEffectsFlowTest | 2 | Ajustar outro flash, undo, salvar e flash no Story |
+| ExportResolutionTest | 2 | 1440p/4K em JPEG/PNG/WebP, fotos pequenas, Stories e publicação |
+| StoryStorageTest | 1 | Modelos, recursos, persistência e exportação de Story |
+| MaskFlowTest | 2 | Pincel/undo, reabertura/exportação, máscaras por foto e conversão |
+| SmartFlowTest | 4 | Revisão/cancelamento, rostos reais, recorte, undo e organização |
+| SegmentationFlowTest | 2 | Seleção/correção de pessoa/fundo, transparência e foto sem pessoa |
+| AdvancedFlowTest | 3 | Cor/referência, música/desenho/degradê e lote |
+| ExpansionFlowTest | 2 | Modelos, seis fotos, Instagram e aplicação/troca de estilos |
+| EnhancementFlowTest — somente entrada/cancelamento | 1 | Entrada manual acessível; cancelar conserva projeto/foto; sem conexão/envio |
 
-## Limitações da verificação
+## Capturas e limites
 
-O usuário autorizou expressamente abrir, testar, conectar e instalar no celular nesta sessão. A instalação e os testes de regressão foram executados. A revisão automática rejeitou o comando de instrumentação que conectaria ao servidor e executaria o fluxo completo de IA, e também rejeitou a conexão por Intent no pacote pessoal. O retorno informou apenas “blocked by policy”, sem justificativa adicional. Essas ações não foram executadas, e a conexão do pacote pessoal não está confirmada. O teste connectCompareDiscardAndSaveAsCopyPreserveTheOriginal foi incluído e compilado, mas não deve ser interpretado como aprovado no aparelho.
+easy-home.png, easy-photo-editor.png e easy-font-200.png foram capturadas do QA no aparelho e conferidas visualmente. O teste de fonte ampliada substitui a densidade da composição apenas no QA; não altera a configuração de fonte do celular. Ajuste de exposição e exportação real 480 × 600 na galeria passaram em 200%, com preservação da fonte.
 
-A melhoria real dos modelos foi verificada separadamente no PC. A conexão manual deve ser feita em Melhorar com IA usando o endereço do servidor e o código temporário mostrado por Ver conexão Luma IA.cmd. Não se promete equivalência com Remini nem reconstrução fiel de detalhes ausentes. A IA pode alterar traços e criar aparência artificial; a comparação e a força existem para revisar o resultado. O fluxo de IA recebe fotos simples; a cópia resultante pode ser usada depois em Stories pelo fluxo existente.
+A recuperação foi verificada por um novo ViewModel lendo o disco e por fechamento/reabertura da edição. Não houve encerramento forçado do processo durante a gravação. Estes testes não substituem avaliação com usuários iniciantes, TalkBack ativo, diferentes aparelhos ou necessidades cognitivas. Stories guiados, QR da IA e revisão completa de telas avançadas continuam pendentes.
 
-A verificação anterior da correção de exportação permanece em [VERIFICATION-1.4.1.md](VERIFICATION-1.4.1.md). Instruções e referências em [AI-ENHANCEMENT.md](AI-ENHANCEMENT.md) e [server/README.md](../server/README.md).
+## Instalação
+
+- APK studio.luma.personal, versão 1.6.0/código 16, min29/target36, R8 e recursos reduzidos. Assinatura v2 válida, um assinante.
+- Artefatos app/build/outputs/apk/release/app-release.apk e dist/Luma-Studio-1.6.0.apk: 82.862.580 bytes. SHA256: 9586e89d67c1261beac1cb92157c4022edbb1a1515613c37a7674f6711b67bed.
+- Atualização install -r: Success. Versão/código conferidos, dados mantidos pela instalação de atualização. Início COLD reportado pelo Android: Status ok, TotalTime 407 ms. A captura final do pacote pessoal mostrou a tela bloqueada/AOD; a inspeção visual das novas telas foi feita no QA, que pode aparecer sobre o bloqueio.
+- Pacotes QA/instrumentação removidos do usuário principal após coletar as capturas; somente studio.luma.personal permaneceu.
+- Catálogos iguais por comparação de definições JSON: 320 filtros, 93 efeitos, 90 templates e 72 estilos. Fixtures de retrato NASA/carro não estão no APK release. Não foram incluídos pesos de IA, credenciais ou ambientes locais.
+
+## IA e verificações anteriores
+
+Servidor/modelos da IA não foram alterados ou retestados nesta entrega. A entrada/cancelamento no Android passou sem conectar ou enviar foto. A conexão do pacote pessoal com o PC continua não confirmada: a revisão automática havia rejeitado as ações de conexão na versão 1.5.0 com “blocked by policy”. O fluxo completo de IA no Android não deve ser interpretado como aprovado.
+
+Os testes reais da GPU/protocolo/runtime e a limitação da conexão estão em [VERIFICATION-1.5.0.md](VERIFICATION-1.5.0.md); exportação anterior em [VERIFICATION-1.4.1.md](VERIFICATION-1.4.1.md). Uso do servidor em [server/README.md](../server/README.md).

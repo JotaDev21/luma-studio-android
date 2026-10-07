@@ -72,14 +72,14 @@ class JdmFilterFlowTest {
             assertEquals(.75f,vm.ui.value.edit.filter!!.intensity,.001f)
             compose.onNodeWithTag("look-intensity").performSemanticsAction(SemanticsActions.SetProgress) {it(.72f)}
             compose.runOnUiThread {vm.finishGesture()};ready();capture("flash-portrait-editor.png")
-            compose.onNodeWithText("Explorar looks").performClick()
+            compose.onNodeWithTag("all-filters").performClick()
             compose.onNodeWithTag("look-search").performTextReplacement("flash azul")
             compose.onNode(hasTestTag("look-jdm-night-01") and hasAnyAncestor(hasTestTag("look-grid"))).performClick();ready()
             assertEquals("jdm-night-01",vm.ui.value.edit.filter!!.preset.meta.id)
             compose.onNodeWithTag("look-search").performTextClearance()
             compose.onNode(hasText("Flash 80/90") and hasAnyAncestor(hasTestTag("look-collections"))).performClick();ready()
             capture("flash-portrait-gallery.png",true)
-            compose.onNodeWithText("Usar este look").performClick();ready()
+            compose.onNodeWithText("Usar este filtro").performClick();ready()
             compose.runOnUiThread {vm.save("JDM QA")};ready()
             val saved=runBlocking {store.list().first {it.id==project.id}}
             compose.runOnUiThread {vm.closeEditor()};ready();compose.runOnUiThread {vm.open(saved)};ready()

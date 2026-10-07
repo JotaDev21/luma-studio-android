@@ -1,6 +1,7 @@
 package studio.luma.ui
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.FilterChip
@@ -30,6 +31,6 @@ internal fun catalogMatches(meta:AssetMeta,query:String):Boolean {
 @Composable internal fun CatalogCategories(categories:List<String>,selected:String,action:(String)->Unit,tag:String) {
     val focus=LocalFocusManager.current
     LazyRow(Modifier.testTag(tag),horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-        items(categories.distinct(),key={it}) {category->FilterChip(selected==category,{focus.clearFocus();action(category)},label={Text(catalogLabel(category),fontSize=11.sp)})}
+        items(categories.distinct(),key={it}) {category->FilterChip(selected==category,{focus.clearFocus();action(category)},label={Text(catalogLabel(category),fontSize=14.sp)},modifier=Modifier.heightIn(min=48.dp))}
     }
 }

@@ -29,8 +29,8 @@ import kotlinx.coroutines.CancellationException
         (category=="Todos" || category=="Novos" && template.meta.id.startsWith("social-template-") || category=="Favoritos" && template.meta.id in state.favorites || category=="Meus templates" && state.library.templates.any {it.meta.id==template.meta.id} || category==template.meta.category) && catalogMatches(template.meta,query)
     }
     LazyColumn(modifier.fillMaxSize().testTag("template-list"),contentPadding=PaddingValues(22.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
-        item { Text("Seu próximo Story.",fontSize=30.sp,fontFamily=FontFamily.Serif) }
-        item { Text("Escolha um layout, preencha as fotos e personalize cada detalhe.",color=Muted,fontSize=13.sp) }
+        item { Text("Criar Story",fontSize=30.sp,fontFamily=FontFamily.Serif) }
+        item { Text("1. Escolha um modelo\n2. Adicione suas fotos e textos\n3. Salve na galeria",color=Muted,fontSize=16.sp,lineHeight=24.sp) }
         item { OutlinedTextField(query,{query=it.take(100)},Modifier.fillMaxWidth().testTag("template-search"),placeholder={Text("Buscar: viagem, música, photo dump…",fontSize=12.sp)},singleLine=true,leadingIcon={Icon(Icons.Rounded.Search,null)}) }
         item { CatalogCategories(listOf("Novos","Todos","Favoritos","Meus templates")+state.templates.map {it.meta.category},category,{category=it},"template-categories") }
         item { Text("${templates.size} templates · ${state.templates.size} no catálogo",color=Muted,fontSize=11.sp) }
@@ -56,7 +56,7 @@ import kotlinx.coroutines.CancellationException
                 Icon(if(template.meta.id in state.favorites) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,"Favoritar ${template.meta.name}",tint=Acid)
             }
         }
-        Text(template.meta.name,fontSize=12.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
-        Text("${template.document().missingPhotos} fotos · ${catalogLabel(template.meta.category)}",fontSize=10.sp,color=Muted)
+        Text(template.meta.name,fontSize=16.sp,maxLines=2,overflow=TextOverflow.Ellipsis)
+        Text("${template.document().missingPhotos} fotos · ${catalogLabel(template.meta.category)}",fontSize=14.sp,color=Muted)
     }
 }

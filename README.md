@@ -1,6 +1,6 @@
 # Luma Studio
 
-Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.5.0: fotos, efeitos, Stories, colagens, biblioteca pessoal, máscaras, enquadramento inteligente e melhoria opcional com IA no PC. Android 10 ou superior. Sem conta ou anúncios; a edição funciona localmente, e o botão de melhoria conecta ao servidor pessoal escolhido.
+Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.6.0: modo simples, rascunhos automáticos, fotos, efeitos, Stories, colagens, biblioteca pessoal, máscaras, enquadramento inteligente e melhoria opcional com IA no PC. Android 10 ou superior. Sem conta ou anúncios; a edição funciona localmente, e o botão de melhoria conecta ao servidor pessoal escolhido.
 
 ## Disponível na fase 1
 
@@ -12,7 +12,7 @@ Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.5.0: fotos, efeito
 - Miniaturas calculadas na própria foto e carregadas sob demanda. Paletas da biblioteca são rotuladas e não simulam previews de fotos.
 - Comparação ao segurar e dividida com posição ajustável.
 - Undo/redo de parâmetros; um gesto gera uma entrada no histórico.
-- Projetos locais editáveis, nome, thumbnail e confirmação para salvar/descartar ao sair.
+- Projetos locais editáveis, nome, thumbnail e rascunhos automáticos recuperados ao reabrir. Descartar rascunho exige confirmação.
 - JPEG, PNG, WebP; resolução original após transformação ou tamanho exato do maior lado escolhido, qualidade, metadados opcionais de câmera/data para JPEG e compartilhamento pelo Android.
 
 ## Efeitos e Stories (fases 2 e 3)
@@ -39,7 +39,7 @@ Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.5.0: fotos, efeito
 - Até oito máscaras independentes por foto: pincel com borracha e fluxo, área circular/elíptica e degradê linear. Cada máscara tem nome, intensidade, suavização, inversão, visibilidade e ordem de aplicação.
 - Os mesmos 19 ajustes globais podem ser aplicados somente à área da máscara. Os controles de área e cor ficam separados; a área rosa é uma guia opcional do editor, ausente do arquivo exportado.
 - Máscaras usam coordenadas da fonte orientada pelo EXIF: acompanham recortes, espelhamento e rotação, preservando a imagem original. Traços são vetores serializados; um traço/gesto equivale a uma entrada no histórico.
-- No editor de foto: Máscaras. Em Stories/colagens: selecione uma foto e abra Máscaras da foto. A edição ocorre na foto isolada e Concluir máscaras retorna à composição. Cada foto guarda seus próprios ajustes locais.
+- No editor de foto: Mais ferramentas → Máscaras e retoques. Em Stories/colagens: selecione uma foto e abra Máscaras da foto. A edição ocorre na foto isolada e Concluir máscaras retorna à composição. Cada foto guarda seus próprios ajustes locais.
 - Projetos antigos continuam abrindo; novos salvamentos usam schema 8. Converter foto em Story preserva máscaras. Trocar a foto remove os retoques da fonte anterior. Templates com foto fixa conservam suas máscaras; placeholders descartam os retoques específicos da foto original.
 - Filtros e estilos pessoais conservam o tratamento global; máscaras ficam com a foto do projeto. Limites por máscara: 100 traços, 10.000 pontos totais e 2.048 por traço. Exportação com máscaras usa o mesmo pipeline da prévia e respeita o orçamento de memória.
 
@@ -56,7 +56,7 @@ Detalhes e fontes oficiais em [docs/SEGMENTATION.md](docs/SEGMENTATION.md).
 
 ## Recorte e organização inteligente (0.7.0)
 
-- Foto → Recorte → Recorte inteligente: escolher formato e revisar uma sugestão orientada por rostos/pessoas detectados localmente. Sem detecção, informa o enquadramento central. Ver antes, aplicar ou cancelar; aplicação pode ser desfeita em um passo.
+- Foto → Recortar → Recorte inteligente: escolher formato e revisar uma sugestão orientada por rostos/pessoas detectados localmente. Sem detecção, informa o enquadramento central. Ver antes, aplicar ou cancelar; aplicação pode ser desfeita em um passo.
 - Story/template/colagem → Inteligente: enquadrar a foto selecionada ou organizar fotos em 2–20 molduras visíveis e desbloqueadas. A organização escolhe os espaços mais compatíveis com fotos verticais, horizontais e quadradas, preservando a geometria do layout e as outras camadas.
 - Rostos detectados recebem margem de segurança. Quando todos não cabem na moldura, mostra a foto inteira com margens; em foto simples, conserva o formato original e explica a impossibilidade do recorte solicitado.
 - Fonte, rotação/espelhamento e máscaras acompanham a foto ao trocar de espaço. O enquadramento sugerido redefine crop/zoom/posição usando o original, sem alterar seus pixels. Tudo permanece editável.
@@ -117,6 +117,17 @@ Pipeline e limites em [docs/SMART-FRAMING.md](docs/SMART-FRAMING.md).
 
 Instruções de instalação, uso e limites em [server/README.md](server/README.md). Não é a tecnologia proprietária do Remini; os resultados dependem da foto e dos modelos usados.
 
+## Uso mais simples e rascunhos (1.6.0)
+
+- Início com **Editar foto**, **Criar Story** e **Fazer colagem**, seguido de projetos recentes. Estilos, lote e recursos ficam abaixo; a aba Stories reúne modelos e criação em branco.
+- Editor começa no modo simples com **Filtros**, **Luz e cor**, **Recortar** e **Efeitos** visíveis. Luz e cor prioriza cinco ajustes com nomes claros; favoritos e filtros Flash 80/90, Instagram e retratos entram no carrossel inicial. **Ver todos** mantém busca, coleções e todos os 320 filtros.
+- **Mais ferramentas** oferece máscaras, estilos, cor avançada, modo completo, ajuda e descarte confirmado. As ferramentas e os catálogos anteriores continuam disponíveis.
+- **Salvar foto** abre o salvamento na galeria com opções recomendadas; Original, 1440p e 4K ficam à vista. Formato, qualidade, publicação, tamanho personalizado e metadados ficam em **Opções avançadas**. Os pixels finais continuam informados.
+- Rascunho privado separado do salvamento explícito, com estado visível e recuperação de edição/histórico. O botão voltar guarda o rascunho; **Salvar projeto editável** atualiza o projeto definitivo. A foto original fica preservada.
+- Textos principais maiores e controles essenciais com área de pelo menos 48 dp. No editor de foto, fonte ampliada ou janela baixa ativam uma página rolável. Ajuda curta pode ser aberta novamente a qualquer momento.
+
+Comportamento e limites em [docs/USABILITY.md](docs/USABILITY.md). Fonte em 200% foi verificada no aparelho em um fluxo essencial; avaliação com TalkBack e usuários iniciantes ainda está pendente, assim como Stories guiados e conexão da IA por QR.
+
 ## Compilar
 
 Abra a pasta no Android Studio, configure SDK 36 e JDK 17. Ajuste `local.properties` para o SDK instalado (arquivo específico desta máquina, ignorado pelo Git).
@@ -146,7 +157,7 @@ Os catálogos são próprios. Filtros podem ser regenerados com `python tools/ge
 - “1080p” usa maior lado de 1920 px (9:16: 1080 × 1920); “1440p” usa 2560 (1440 × 2560); “4K” usa 3840 (2160 × 3840). A seleção vale para fotos, Stories e lote, inclusive com formatos de publicação Story/feed/quadrado/perfil/wallpaper. Fotos menores são ampliadas para o tamanho solicitado; isso não recupera detalhes ausentes. Stories são compostos na resolução escolhida, mantendo a proporção do canvas. “Original” conserva o tamanho nativo no modo Livre e o tamanho base no formato de publicação. Dimensões personalizadas são exatas e substituem o seletor de resolução. O diálogo mostra os pixels finais para formatos de publicação e Stories, e o maior lado escolhido para fotos em Livre.
 - PNG é sem perdas. WebP com qualidade 100 usa modo sem perdas no Android 11+; Android 10 usa o compressor disponível naquela versão.
 - Histórico guarda até 80 entradas na sessão; os últimos 20 estados de cada direção são salvos com o projeto.
-- Alterações precisam ser salvas explicitamente; importar a fonte já cria um projeto inicial local.
+- Importar a fonte cria um projeto inicial local. Alterações ficam em rascunhos automáticos após uma pausa de 900 ms, com tentativa imediata ao mandar o app para segundo plano ou voltar ao início. Aguarde Rascunho salvo: um encerramento abrupto antes da gravação pode perder as últimas alterações. Salvar projeto editável confirma as alterações no projeto; descartar rascunho volta ao último salvamento explícito.
 - Exclusão na biblioteca não remove cópias já usadas por projetos. Arquivos originais da galeria e exportações não são apagados ao excluir projetos.
 - Packs suportam filtros/efeitos/templates/estilos, fontes, LUTs e imagens. Limites: 300 itens/80 arquivos por pack, 64 MB comprimidos/descompactados, manifesto 2 MB, arquivo 16 MB, imagem 32 MP, fonte 5 MB e LUT 4 MB. Biblioteca pessoal até 3000 itens; exportação de biblioteca respeita o limite de um pack.
 - Efeitos de flicker, gate weave e datamosh são interpretações estáticas para fotos, identificadas como still; não há animação ou processamento de vídeo. Textura de jornal/papel/canvas etc. é procedural, sem assets premium. Cards de música usam conteúdo manual e não se conectam a serviços de streaming.

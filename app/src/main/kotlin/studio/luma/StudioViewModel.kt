@@ -14,6 +14,7 @@ import studio.luma.data.*
 import studio.luma.renderer.*
 
 enum class Page { HOME, LIBRARY, PROJECTS, TEMPLATES, STYLES, PACKS, EDITOR }
+enum class DraftState { WAITING, SAVING, SAVED, FAILED }
 data class EnhancementProposal(val file:java.io.File,val before:Bitmap,val after:Bitmap,val width:Int,val height:Int)
 data class StudioUi(
     val page: Page = Page.HOME, val filters: List<FilterPreset> = emptyList(), val favorites: Set<String> = emptySet(),
@@ -28,12 +29,16 @@ data class StudioUi(
     val smartProposal:SmartProposal?=null,val recentStyles:List<String> = emptyList(),
     val batchProgress:Int=0,val batchTotal:Int=0,
     val enhancementConnected:Boolean=false,val enhancementEndpoint:String="",val enhancing:Boolean=false,val enhancementProposal:EnhancementProposal?=null,
+    val draftState:DraftState=DraftState.SAVED,
     val busy: Boolean = true, val rendering: Boolean = false, val error: String? = null,
     val canUndo: Boolean = false, val canRedo: Boolean = false, val savedEdit: EditState = EditState(), val exported: Uri? = null
 ) { val dirty get() = project != null && edit != savedEdit }
 
 class StudioViewModel(application: Application) : AndroidViewModel(application) {
     private val store = StudioStore(application)
+    private val drafts=ProjectDraftStore(application)
+    private var draftJob:Job?=null
+    private var draftRevision=0
     private val renderer = GpuRenderer()
     private val thumbnailRenderer=GpuRenderer()
     private val thumbnailSlots=Semaphore(2)
@@ -122,8 +127,10 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
         mutable.update {it.copy(busy=true)}
         var created:Project?=null
         try {
+            draftJob?.cancelAndJoin()
             val saved=original.copy(schemaVersion=8,edit=state.edit,history=history.snapshot(),updatedAt=System.currentTimeMillis())
             store.save(saved,state.preview)
+            drafts.clear(original.id)
             mutable.update {it.copy(project=saved,savedEdit=state.edit)}
             val imported=store.import(Uri.fromFile(proposal.file))
             created=imported
@@ -146,14 +153,56 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
         try { openInternal(project) } catch (e: Exception) { fail(e) }
     }
     private suspend fun openInternal(project: Project, filter: FilterPreset? = null) {
+        draftJob?.cancelAndJoin()
+        val previous=ui.value
+        if(previous.dirty && previous.project?.id!=project.id) writeDraft(previous)
+        val recovered=drafts.read(project)
+        val working=recovered ?: project
         filterJob?.cancel();filterRequest++;previewJob?.cancelAndJoin(); generation++; beforeTransform = null
-        val source = if(project.edit.story!=null) null else withContext(Dispatchers.IO) { ImageSource.decode(store.source(project), 1280) }
-        val edit = if (filter != null) project.edit.copy(filter = FilterSelection(filter,filter.savedIntensity),adjustments=filter.savedAdjustments ?: project.edit.adjustments,color=filter.savedColor ?: project.edit.color) else project.edit
+        val source = if(working.edit.story!=null) null else withContext(Dispatchers.IO) { ImageSource.decode(store.source(project), 1280) }
+        val edit = if (filter != null) working.edit.copy(filter = FilterSelection(filter,filter.savedIntensity),adjustments=filter.savedAdjustments ?: working.edit.adjustments,color=filter.savedColor ?: working.edit.color) else working.edit
         filter?.let {store.copyAssets(it.assetNames(),store.directory(project.id))}
-        history = EditHistory(project.edit,restored=project.history); history.commit(edit)
+        history = EditHistory(working.edit,restored=working.history); history.commit(edit)
         mutable.update { it.copy(page = Page.EDITOR, project = project, source = source, preview = null, before = null,
-            smartProposal=null,thumbnailRevision=it.thumbnailRevision+1,edit = edit, savedEdit = project.edit, thumbnails = emptyMap(), selectedLayer=edit.story?.layers?.lastOrNull()?.id, maskEditor=false,maskLayerId=null,maskSource=null,maskPreview=null,selectedMask=null,busy = false, canUndo = history.canUndo, canRedo = history.canRedo, exported = null) }
+            smartProposal=null,thumbnailRevision=it.thumbnailRevision+1,edit = edit, savedEdit = project.edit, thumbnails = emptyMap(), selectedLayer=edit.story?.layers?.lastOrNull()?.id, maskEditor=false,maskLayerId=null,maskSource=null,maskPreview=null,selectedMask=null,busy = false, canUndo = history.canUndo, canRedo = history.canRedo, exported = null,draftState=DraftState.SAVED,notice=if(recovered!=null) "Suas últimas alterações foram recuperadas." else it.notice) }
+        if(filter!=null) scheduleDraft()
         render()
+    }
+    private suspend fun writeDraft(state:StudioUi) {
+        val project=state.project ?: return
+        if(state.dirty) {
+            val snapshot=EditHistory(history.current,restored=history.snapshot())
+            // Include an unfinished slider gesture in recovery without changing live undo.
+            snapshot.commit(state.edit)
+            drafts.write(project,project.copy(schemaVersion=8,edit=state.edit,history=snapshot.snapshot(),updatedAt=System.currentTimeMillis()))
+        } else drafts.clear(project.id)
+    }
+    private fun scheduleDraft(delayMs:Long=900) {
+        draftJob?.cancel()
+        val revision=++draftRevision
+        mutable.update {it.copy(draftState=DraftState.WAITING)}
+        draftJob=viewModelScope.launch {
+            delay(delayMs)
+            val state=ui.value
+            if(state.project==null || state.page!=Page.EDITOR) return@launch
+            try {
+                mutable.update {it.copy(draftState=DraftState.SAVING)}
+                writeDraft(state)
+                ensureActive()
+                if(revision==draftRevision) mutable.update {it.copy(draftState=DraftState.SAVED)}
+            } catch(e:CancellationException) {throw e}
+            catch(e:Exception) {if(revision==draftRevision) mutable.update {it.copy(draftState=DraftState.FAILED)}}
+        }
+    }
+    fun flushDraft() {if(!ui.value.busy && ui.value.page==Page.EDITOR) scheduleDraft(0)}
+    fun keepDraftAndClose()=viewModelScope.launch {
+        if(ui.value.busy) return@launch
+        mutable.update {it.copy(busy=true)}
+        try {
+            filterJob?.cancelAndJoin();finishGesture();draftJob?.cancelAndJoin()
+            writeDraft(ui.value)
+            closeEditorInternal()
+        } catch(e:Exception) {fail(e)}
     }
     fun update(next: EditState, commit: Boolean = true) {
         if (ui.value.busy) return
@@ -165,9 +214,10 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
         if (commit) history.commit(next)
         mutable.update { it.copy(edit = next,thumbnailRevision=it.thumbnailRevision+if(changedPreviewContext) 1 else 0,thumbnails=if(changedPreviewContext) emptyMap() else it.thumbnails, canUndo = history.canUndo, canRedo = history.canRedo, exported = null) }
         if(leaveMasks) mutable.update {it.copy(maskEditor=false,maskLayerId=null,maskSource=null,maskPreview=null,selectedMask=null)}
+        scheduleDraft()
         render()
     }
-    fun finishGesture() { history.commit(ui.value.edit); mutable.update { it.copy(canUndo = history.canUndo, canRedo = history.canRedo) } }
+    fun finishGesture() { history.commit(ui.value.edit); mutable.update { it.copy(canUndo = history.canUndo, canRedo = history.canRedo) };if(ui.value.project!=null) scheduleDraft() }
     fun undo() { update(history.undo(), false) }
     fun redo() { update(history.redo(), false) }
     fun applyFilter(preset: FilterPreset?):Job {
@@ -504,10 +554,13 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
         val edit = ui.value.edit
         mutable.update { it.copy(busy = true) }
         try {
+            draftJob?.cancelAndJoin()
+            history.commit(edit)
             previewJob?.join()
             val updated = project.copy(schemaVersion=8,history=history.snapshot(),name = name.trim().take(100).ifEmpty { "Sem título" }, updatedAt = System.currentTimeMillis(), edit = edit)
             store.save(updated, ui.value.preview)
-            mutable.update { it.copy(project = updated, savedEdit = edit, projects = store.list(), busy = false) }
+            drafts.clear(project.id)
+            mutable.update { it.copy(project = updated, savedEdit = edit, projects = store.list(), busy = false,draftState=DraftState.SAVED) }
         } catch (e: Exception) { fail(e) }
     }
     fun export(options: ExportOptions) = viewModelScope.launch {
@@ -520,11 +573,16 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
         if (ui.value.busy || ui.value.dirty && !discard) return@launch
         mutable.update {it.copy(busy=true)}
         try {
-            discardEnhancement()
-            filterJob?.cancel();filterRequest++;previewJob?.cancelAndJoin(); generation++
-            val projects=store.list()
-            mutable.update { it.copy(busy=false,rendering=false,smartProposal=null,page = Page.HOME, project = null, source = null, preview = null, before = null, thumbnails = emptyMap(), projects = projects) }
+            draftJob?.cancelAndJoin()
+            if(discard) ui.value.project?.let {drafts.clear(it.id)}
+            closeEditorInternal()
         } catch(e:Exception) {fail(e);render()}
+    }
+    private suspend fun closeEditorInternal() {
+        discardEnhancement()
+        filterJob?.cancelAndJoin();filterRequest++;previewJob?.cancelAndJoin(); generation++
+        val projects=store.list()
+        mutable.update {it.copy(busy=false,rendering=false,smartProposal=null,page=Page.HOME,project=null,source=null,preview=null,before=null,thumbnails=emptyMap(),projects=projects,draftState=DraftState.SAVED)}
     }
     fun importResource(uri:Uri,kind:String,name:String)=libraryAction {store.importResource(uri,kind,name);"Recurso importado."}
     fun duplicateLibrary(id:String)=libraryAction {
@@ -536,7 +594,7 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
         "Cópia adicionada à biblioteca."
     }
     fun removeLibrary(id:String)=libraryAction {store.removeLibrary(setOf(id));"Item removido da biblioteca."}
-    fun deleteProject(id:String)=viewModelScope.launch {try {store.deleteProject(id);mutable.update {it.copy(projects=store.list())}} catch(e:Exception) {fail(e)}}
+    fun deleteProject(id:String)=viewModelScope.launch {try {if(ui.value.project?.id==id) draftJob?.cancelAndJoin();store.deleteProject(id);mutable.update {it.copy(projects=store.list())}} catch(e:Exception) {fail(e)}}
     fun resourceFile(name:String)=store.assetFile(name)
     fun prepareResource(resource:LocalAsset)=viewModelScope.launch {try {ui.value.project?.let {store.copyAssets(setOf(resource.asset),store.directory(it.id))}} catch(e:Exception) {fail(e)}}
     fun useResource(resource:LocalAsset)=viewModelScope.launch {

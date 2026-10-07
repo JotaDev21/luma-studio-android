@@ -36,4 +36,5 @@ class MainActivity : ComponentActivity() {
         }
     }
     override fun onNewIntent(intent:Intent) {super.onNewIntent(intent);setIntent(intent);readPcConnection(intent)}
+    override fun onStop() {studio.flushDraft();super.onStop()}
 }

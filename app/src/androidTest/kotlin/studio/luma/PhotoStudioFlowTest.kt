@@ -49,7 +49,7 @@ class PhotoStudioFlowTest {
     @Test fun gallerySearchFavoritesIntensityAndUndoStayClear()=withPhoto(true) {vm,store,_ ->
         val favorites=runBlocking {store.favorites()}
         try {
-            compose.onNodeWithText("Explorar looks").performClick()
+            compose.onNodeWithTag("all-filters").performClick()
             compose.onNodeWithTag("look-search").performTextReplacement("filme")
             compose.onNode(hasTestTag("look-amber-35") and hasAnyAncestor(hasTestTag("look-grid"))).assertIsDisplayed()
             compose.onNodeWithTag("look-search").performTextReplacement("petala")
@@ -63,10 +63,10 @@ class PhotoStudioFlowTest {
             compose.onNode(card).assertIsDisplayed();compose.onNodeWithTag("look-search").assertIsNotFocused()
             compose.onNode(hasTestTag("look-intensity") and hasAnyAncestor(hasTestTag("look-browser"))).performSemanticsAction(SemanticsActions.SetProgress) {it(.42f)};ready()
             capture("look-gallery.png",true)
-            compose.onNodeWithText("Usar este look").performClick();ready()
+            compose.onNodeWithText("Usar este filtro").performClick();ready()
             assertEquals(.42f,vm.ui.value.edit.filter!!.intensity,.01f)
             capture("photo-editor.png")
-            compose.onNode(hasText("Ajustes") and hasAnyAncestor(hasTestTag("photo-tools"))).performClick()
+            compose.onNode(hasText("Luz e cor") and hasAnyAncestor(hasTestTag("photo-tools"))).performClick()
             compose.onNodeWithTag("photo-adjustment").performSemanticsAction(SemanticsActions.SetProgress) {it(.35f)};ready()
             // Leaving a slider commits its gesture, so undo reverses the look alone.
             compose.onNode(hasText("Filtros") and hasAnyAncestor(hasTestTag("photo-tools"))).performClick()

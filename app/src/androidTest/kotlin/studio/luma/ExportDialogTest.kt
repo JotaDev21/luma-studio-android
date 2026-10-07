@@ -16,8 +16,17 @@ import studio.luma.ui.LumaTheme
 class ExportDialogTest {
     @get:Rule val compose=createComposeRule()
     private fun choose(row:String,value:String) {
+        if(row=="export-publication" && compose.onAllNodesWithTag(row).fetchSemanticsNodes().isEmpty()) compose.onNodeWithTag("export-advanced").performClick()
         compose.onNodeWithTag(row).performScrollTo().performScrollToNode(hasText(value))
         compose.onNodeWithText(value).performClick()
+    }
+    @Test fun recommendedSaveDoesNotRequireChoosingTechnicalOptions() {
+        var selected:ExportOptions?=null
+        compose.setContent {LumaTheme {ExportDialog({}) {selected=it}}}
+        compose.onNodeWithTag("export-publication").assertDoesNotExist()
+        compose.onNodeWithText("Formato").assertDoesNotExist()
+        compose.onNodeWithText("Salvar na galeria").assertIsDisplayed().performClick()
+        compose.runOnIdle {assertEquals(ExportOptions(),selected)}
     }
 
     @Test fun storyPresetAndResolutionProduceTheSameDimensionsInEitherSelectionOrder() {

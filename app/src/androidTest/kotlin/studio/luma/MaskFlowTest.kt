@@ -41,7 +41,7 @@ class MaskFlowTest {
         try {
             compose.runOnUiThread {vm.open(project)};ready()
             compose.runOnUiThread {vm.update(vm.ui.value.edit.copy(transform=Transform(quarterTurns=1)))};ready()
-            compose.onNodeWithTag("photo-tools").performScrollToNode(hasText("Máscaras"));compose.onNodeWithText("Máscaras").performClick()
+            compose.onNodeWithContentDescription("Mais ferramentas").performClick();compose.onNodeWithText("Máscaras e retoques").performClick()
             compose.waitUntil(20000) {vm.ui.value.maskPreview!=null && !vm.ui.value.rendering}
             compose.onNodeWithText("+ Pincel").performClick();ready()
             compose.onNodeWithTag("mask-photo").performTouchInput {down(Offset(width*.25f,height*.5f));moveTo(Offset(width*.75f,height*.5f),500);up()}

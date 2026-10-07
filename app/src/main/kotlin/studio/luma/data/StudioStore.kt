@@ -161,7 +161,7 @@ class StudioStore(private val context: Context) {
     suspend fun list(): List<Project> = withContext(Dispatchers.IO) {
         projects.listFiles()?.filter { it.isDirectory }?.mapNotNull { dir ->
             runCatching { val p = ProjectJson.decodeFromString<Project>(AtomicFile(File(dir, "project.json")).openRead().bufferedReader().use { it.readText() }); p.validate(); require(p.id == dir.name && (p.edit.story!=null || source(p).isFile)); p }.getOrNull()
-        }?.sortedByDescending { it.updatedAt } ?: emptyList()
+        }?.sortedByDescending {maxOf(it.updatedAt,File(directory(it.id),"draft.json").lastModified())} ?: emptyList()
     }
     suspend fun save(project: Project, preview: Bitmap? = null): Unit = withContext(Dispatchers.IO) {
         project.validate(); val dir = directory(project.id).apply { mkdirs() }

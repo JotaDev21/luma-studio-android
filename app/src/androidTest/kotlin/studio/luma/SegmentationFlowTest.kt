@@ -1,6 +1,5 @@
 package studio.luma
 
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -28,18 +27,20 @@ class SegmentationFlowTest {
         compose.runOnUiThread {compose.activity.setShowWhenLocked(true);compose.activity.setTurnScreenOn(true);compose.activity.window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)}
         compose.waitUntil(10000) {compose.onAllNodes(isRoot()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
         ready()
-        assertEquals(PackageManager.PERMISSION_DENIED,compose.activity.packageManager.checkPermission("android.permission.INTERNET",compose.activity.packageName))
+        assertTrue(compose.activity.packageName.endsWith(".qa"))
+        // Optional PC enhancement has Internet permission; this flow uses the bundled segmenter.
+        assertFalse(compose.activity.studio.ui.value.enhancementConnected)
     }
     private fun ready()=compose.waitUntil(30000) {!compose.activity.studio.ui.value.busy && !compose.activity.studio.ui.value.rendering}
     private fun openMasks() {
-        compose.onNodeWithTag("photo-tools").performScrollToNode(hasText("Máscaras"));compose.onNodeWithText("Máscaras").performClick()
+        compose.onNodeWithContentDescription("Mais ferramentas").performClick();compose.onNodeWithText("Máscaras e retoques").performClick()
         try {compose.waitUntil(20000) {compose.activity.studio.ui.value.maskPreview!=null && !compose.activity.studio.ui.value.rendering}}
         catch(e:androidx.compose.ui.test.ComposeTimeoutException) {
             val state=compose.activity.studio.ui.value
             throw AssertionError("Masks failed to open: page=${state.page}, editor=${state.maskEditor}, busy=${state.busy}, rendering=${state.rendering}, error=${state.error}",e)
         }
     }
-    @Test fun portraitInferenceSelectionCorrectionCutoutReopenAndExportWorkWithoutNetworkPermission() {
+    @Test fun bundledPortraitInferenceSelectionCorrectionCutoutReopenAndExportWorkWithoutPcConnection() {
         val vm=compose.activity.studio;val store=StudioStore(compose.activity)
         val file=File(compose.activity.cacheDir,"segmentation-portrait.jpg")
         InstrumentationRegistry.getInstrumentation().context.assets.open("portrait-nasa.jpg").use {input->file.outputStream().use {input.copyTo(it)}}

@@ -31,8 +31,7 @@ class FlashEffectsFlowTest {
         compose.runOnUiThread {vm.import(Uri.fromFile(file))};ready()
         val project=vm.ui.value.project!!;val bytes=store.source(project).readBytes()
         try {
-            compose.onNodeWithTag("photo-tools").performScrollToNode(hasContentDescription("Efeitos"))
-            compose.onNodeWithContentDescription("Efeitos").performClick()
+            compose.onNode(hasText("Efeitos") and hasAnyAncestor(hasTestTag("photo-tools"))).assertIsDisplayed().performClick()
             compose.onNode(hasText("Flash") and hasAnyAncestor(hasTestTag("effect-categories"))).performClick()
             compose.onNodeWithTag("effect-flash-effect-bolso").performClick();ready()
             assertEquals("flash-effect-bolso",vm.ui.value.edit.effects.last().preset.meta.id)

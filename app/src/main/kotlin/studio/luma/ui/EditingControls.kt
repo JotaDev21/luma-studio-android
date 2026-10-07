@@ -121,7 +121,7 @@ internal val adjustments = listOf(
     val outputRatio = if (transform.quarterTurns % 2 == 0) croppedRatio else 1f / croppedRatio
     val ratios = listOf("Livre" to 0f, "9:16" to 9f/16, "4:5" to .8f, "1:1" to 1f, "1.91:1" to 1.91f)
     val selected = ratios.firstOrNull { it.second > 0 && abs(it.second - outputRatio) < .015f }?.first ?: "Livre"
-    Column(Modifier.fillMaxWidth().height(153.dp).padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(Modifier.fillMaxWidth().heightIn(min=153.dp).padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         CategoryRow(ratios.map { it.first }, selected) { value ->
             val desired = ratios.first { it.first == value }.second
             val target = if (transform.quarterTurns % 2 == 0 || desired == 0f) desired else 1f / desired
@@ -135,7 +135,7 @@ internal val adjustments = listOf(
             IconButton(onClick = { vm.update(state.edit.copy(transform = transform.copy(flipY = !transform.flipY))) }) { Icon(Icons.Rounded.FlipCameraAndroid, "Espelhar verticalmente", tint = if (transform.flipY) Acid else Muted) }
             IconButton(onClick = { vm.update(state.edit.copy(transform = Transform())) }) { Icon(Icons.Rounded.RestartAlt, "Redefinir transformação") }
         }
-        TextButton(onClick = { smart = true }, modifier = Modifier.height(36.dp), contentPadding = PaddingValues(0.dp)) { Text("Recorte inteligente", fontSize = 12.sp) }
+        TextButton(onClick = { smart = true }, modifier = Modifier.heightIn(min=48.dp), contentPadding = PaddingValues(0.dp)) { Text("Recorte inteligente", fontSize = 14.sp) }
     }
     if(smart) SmartCropFormatDialog(outputRatio,vm) {smart=false}
 }

@@ -33,7 +33,7 @@ class AdvancedFlowTest {
         val project=runBlocking {store.import(Uri.fromFile(file))}
         try {
             compose.runOnUiThread {vm.open(project)};ready()
-            compose.onNodeWithText("Modo rápido").performClick();compose.onNodeWithTag("photo-tools").performScrollToNode(hasText("Avançado"));compose.onNodeWithText("Avançado").performClick();compose.onNodeWithText("Cor Pro").performClick()
+            compose.onNodeWithContentDescription("Mais ferramentas").performClick();compose.onNodeWithText("Cor e ferramentas avançadas").performClick();compose.onNodeWithText("Cor Pro").performClick()
             compose.onNodeWithText("HSL").performClick();compose.onNodeWithTag("Saturação").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.SetProgress) {it(-.4f)};ready()
             capture("pro-hsl.png");compose.onNodeWithText("Pronto").performClick()
             val manual=vm.ui.value.edit;assertEquals(-.4f,manual.color.hsl[0].saturation,.02f)

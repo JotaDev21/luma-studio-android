@@ -20,6 +20,7 @@ import androidx.compose.material.icons.automirrored.rounded.*
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -55,12 +56,7 @@ import java.io.File
     }
     val choose: (FilterPreset?) -> Unit = { pendingFilter = it;pendingStyle=null; picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
     val chooseStyle:(StylePreset)->Unit={pendingStyle=it;pendingFilter=null;picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))}
-    var leave by remember { mutableStateOf(false) }
-    var saveThenLeave by remember { mutableStateOf(false) }
-    val back = { if (!state.busy) { if (state.dirty) leave = true else vm.closeEditor() }; Unit }
-    LaunchedEffect(state.busy, state.dirty, saveThenLeave) {
-        if (saveThenLeave && !state.busy && !state.dirty) { saveThenLeave = false; vm.closeEditor() }
-    }
+    val back = { if (!state.busy) vm.keepDraftAndClose(); Unit }
     BackHandler(state.page == Page.EDITOR) { if(state.maskEditor) vm.closeMasks() else back() }
     BackHandler(state.page != Page.HOME && state.page != Page.EDITOR) { vm.page(Page.HOME) }
     Surface(Modifier.fillMaxSize(), color = Ink) {
@@ -71,7 +67,7 @@ import java.io.File
                 containerColor = Ink,
                 bottomBar = {
                     NavigationBar(containerColor = Ink, tonalElevation = 0.dp) {
-                        listOf(Triple(Page.HOME, "Início", Icons.Rounded.Home), Triple(Page.LIBRARY, "Filtros", Icons.Rounded.AutoAwesome), Triple(Page.TEMPLATES, "Templates", Icons.Rounded.Dashboard), Triple(Page.PROJECTS, "Projetos", Icons.Rounded.FolderOpen)).forEach { (page, label, icon) ->
+                        listOf(Triple(Page.HOME, "Início", Icons.Rounded.Home), Triple(Page.LIBRARY, "Filtros", Icons.Rounded.AutoAwesome), Triple(Page.TEMPLATES, "Stories", Icons.Rounded.Dashboard), Triple(Page.PROJECTS, "Projetos", Icons.Rounded.FolderOpen)).forEach { (page, label, icon) ->
                             NavigationBarItem(selected = state.page == page, onClick = { vm.page(page) }, icon = { Icon(icon, label) }, label = { Text(label) }, colors = NavigationBarItemDefaults.colors(indicatorColor = Panel, selectedIconColor = Acid, selectedTextColor = Acid))
                         }
                     }
@@ -101,10 +97,7 @@ import java.io.File
     SmartProposalDialog(state,vm)
     if(batch) BatchDialog(state,vm) {batch=false}
     if(collage) CollageDialog(vm) {collage=false}
-    if (leave) AlertDialog(onDismissRequest = { leave = false }, title = { Text("Salvar suas alterações?") }, text = { Text("O projeto salvo continuará editável. A foto original está preservada.") },
-        confirmButton = { TextButton(onClick = { leave = false; saveThenLeave = true; vm.save() }) { Text("Salvar e sair") } },
-        dismissButton = { Row { TextButton(onClick = { leave = false }) { Text("Continuar") }; TextButton(onClick = { leave = false; vm.closeEditor(true) }) { Text("Descartar") } } })
-    state.error?.let { error -> AlertDialog(onDismissRequest = { saveThenLeave = false; vm.clearError() }, title = { Text("Não foi possível concluir") }, text = { Text(error) }, confirmButton = { TextButton(onClick = { saveThenLeave = false; vm.clearError() }) { Text("Entendi") } }) }
+    state.error?.let { error -> AlertDialog(onDismissRequest = vm::clearError, title = { Text("Não foi possível concluir") }, text = { Text(error) }, confirmButton = { TextButton(onClick = vm::clearError) { Text("Entendi") } }) }
 }
 
 @Composable private fun Wordmark() {
@@ -114,71 +107,40 @@ import java.io.File
             Text("luma", fontSize = 28.sp, fontWeight = FontWeight.Bold, letterSpacing = (-1).sp)
             Text("STUDIO", color = Muted, fontSize = 10.sp, letterSpacing = 2.sp)
         }
-        Text("LOCAL / PRIVATE", color = Acid, fontSize = 9.sp, letterSpacing = 1.sp)
+        Text("Seu estúdio", color = Acid, fontSize = 12.sp)
     }
 }
 
 @Composable private fun Home(state: StudioUi, vm: StudioViewModel, choose: (FilterPreset?) -> Unit, collage:()->Unit,batch:()->Unit,modifier: Modifier) {
-    LazyColumn(modifier.fillMaxSize(), contentPadding = PaddingValues(22.dp), verticalArrangement = Arrangement.spacedBy(24.dp)) {
+    var help by rememberSaveable {mutableStateOf(false)}
+    LazyColumn(modifier.fillMaxSize().testTag("home-screen"), contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         item { Wordmark() }
         item {
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text("Seu olhar.\nSua assinatura.", fontSize = 36.sp, lineHeight = 39.sp, fontWeight = FontWeight.Bold, letterSpacing = (-1).sp)
-                Text("Um espaço só seu para criar.", color = Muted, fontSize = 14.sp)
+                Text("O que você quer criar?", fontSize = 28.sp, lineHeight = 34.sp, fontWeight = FontWeight.Bold)
+                Text("Escolha uma opção para começar.", color = Muted, fontSize = 16.sp)
             }
         }
-        item {
-            Box(Modifier.fillMaxWidth().height(235.dp).clip(RoundedCornerShape(24.dp)).background(Color(0xFF293629)).clickable { choose(null) }) {
-                PosterArt(Modifier.fillMaxSize())
-                Column(Modifier.fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.SpaceBetween) {
-                    Text("PHOTO STUDIO  /  01", color = Color.White.copy(alpha = .75f), fontSize = 10.sp, letterSpacing = 2.sp)
-                    Text("MAKE IT\nFEEL LIKE\nYOU.", fontSize = 37.sp, lineHeight = 36.sp, fontWeight = FontWeight.Black, color = Color(0xFFF1F5E5))
-                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text("Editar uma foto", fontWeight = FontWeight.SemiBold)
-                        Surface(shape = RoundedCornerShape(50), color = Acid) { Icon(Icons.AutoMirrored.Rounded.ArrowForward, "Editar uma foto", tint = Ink, modifier = Modifier.padding(10.dp)) }
-                    }
-                }
-            }
-        }
-        item {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                ActionTile("Photo editor", "Seu próximo look", Icons.Rounded.Tune, Acid, Modifier.weight(1f)) { choose(null) }
-                ActionTile("Filtros", "${state.filters.size} looks originais", Icons.Rounded.AutoAwesome, Lilac, Modifier.weight(1f)) { vm.page(Page.LIBRARY) }
-            }
-        }
-        item {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                ActionTile("Story Maker", "Crie em camadas", Icons.Rounded.Layers, Lilac, Modifier.weight(1f)) { vm.createStory() }
-                ActionTile("Templates", "${state.templates.size} composições editáveis", Icons.Rounded.Dashboard, Acid, Modifier.weight(1f)) { vm.page(Page.TEMPLATES) }
-            }
-        }
-        item {
-            Row(horizontalArrangement=Arrangement.spacedBy(12.dp)) {
-                ActionTile("Colagens","Fotos em composição",Icons.Rounded.GridView,Acid,Modifier.weight(1f),collage)
-                ActionTile("Style Lab","Sua assinatura visual",Icons.Rounded.Palette,Lilac,Modifier.weight(1f)) {vm.page(Page.STYLES)}
-            }
-        }
-        item {ActionTile("Editar em lote","Até 20 fotos de uma vez",Icons.Rounded.Collections,Acid,Modifier.fillMaxWidth(),batch)}
-        item {ActionTile("Minha biblioteca","Importe e exporte packs",Icons.Rounded.Inventory2,Lilac,Modifier.fillMaxWidth()) {vm.page(Page.PACKS)}}
-        item {
-            SectionLabel("Sua biblioteca", "${state.favorites.size} favoritos")
-            Spacer(Modifier.height(12.dp))
-            LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                items(state.filters.filter { it.meta.id in state.favorites }.ifEmpty { state.filters.take(6) }, key = { it.meta.id }) { preset -> PaletteCard(preset, preset.meta.id in state.favorites, { choose(preset) }, { vm.toggleFavorite(preset.meta.id) }) }
-            }
-        }
-        if(state.recentStyles.isNotEmpty()) item {SectionLabel("Estilos recentes","Sua assinatura");LazyRow(horizontalArrangement=Arrangement.spacedBy(8.dp)) {items(state.recentStyles.mapNotNull {id->state.styles.firstOrNull {it.meta.id==id}},key={it.meta.id}) {style->TextButton(onClick={vm.page(Page.STYLES)}) {Text(style.meta.name,fontSize=11.sp)}}}}
-        item { SectionLabel("Continue de onde parou", "Projetos locais") }
-        if (state.projects.isEmpty()) item { EmptyState("Seu próximo projeto começa aqui.", "Abra uma foto e salve sua primeira edição.", Icons.Rounded.FolderOpen) }
+        item {HomeAction("Editar foto","Escolha uma foto e mude o visual",Icons.Rounded.AddPhotoAlternate,"home-photo",Acid) {choose(null)}}
+        item {HomeAction("Criar Story","Escolha um modelo ou comece em branco",Icons.Rounded.Dashboard,"home-story",Lilac) {vm.page(Page.TEMPLATES)}}
+        item {HomeAction("Fazer colagem","Junte várias fotos em uma imagem",Icons.Rounded.GridView,"home-collage",Acid,collage)}
+        item {SectionLabel("Continue de onde parou")}
+        if (state.projects.isEmpty()) item {EmptyState("Seus projetos aparecerão aqui.","Suas edições têm rascunho automático.",Icons.Rounded.FolderOpen)}
         else items(state.projects.take(3), key = { it.id }) { ProjectRow(it, vm.thumbFile(it)) { vm.open(it) } }
-        item {
-            Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp)).background(Panel).padding(18.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) { Icon(Icons.Rounded.Science, null, tint = Lilac); Text("O estúdio está crescendo", fontWeight = FontWeight.Medium) }
-                Text("Próximas fases", color = Lilac, fontSize = 11.sp)
-                Text("Vídeo e IA generativa opcional", color = Muted, fontSize = 12.sp, lineHeight = 19.sp)
-                Text("Foto e Stories são processados localmente. Vídeo e geração por IA ficam para uma versão futura.", color = Muted, fontSize = 11.sp)
-            }
-        }
+        item {SectionLabel("Sua biblioteca")}
+        item {HomeAction("Estilos prontos","Combine filtros e efeitos",Icons.Rounded.Palette,"home-styles",Lilac) {vm.page(Page.STYLES)}}
+        item {HomeAction("Editar várias fotos","Aplique um estilo em até 20 fotos",Icons.Rounded.Collections,"home-batch",Acid,batch)}
+        item {HomeAction("Importar e guardar recursos","Seus filtros, modelos e arquivos",Icons.Rounded.Inventory2,"home-packs",Lilac) {vm.page(Page.PACKS)}}
+        item {OutlinedButton(onClick={help=true},modifier=Modifier.fillMaxWidth().heightIn(min=48.dp)) {Icon(Icons.AutoMirrored.Rounded.HelpOutline,null);Spacer(Modifier.width(8.dp));Text("Como usar o Luma",fontSize=16.sp)}}
+    }
+    if(help) StudioHelpDialog {help=false}
+}
+
+@Composable private fun HomeAction(title:String,description:String,icon:ImageVector,tag:String,color:Color,action:()->Unit) {
+    Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp)).background(Panel).clickable(onClickLabel=title,onClick=action).testTag(tag).padding(18.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(16.dp)) {
+        Icon(icon,null,tint=color,modifier=Modifier.size(28.dp))
+        Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(4.dp)) {Text(title,fontSize=20.sp,fontWeight=FontWeight.SemiBold);Text(description,fontSize=14.sp,color=Muted,lineHeight=20.sp)}
+        Icon(Icons.AutoMirrored.Rounded.ArrowForward,null,tint=color)
     }
 }
 
@@ -261,9 +223,9 @@ private fun palette(category: String): List<Color> = when (category) {
     Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(Panel).clickable(onClick = action).padding(12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
         Box(Modifier.size(66.dp).clip(RoundedCornerShape(10.dp)).background(Color.DarkGray)) { image?.let { Image(it.asImageBitmap(), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop) } }
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-            Text(project.name, fontSize = 14.sp, maxLines = 1)
-            Text(if (project.edit.story != null) "Story · ${project.edit.story?.layers?.size} camadas" else project.edit.filter?.preset?.meta?.name ?: "Original", color = Muted, fontSize = 11.sp)
-            Text(java.text.SimpleDateFormat("dd MMM · HH:mm", java.util.Locale.forLanguageTag("pt-BR")).format(java.util.Date(project.updatedAt)), color = Muted, fontSize = 10.sp)
+            Text(project.name, fontSize = 16.sp, maxLines = 2)
+            Text(if (project.edit.story != null) "Story · ${project.edit.story?.layers?.size} camadas" else project.edit.filter?.preset?.meta?.name ?: "Foto", color = Muted, fontSize = 14.sp)
+            Text("Toque para continuar", color = Muted, fontSize = 13.sp)
         }
         Icon(Icons.Rounded.ChevronRight, null, tint = Muted)
     }
@@ -272,18 +234,19 @@ private fun palette(category: String): List<Color> = when (category) {
     Column(Modifier.fillMaxWidth().padding(vertical = 24.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) { Icon(icon, null, tint = Muted); Text(title, fontSize = 14.sp); Text(subtitle, color = Muted, fontSize = 12.sp) }
 }
 @Composable fun CategoryRow(categories: List<String>, selected: String, modifier: Modifier = Modifier, action: (String) -> Unit) {
-    LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) { items(categories) { category -> FilterChip(selected == category, { action(category) }, label = { Text(category, fontSize = 11.sp) }) } }
+    LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) { items(categories) { category -> FilterChip(selected == category, { action(category) }, label = { Text(category, fontSize = 14.sp) },modifier=Modifier.heightIn(min=48.dp)) } }
 }
 
 @Composable internal fun ExportDialog(dismiss: () -> Unit, story: Boolean = false, canvasSize: ExportSize? = null, export: (ExportOptions) -> Unit) {
-    var format by remember { mutableStateOf(ExportFormat.JPEG) }
-    var resolution by remember { mutableStateOf("Original") }
-    var custom by remember { mutableStateOf("2160") }
-    var quality by remember { mutableFloatStateOf(95f) }
-    var metadata by remember { mutableStateOf(false) }
-    var sizePreset by remember {mutableStateOf("Livre")}
-    var targetWidth by remember {mutableStateOf("1080")}
-    var targetHeight by remember {mutableStateOf("1920")}
+    var format by rememberSaveable { mutableStateOf(ExportFormat.JPEG) }
+    var resolution by rememberSaveable { mutableStateOf("Original") }
+    var custom by rememberSaveable { mutableStateOf("2160") }
+    var quality by rememberSaveable { mutableFloatStateOf(95f) }
+    var metadata by rememberSaveable { mutableStateOf(false) }
+    var sizePreset by rememberSaveable {mutableStateOf("Livre")}
+    var targetWidth by rememberSaveable {mutableStateOf("1080")}
+    var targetHeight by rememberSaveable {mutableStateOf("1920")}
+    var advanced by rememberSaveable {mutableStateOf(false)}
     val edge = if(sizePreset=="Personalizado") 0 else when (resolution) { "1080p" -> 1920; "1440p" -> 2560; "4K" -> 3840; "Custom" -> custom.toIntOrNull() ?: -1; else -> 0 }
     val baseSize = ExportSize(targetWidth.toIntOrNull() ?: -1, targetHeight.toIntOrNull() ?: -1)
     val outputSize = when {
@@ -293,30 +256,37 @@ private fun palette(category: String): List<Color> = when (category) {
     }
     val valid = (edge==0 || edge in 64..8192) && (outputSize==null || outputSize.isValid)
     val shownSize = outputSize ?: canvasSize?.let {if(edge in 0..8192) it.atLongEdge(edge) else null}
-    AlertDialog(onDismissRequest = dismiss, title = { Text("Sua criação, em alta qualidade.", fontSize = 23.sp) }, text = {
+    AlertDialog(onDismissRequest = dismiss, title = { Text("Salvar foto na galeria", fontSize = 23.sp) }, text = {
         Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            Text("Dimensões de publicação",fontSize=12.sp)
+            Text("Sua foto será salva como uma cópia. O original fica preservado.",fontSize=16.sp,lineHeight=23.sp)
+            if(sizePreset!="Personalizado") {
+                Text("Tamanho da foto",fontSize=16.sp)
+                CategoryRow(if(advanced) listOf("Original","1080p","1440p","4K","Custom") else listOf("Original","1440p","4K"),resolution,Modifier.testTag("export-resolution")) {resolution=it}
+                Text(if(resolution=="Original") "Original é recomendado: mantém o tamanho da sua foto editada." else "O tamanho escolhido amplia ou reduz a imagem; aumentar o tamanho sozinho não recupera detalhes.",fontSize=14.sp,color=Muted)
+                if(resolution=="Custom") OutlinedTextField(custom,{custom=it.filter(Char::isDigit).take(4)},label={Text("Maior lado em px (64–8192)")},singleLine=true)
+            }
+            TextButton(onClick={advanced=!advanced},modifier=Modifier.testTag("export-advanced")) {Text(if(advanced) "Ocultar opções avançadas" else "Opções avançadas",fontSize=16.sp)}
+            if(advanced) {
+            Text("Dimensões de publicação",fontSize=16.sp)
             CategoryRow(listOf("Livre","Story","Feed","Quadrado","Perfil","Wallpaper","Personalizado"),sizePreset,Modifier.testTag("export-publication")) {value->sizePreset=value;val dimensions=when(value) {"Feed"->1080 to 1350;"Quadrado","Perfil"->1080 to 1080;else->1080 to 1920};targetWidth=dimensions.first.toString();targetHeight=dimensions.second.toString()}
             if(sizePreset!="Livre") {Text("A imagem inteira cabe nas dimensões, com margens se necessário.",color=Muted,fontSize=10.sp);if(sizePreset=="Personalizado") {OutlinedTextField(targetWidth,{targetWidth=it.filter(Char::isDigit).take(4)},label={Text("Largura")});OutlinedTextField(targetHeight,{targetHeight=it.filter(Char::isDigit).take(4)},label={Text("Altura")})}}
             Text("Formato", color = Muted, fontSize = 12.sp)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { ExportFormat.entries.forEach { value -> FilterChip(format == value, { format = value }, label = { Text(value.name) }) } }
             Text(if(format==ExportFormat.JPEG) "JPEG preenche áreas transparentes com branco." else "Este formato mantém áreas transparentes.",color=Muted,fontSize=11.sp)
-            if(sizePreset!="Personalizado") {
-                Text("Resolução · maior lado da imagem final", color = Muted, fontSize = 12.sp)
-                CategoryRow(listOf("Original", "1080p", "1440p", "4K", "Custom"), resolution,Modifier.testTag("export-resolution")) { resolution = it }
-                if (resolution == "Custom") OutlinedTextField(custom, { custom = it.filter(Char::isDigit).take(4) }, label = { Text("Maior lado em px (64–8192)") }, singleLine = true)
             }
             if(valid) {
                 Text(shownSize?.let {"Saída: ${it.width} × ${it.height} px"} ?: if(edge>0) "Saída: maior lado de $edge px" else "Saída: dimensões originais da foto editada", modifier=Modifier.testTag("export-size"), fontSize=13.sp)
                 if(!story && (edge>0 || outputSize!=null)) Text("Fotos menores serão ampliadas para o tamanho escolhido. A ampliação não recupera detalhes ausentes.", color=Muted, fontSize=11.sp)
             } else Text("Escolha dimensões de 64 a 8192 px por lado, até 32 MP.", color=MaterialTheme.colorScheme.error, fontSize=11.sp)
+            if(advanced) {
             if (format != ExportFormat.PNG) {
                 Text("Qualidade ${quality.toInt()}%", fontSize = 12.sp)
                 Slider(quality, { quality = it }, valueRange = 1f..100f)
                 if (format == ExportFormat.WEBP && quality == 100f) Text("WebP sem perdas no Android 11+", color = Muted, fontSize = 10.sp)
             } else Text("PNG preserva transparência e usa compressão sem perdas.", color = Muted, fontSize = 11.sp)
             if (format == ExportFormat.JPEG && !story) Row(verticalAlignment = Alignment.CenterVertically) { Checkbox(metadata, { metadata = it }); Text("Incluir EXIF de câmera e data\nSem localização GPS", fontSize = 11.sp) }
-            Text("A imagem será salva em Pictures/Luma Studio. O projeto editável é salvo separadamente.", color = Muted, fontSize = 11.sp)
+            }
+            Text("Você encontrará a foto na galeria, na pasta Luma Studio. O rascunho editável fica em Projetos.", color = Muted, fontSize = 14.sp,lineHeight=21.sp)
         }
-    }, confirmButton = { TextButton(onClick = { export(ExportOptions(format, quality.toInt(), edge, metadata && format == ExportFormat.JPEG,outputSize?.width ?: 0,outputSize?.height ?: 0)) }, enabled = valid) { Text("Salvar na galeria") } }, dismissButton = { TextButton(onClick = dismiss) { Text("Cancelar") } })
+    }, confirmButton = { TextButton(onClick = { export(ExportOptions(format, quality.toInt(), edge, metadata && format == ExportFormat.JPEG,outputSize?.width ?: 0,outputSize?.height ?: 0)) }, enabled = valid) { Text("Salvar na galeria",fontSize=16.sp) } }, dismissButton = { TextButton(onClick = dismiss) { Text("Cancelar",fontSize=16.sp) } })
 }

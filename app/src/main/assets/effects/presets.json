@@ -1205,5 +1205,777 @@
       "size": 0.4,
       "seed": 0.35
     }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-bolso",
+      "name": "Flash de bolso",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "bolso",
+        "direto",
+        "celular",
+        "festa"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.55,
+      "radius": 0.55,
+      "hardness": 0.75,
+      "falloff": 0.42,
+      "warmth": 0.5,
+      "tint": 0.5,
+      "grain": 0.02,
+      "x": 0.5,
+      "y": 0.52
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-direto",
+      "name": "Flash direto",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "direto",
+        "direto",
+        "celular",
+        "festa"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.78,
+      "radius": 0.48,
+      "hardness": 0.93,
+      "falloff": 0.65,
+      "warmth": 0.5,
+      "tint": 0.5,
+      "grain": 0.03,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-duro",
+      "name": "Flash duro",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "duro",
+        "direto",
+        "celular",
+        "festa"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.88,
+      "radius": 0.37,
+      "hardness": 1.0,
+      "falloff": 0.78,
+      "warmth": 0.48,
+      "tint": 0.49,
+      "grain": 0.05,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-estourado",
+      "name": "Flash estourado",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "estourado",
+        "direto",
+        "celular",
+        "festa"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 1.0,
+      "radius": 0.6,
+      "hardness": 0.95,
+      "falloff": 0.4,
+      "warmth": 0.52,
+      "tint": 0.5,
+      "grain": 0.06,
+      "x": 0.5,
+      "y": 0.52
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-ccd-2003",
+      "name": "CCD 2003",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "ccd 2003",
+        "ccd",
+        "compacta",
+        "digital",
+        "anos 2000"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.72,
+      "radius": 0.58,
+      "hardness": 0.85,
+      "falloff": 0.4,
+      "warmth": 0.39,
+      "tint": 0.45,
+      "grain": 0.16,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-ccd-frio",
+      "name": "CCD frio",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "ccd frio",
+        "ccd",
+        "compacta",
+        "digital",
+        "anos 2000"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.66,
+      "radius": 0.52,
+      "hardness": 0.82,
+      "falloff": 0.55,
+      "warmth": 0.22,
+      "tint": 0.46,
+      "grain": 0.2,
+      "x": 0.5,
+      "y": 0.52
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-ccd-festa",
+      "name": "CCD festa",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "ccd festa",
+        "ccd",
+        "compacta",
+        "digital",
+        "anos 2000"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.84,
+      "radius": 0.62,
+      "hardness": 0.93,
+      "falloff": 0.32,
+      "warmth": 0.62,
+      "tint": 0.55,
+      "grain": 0.24,
+      "x": 0.48,
+      "y": 0.52
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-ccd-suave",
+      "name": "CCD suave",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "ccd suave",
+        "ccd",
+        "compacta",
+        "digital",
+        "anos 2000"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.52,
+      "radius": 0.72,
+      "hardness": 0.32,
+      "falloff": 0.25,
+      "warmth": 0.45,
+      "tint": 0.5,
+      "grain": 0.12,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-descartavel-89",
+      "name": "Descartável 89",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "descartavel 89",
+        "descartavel",
+        "filme",
+        "retro",
+        "anos 80",
+        "anos 90"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.67,
+      "radius": 0.48,
+      "hardness": 0.78,
+      "falloff": 0.65,
+      "warmth": 0.69,
+      "tint": 0.37,
+      "grain": 0.34,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-descartavel-quente",
+      "name": "Descartável quente",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "descartavel quente",
+        "descartavel",
+        "filme",
+        "retro",
+        "anos 80",
+        "anos 90"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.72,
+      "radius": 0.58,
+      "hardness": 0.67,
+      "falloff": 0.55,
+      "warmth": 0.85,
+      "tint": 0.43,
+      "grain": 0.29,
+      "x": 0.5,
+      "y": 0.52
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-descartavel-grao",
+      "name": "Descartável ISO 800",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "descartavel grao",
+        "descartavel",
+        "filme",
+        "retro",
+        "anos 80",
+        "anos 90"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.78,
+      "radius": 0.44,
+      "hardness": 0.84,
+      "falloff": 0.68,
+      "warmth": 0.63,
+      "tint": 0.34,
+      "grain": 0.58,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-descartavel-lavado",
+      "name": "Descartável lavado",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "descartavel lavado",
+        "descartavel",
+        "filme",
+        "retro",
+        "anos 80",
+        "anos 90"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.5,
+      "radius": 0.68,
+      "hardness": 0.35,
+      "falloff": 0.3,
+      "warmth": 0.71,
+      "tint": 0.41,
+      "grain": 0.3,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-verde-90",
+      "name": "Flash verde 90",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "verde 90",
+        "verde",
+        "oliva",
+        "retro",
+        "anos 90",
+        "japao"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.72,
+      "radius": 0.52,
+      "hardness": 0.86,
+      "falloff": 0.64,
+      "warmth": 0.52,
+      "tint": 0.13,
+      "grain": 0.28,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-oliva",
+      "name": "Flash oliva",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "oliva",
+        "verde",
+        "oliva",
+        "retro",
+        "anos 90",
+        "japao"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.64,
+      "radius": 0.6,
+      "hardness": 0.72,
+      "falloff": 0.58,
+      "warmth": 0.76,
+      "tint": 0.2,
+      "grain": 0.32,
+      "x": 0.5,
+      "y": 0.52
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-verde-duro",
+      "name": "Verde intenso",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "verde duro",
+        "verde",
+        "oliva",
+        "retro",
+        "anos 90",
+        "japao"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.88,
+      "radius": 0.4,
+      "hardness": 0.97,
+      "falloff": 0.76,
+      "warmth": 0.48,
+      "tint": 0.05,
+      "grain": 0.4,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-verde-suave",
+      "name": "Verde suave",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "verde suave",
+        "verde",
+        "oliva",
+        "retro",
+        "anos 90",
+        "japao"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.49,
+      "radius": 0.72,
+      "hardness": 0.3,
+      "falloff": 0.28,
+      "warmth": 0.56,
+      "tint": 0.28,
+      "grain": 0.16,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-azul-noturno",
+      "name": "Flash azul noturno",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "azul noturno",
+        "azul",
+        "violeta",
+        "noite",
+        "retro"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.78,
+      "radius": 0.46,
+      "hardness": 0.86,
+      "falloff": 0.72,
+      "warmth": 0.13,
+      "tint": 0.5,
+      "grain": 0.25,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-gelo",
+      "name": "Flash gelo",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "gelo",
+        "azul",
+        "violeta",
+        "noite",
+        "retro"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.65,
+      "radius": 0.65,
+      "hardness": 0.74,
+      "falloff": 0.43,
+      "warmth": 0.02,
+      "tint": 0.53,
+      "grain": 0.1,
+      "x": 0.5,
+      "y": 0.52
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-violeta-95",
+      "name": "Flash violeta 95",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "violeta 95",
+        "azul",
+        "violeta",
+        "noite",
+        "retro"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.69,
+      "radius": 0.57,
+      "hardness": 0.67,
+      "falloff": 0.57,
+      "warmth": 0.26,
+      "tint": 0.88,
+      "grain": 0.31,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-azul-grao",
+      "name": "Azul ISO 1600",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "azul grao",
+        "azul",
+        "violeta",
+        "noite",
+        "retro"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.86,
+      "radius": 0.4,
+      "hardness": 0.95,
+      "falloff": 0.82,
+      "warmth": 0.16,
+      "tint": 0.57,
+      "grain": 0.62,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-editorial",
+      "name": "Flash editorial",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "editorial",
+        "editorial",
+        "beauty",
+        "lateral",
+        "spotlight"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.62,
+      "radius": 0.72,
+      "hardness": 0.72,
+      "falloff": 0.32,
+      "warmth": 0.54,
+      "tint": 0.5,
+      "grain": 0.01,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-beauty",
+      "name": "Flash beauty",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "beauty",
+        "editorial",
+        "beauty",
+        "lateral",
+        "spotlight"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.48,
+      "radius": 0.82,
+      "hardness": 0.12,
+      "falloff": 0.18,
+      "warmth": 0.57,
+      "tint": 0.54,
+      "grain": 0.0,
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-lateral",
+      "name": "Flash lateral",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "lateral",
+        "editorial",
+        "beauty",
+        "lateral",
+        "spotlight"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.72,
+      "radius": 0.52,
+      "hardness": 0.66,
+      "falloff": 0.57,
+      "warmth": 0.61,
+      "tint": 0.5,
+      "grain": 0.04,
+      "x": 0.32,
+      "y": 0.52
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "meta": {
+      "id": "flash-effect-spot",
+      "name": "Flash spotlight",
+      "category": "Flash",
+      "tags": [
+        "flash",
+        "retrato",
+        "selfie",
+        "luz",
+        "camera",
+        "spot",
+        "editorial",
+        "beauty",
+        "lateral",
+        "spotlight"
+      ]
+    },
+    "type": "flash",
+    "parameters": {
+      "amount": 0.83,
+      "radius": 0.26,
+      "hardness": 0.88,
+      "falloff": 0.94,
+      "warmth": 0.47,
+      "tint": 0.5,
+      "grain": 0.07,
+      "x": 0.5,
+      "y": 0.54
+    }
   }
 ]

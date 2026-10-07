@@ -25,7 +25,7 @@ internal class GpuEffects {
             width=w; height=h
         }
         fun target(vararg excluded: Int) = targets.first { it !in excluded }
-        fun pass(source: Int, output: Int, mode: Int, values: FloatArray, aux: Int = source, dx: Float = 0f, dy: Float = 0f) {
+        fun pass(source: Int, output: Int, mode: Int, values: FloatArray, aux: Int = source, dx: Float = 0f, dy: Float = 0f, flash:FloatArray=FloatArray(4), flashX:Float=.5f, flashY:Float=.5f) {
             check(output != source && output != aux)
             glBindFramebuffer(GL_FRAMEBUFFER,framebuffer)
             glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,output,0)
@@ -37,6 +37,7 @@ internal class GpuEffects {
             glUniform1i(u("uMode"),mode); glUniform4fv(u("uParams"),1,values,0)
             glUniform2f(u("uDirection"),dx,dy)
             glUniform2f(u("uReference"),1080f,1080f*h/w)
+            glUniform4fv(u("uFlash"),1,flash,0);glUniform2f(u("uFlashPosition"),flashX,flashY)
             val a=glGetAttribLocation(program,"aPosition"); vertices.position(0)
             glEnableVertexAttribArray(a); glVertexAttribPointer(a,2,GL_FLOAT,false,0,vertices); glDrawArrays(GL_TRIANGLE_STRIP,0,4)
         }
@@ -73,8 +74,8 @@ internal class GpuEffects {
                             try {glActiveTexture(GL_TEXTURE2);glBindTexture(GL_TEXTURE_2D,overlay[0]);GLUtils.texImage2D(GL_TEXTURE_2D,0,bitmap,0)} finally {bitmap.recycle()};overlayKey=key
                         }
                     }
-                    val mode=when(layer.preset.type) { "grain"->1; "chromatic"->3; "leak"->4; "dust"->5; "frame"->6; else->10+EffectTypes.all.drop(7).indexOf(layer.preset.type).also {require(it>=0)} }
-                    pass(current,out,mode,floatArrayOf(amount,p["size"] ?: p["width"] ?: p["radius"] ?: .3f,p["seed"] ?: p["angle"] ?: p["style"] ?: .5f,p["warmth"] ?: p["color"] ?: p["blend"] ?: .8f))
+                    val mode=when {layer.preset.type=="flash" && "hardness" in p->100;else->when(layer.preset.type) { "grain"->1; "chromatic"->3; "leak"->4; "dust"->5; "frame"->6; else->10+EffectTypes.all.drop(7).indexOf(layer.preset.type).also {require(it>=0)} }}
+                    pass(current,out,mode,floatArrayOf(amount,p["size"] ?: p["width"] ?: p["radius"] ?: .3f,p["seed"] ?: p["angle"] ?: p["style"] ?: .5f,p["warmth"] ?: p["color"] ?: p["blend"] ?: .8f),flash=floatArrayOf(p["hardness"] ?: 0f,p["falloff"] ?: 0f,p["tint"] ?: .5f,p["grain"] ?: 0f),flashX=p["x"] ?: .5f,flashY=p["y"] ?: .5f)
                     current=out
                 }
             }
@@ -109,13 +110,31 @@ internal class GpuEffects {
             uniform vec4 uParams;
             uniform vec2 uDirection;
             uniform vec2 uReference;
+            uniform vec4 uFlash;
+            uniform vec2 uFlashPosition;
             float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7))+uParams.z*437.0)*43758.5453);}
             vec3 straight(vec4 c){return c.a>0.0?c.rgb/c.a:vec3(0.0);}
             void main(){
                 vec4 src=texture2D(uImage,vUV);
                 vec3 c=straight(src);
                 float a=uParams.x;
-                if(uMode==1){
+                if(uMode==100){
+                    vec3 original=c;
+                    // Normalize the distance to the short image side: round light on any canvas.
+                    vec2 aspect=uReference/min(uReference.x,uReference.y);
+                    float distance=length((vUV-uFlashPosition)*aspect);
+                    float radius=0.22+uParams.y*0.95;
+                    float beam=exp(-pow(distance/radius,2.0+uFlash.x*2.5)*1.5);
+                    float l=dot(c,vec3(0.2126,0.7152,0.0722));
+                    vec3 light=mix(vec3(0.77,0.91,1.12),vec3(1.12,1.00,0.80),uParams.w);
+                    light*=vec3(1.0+(uFlash.z-0.5)*0.20,1.0-(uFlash.z-0.5)*0.27,1.0+(uFlash.z-0.5)*0.15);
+                    vec3 lit=c*(1.0+beam*(0.40+uFlash.x*0.75))*light;
+                    lit+=light*beam*(0.08+uFlash.x*0.14)*(1.0-l*0.45);
+                    lit*=1.0-uFlash.y*(1.0-beam)*0.62;
+                    float noise=hash(floor(vUV*uReference))+hash(floor(vUV*uReference)+17.7)-1.0;
+                    lit+=noise*uFlash.w*0.13*(0.40+0.60*sin(clamp(l,0.0,1.0)*3.14159));
+                    c=mix(original,clamp(lit,0.0,1.0),a);
+                } else if(uMode==1){
                     vec2 cell=floor(vUV*uReference/(0.6+uParams.y*3.0));
                     float n=(hash(cell)+hash(cell+17.7)-1.0);
                     float l=dot(c,vec3(0.2126,0.7152,0.0722));

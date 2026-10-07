@@ -87,7 +87,7 @@ val ProjectJson = Json { prettyPrint = true; encodeDefaults = true; ignoreUnknow
     fun validate() {
         meta.validate();require(schemaVersion == 1)
         require(type in EffectTypes.all);require(asset==null || asset.matches(Regex("photo_[a-f0-9-]{36}")));require(text.length<=120)
-        require(parameters.keys.all { it in setOf("amount", "size", "seed", "threshold", "radius", "angle", "warmth", "width", "style", "blend", "color", "offset") })
+        require(parameters.keys.all { it in setOf("amount", "size", "seed", "threshold", "radius", "angle", "warmth", "width", "style", "blend", "color", "offset", "hardness", "falloff", "tint", "grain", "x", "y") })
         require(parameters.values.all { it.isFinite() && it in 0f..1f })
     }
 }

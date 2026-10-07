@@ -1,6 +1,6 @@
 # Luma Studio
 
-Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.3.0: fotos, efeitos, Stories, colagens, biblioteca pessoal, máscaras e seleção automática de pessoa/fundo e enquadramento inteligente. Android 10 ou superior. Sem conta, anúncios, backend ou permissão de rede.
+Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.4.0: fotos, efeitos, Stories, colagens, biblioteca pessoal, máscaras e seleção automática de pessoa/fundo e enquadramento inteligente. Android 10 ou superior. Sem conta, anúncios, backend ou permissão de rede.
 
 ## Disponível na fase 1
 
@@ -17,7 +17,7 @@ Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.3.0: fotos, efeito
 
 ## Efeitos e Stories (fases 2 e 3)
 
-- 69 presets de efeitos: Film, Lens, Digital, Light, Blur, Texture, Overlay e Frame. Até 16 efeitos em sequência, com intensidade, parâmetros, visibilidade, remoção e reordenação.
+- 93 presets de efeitos: Flash, Film, Lens, Digital, Light, Blur, Texture, Overlay e Frame. Até 16 efeitos em sequência, com intensidade, parâmetros, visibilidade, remoção e reordenação.
 - Story Maker com canvas 9:16, feed 4:5, quadrado ou paisagem; fundo com transparência e guias de composição opcionais.
 - Até 80 camadas de fotos/PNGs, textos, stickers e formas. Selecionar, mover, redimensionar/girar com gestos, duplicar, ocultar, bloquear e reordenar; opacidade e mistura normal/multiply/screen/overlay.
 - Fotos com enquadramento Preencher/Foto inteira, zoom e posição ajustáveis. Importação múltipla preenche os espaços do template; exportação exige preencher todas as fotos visíveis.
@@ -99,6 +99,13 @@ Pipeline e limites em [docs/SMART-FRAMING.md](docs/SMART-FRAMING.md).
 - Templates e Style Lab abrem em Novos; Todos conserva acesso ao catálogo completo, favoritos e conteúdo pessoal. Busca por várias palavras sem acentos e categorias localizadas. No editor, Explorar estilos abre grade com busca/favoritos e seleções Só foto/Com elementos.
 - Stories agora possuem busca e seleção de coleção nos Looks. Instagram fica acessível tanto em fotos como nas composições.
 - As 272 definições de filtros, 42 templates e 24 estilos anteriores foram preservadas por igualdade de dados. Detalhes das composições, testes e capturas em docs/EXPANDED-CATALOG.md e docs/VERIFICATION.md.
+
+## Mais flash (1.4.0)
+
+- 24 efeitos de flash em Efeitos → Flash: direto, compacto CCD, descartável, verde retrô, azul/violeta noturno e editorial. Funcionam sobre a edição atual em fotos e Stories, com intensidade independente por camada.
+- Ajustar luz do flash abre controles de área iluminada, dureza, bordas escuras, temperatura, tonalidade, grão e posição. A luz tem geometria circular em canvases verticais/horizontais e preserva a transparência.
+- Os 69 efeitos anteriores conservam suas definições e renderização. Ao adicionar outro efeito, o editor seleciona a nova camada para o controle de intensidade. Busca de efeitos também aceita múltiplas palavras sem acentos.
+- Detalhes e limites em [docs/FLASH-EFFECTS.md](docs/FLASH-EFFECTS.md).
 
 ## Compilar
 

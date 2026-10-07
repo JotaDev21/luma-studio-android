@@ -7,7 +7,10 @@ import kotlinx.serialization.decodeFromString
 class ModelTest {
     @Test fun effectsAndTemplatesAreValidatedFromBundledAssets() {
         val effects=ProjectJson.decodeFromString<List<EffectPreset>>(java.io.File(System.getProperty("luma.effects.file")).readText())
-        assertEquals(69,effects.size);assertEquals(69,effects.map { it.meta.id }.distinct().size);effects.forEach {it.validate()}
+        assertEquals(93,effects.size);assertEquals(93,effects.map { it.meta.id }.distinct().size);effects.forEach {it.validate()}
+        val flashes=effects.filter {it.meta.category=="Flash"}
+        assertEquals(24,flashes.size);assertEquals(24,flashes.map {it.parameters}.distinct().size)
+        assertTrue(flashes.all {it.type=="flash" && "hardness" in it.parameters})
         assertEquals((EffectTypes.all-"texture").toSet(),effects.map {it.type}.toSet())
         val templates=ProjectJson.decodeFromString<List<StoryTemplate>>(java.io.File(System.getProperty("luma.templates.file")).readText())
         assertEquals(90,templates.size);assertEquals(90,templates.map {it.meta.id}.distinct().size)

@@ -2,7 +2,7 @@ plugins { id("com.android.application"); kotlin("android"); kotlin("plugin.seria
 android {
     namespace = "studio.luma"
     compileSdk = 36
-    defaultConfig { applicationId = "studio.luma.personal"; minSdk = 29; targetSdk = 36; versionCode = 12; versionName = "1.3.0"; testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner" }
+    defaultConfig { applicationId = "studio.luma.personal"; minSdk = 29; targetSdk = 36; versionCode = 13; versionName = "1.4.0"; testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner" }
     buildFeatures { compose = true }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
     kotlinOptions { jvmTarget = "17" }

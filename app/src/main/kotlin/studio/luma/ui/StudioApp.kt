@@ -270,11 +270,11 @@ private fun palette(category: String): List<Color> = when (category) {
 @Composable private fun EmptyState(title: String, subtitle: String, icon: ImageVector) {
     Column(Modifier.fillMaxWidth().padding(vertical = 24.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) { Icon(icon, null, tint = Muted); Text(title, fontSize = 14.sp); Text(subtitle, color = Muted, fontSize = 12.sp) }
 }
-@Composable fun CategoryRow(categories: List<String>, selected: String, action: (String) -> Unit) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { items(categories) { category -> FilterChip(selected == category, { action(category) }, label = { Text(category, fontSize = 11.sp) }) } }
+@Composable fun CategoryRow(categories: List<String>, selected: String, modifier: Modifier = Modifier, action: (String) -> Unit) {
+    LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) { items(categories) { category -> FilterChip(selected == category, { action(category) }, label = { Text(category, fontSize = 11.sp) }) } }
 }
 
-@Composable internal fun ExportDialog(dismiss: () -> Unit, story: Boolean = false, export: (ExportOptions) -> Unit) {
+@Composable internal fun ExportDialog(dismiss: () -> Unit, story: Boolean = false, canvasSize: ExportSize? = null, export: (ExportOptions) -> Unit) {
     var format by remember { mutableStateOf(ExportFormat.JPEG) }
     var resolution by remember { mutableStateOf("Original") }
     var custom by remember { mutableStateOf("2160") }
@@ -283,20 +283,32 @@ private fun palette(category: String): List<Color> = when (category) {
     var sizePreset by remember {mutableStateOf("Livre")}
     var targetWidth by remember {mutableStateOf("1080")}
     var targetHeight by remember {mutableStateOf("1920")}
-    val outputWidth=if(sizePreset=="Livre") 0 else targetWidth.toIntOrNull() ?: -1
-    val outputHeight=if(sizePreset=="Livre") 0 else targetHeight.toIntOrNull() ?: -1
-    val edge = when (resolution) { "1080p" -> 1920; "1440p" -> 2560; "4K" -> 3840; "Custom" -> custom.toIntOrNull() ?: -1; else -> 0 }
+    val edge = if(sizePreset=="Personalizado") 0 else when (resolution) { "1080p" -> 1920; "1440p" -> 2560; "4K" -> 3840; "Custom" -> custom.toIntOrNull() ?: -1; else -> 0 }
+    val baseSize = ExportSize(targetWidth.toIntOrNull() ?: -1, targetHeight.toIntOrNull() ?: -1)
+    val outputSize = when {
+        sizePreset=="Livre" -> null
+        sizePreset=="Personalizado" || edge !in 0..8192 -> baseSize
+        else -> baseSize.atLongEdge(edge)
+    }
+    val valid = (edge==0 || edge in 64..8192) && (outputSize==null || outputSize.isValid)
+    val shownSize = outputSize ?: canvasSize?.let {if(edge in 0..8192) it.atLongEdge(edge) else null}
     AlertDialog(onDismissRequest = dismiss, title = { Text("Sua criação, em alta qualidade.", fontSize = 23.sp) }, text = {
         Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text("Dimensões de publicação",fontSize=12.sp)
-            CategoryRow(listOf("Livre","Story","Feed","Quadrado","Perfil","Wallpaper","Personalizado"),sizePreset) {value->sizePreset=value;val dimensions=when(value) {"Feed"->1080 to 1350;"Quadrado","Perfil"->1080 to 1080;else->1080 to 1920};targetWidth=dimensions.first.toString();targetHeight=dimensions.second.toString()}
+            CategoryRow(listOf("Livre","Story","Feed","Quadrado","Perfil","Wallpaper","Personalizado"),sizePreset,Modifier.testTag("export-publication")) {value->sizePreset=value;val dimensions=when(value) {"Feed"->1080 to 1350;"Quadrado","Perfil"->1080 to 1080;else->1080 to 1920};targetWidth=dimensions.first.toString();targetHeight=dimensions.second.toString()}
             if(sizePreset!="Livre") {Text("A imagem inteira cabe nas dimensões, com margens se necessário.",color=Muted,fontSize=10.sp);if(sizePreset=="Personalizado") {OutlinedTextField(targetWidth,{targetWidth=it.filter(Char::isDigit).take(4)},label={Text("Largura")});OutlinedTextField(targetHeight,{targetHeight=it.filter(Char::isDigit).take(4)},label={Text("Altura")})}}
             Text("Formato", color = Muted, fontSize = 12.sp)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { ExportFormat.entries.forEach { value -> FilterChip(format == value, { format = value }, label = { Text(value.name) }) } }
             Text(if(format==ExportFormat.JPEG) "JPEG preenche áreas transparentes com branco." else "Este formato mantém áreas transparentes.",color=Muted,fontSize=11.sp)
-            Text(if (story) "Resolução · maior lado da composição" else "Resolução · maior lado, sem ampliar", color = Muted, fontSize = 12.sp)
-            CategoryRow(listOf("Original", "1080p", "1440p", "4K", "Custom"), resolution) { resolution = it }
-            if (resolution == "Custom") OutlinedTextField(custom, { custom = it.filter(Char::isDigit).take(4) }, label = { Text("Maior lado em px (64–8192)") }, singleLine = true)
+            if(sizePreset!="Personalizado") {
+                Text("Resolução · maior lado da imagem final", color = Muted, fontSize = 12.sp)
+                CategoryRow(listOf("Original", "1080p", "1440p", "4K", "Custom"), resolution,Modifier.testTag("export-resolution")) { resolution = it }
+                if (resolution == "Custom") OutlinedTextField(custom, { custom = it.filter(Char::isDigit).take(4) }, label = { Text("Maior lado em px (64–8192)") }, singleLine = true)
+            }
+            if(valid) {
+                Text(shownSize?.let {"Saída: ${it.width} × ${it.height} px"} ?: if(edge>0) "Saída: maior lado de $edge px" else "Saída: dimensões originais da foto editada", modifier=Modifier.testTag("export-size"), fontSize=13.sp)
+                if(!story && (edge>0 || outputSize!=null)) Text("Fotos menores serão ampliadas para o tamanho escolhido. A ampliação não recupera detalhes ausentes.", color=Muted, fontSize=11.sp)
+            } else Text("Escolha dimensões de 64 a 8192 px por lado, até 32 MP.", color=MaterialTheme.colorScheme.error, fontSize=11.sp)
             if (format != ExportFormat.PNG) {
                 Text("Qualidade ${quality.toInt()}%", fontSize = 12.sp)
                 Slider(quality, { quality = it }, valueRange = 1f..100f)
@@ -305,5 +317,5 @@ private fun palette(category: String): List<Color> = when (category) {
             if (format == ExportFormat.JPEG && !story) Row(verticalAlignment = Alignment.CenterVertically) { Checkbox(metadata, { metadata = it }); Text("Incluir EXIF de câmera e data\nSem localização GPS", fontSize = 11.sp) }
             Text("A imagem será salva em Pictures/Luma Studio. O projeto editável é salvo separadamente.", color = Muted, fontSize = 11.sp)
         }
-    }, confirmButton = { TextButton(onClick = { export(ExportOptions(format, quality.toInt(), edge, metadata && format == ExportFormat.JPEG,outputWidth,outputHeight)) }, enabled = (edge == 0 || edge in 64..8192) && (outputWidth==0 && outputHeight==0 || outputWidth in 64..8192 && outputHeight in 64..8192 && outputWidth.toLong()*outputHeight<=32_000_000)) { Text("Salvar na galeria") } }, dismissButton = { TextButton(onClick = dismiss) { Text("Cancelar") } })
+    }, confirmButton = { TextButton(onClick = { export(ExportOptions(format, quality.toInt(), edge, metadata && format == ExportFormat.JPEG,outputSize?.width ?: 0,outputSize?.height ?: 0)) }, enabled = valid) { Text("Salvar na galeria") } }, dismissButton = { TextButton(onClick = dismiss) { Text("Cancelar") } })
 }

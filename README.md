@@ -1,6 +1,6 @@
 # Luma Studio
 
-Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.4.0: fotos, efeitos, Stories, colagens, biblioteca pessoal, máscaras e seleção automática de pessoa/fundo e enquadramento inteligente. Android 10 ou superior. Sem conta, anúncios, backend ou permissão de rede.
+Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.4.1: fotos, efeitos, Stories, colagens, biblioteca pessoal, máscaras e seleção automática de pessoa/fundo e enquadramento inteligente. Android 10 ou superior. Sem conta, anúncios, backend ou permissão de rede.
 
 ## Disponível na fase 1
 
@@ -13,7 +13,7 @@ Editor pessoal Android em Kotlin + Jetpack Compose, versão 1.4.0: fotos, efeito
 - Comparação ao segurar e dividida com posição ajustável.
 - Undo/redo de parâmetros; um gesto gera uma entrada no histórico.
 - Projetos locais editáveis, nome, thumbnail e confirmação para salvar/descartar ao sair.
-- JPEG, PNG, WebP; resolução original após transformação ou limite de maior lado, qualidade, metadados opcionais de câmera/data para JPEG e compartilhamento pelo Android.
+- JPEG, PNG, WebP; resolução original após transformação ou tamanho exato do maior lado escolhido, qualidade, metadados opcionais de câmera/data para JPEG e compartilhamento pelo Android.
 
 ## Efeitos e Stories (fases 2 e 3)
 
@@ -133,7 +133,7 @@ Os catálogos são próprios. Filtros podem ser regenerados com `python tools/ge
 
 - Processamento SDR sRGB de 8 bits. Não há HDR ou wide gamut. Curvas, HSL e LUT operam em SDR. LUT .cube 3D aceita 2–32 pontos por lado, até 4 MB, entradas/saídas finitas com saída entre 0 e 1. LUT 1D não é importado.
 - Limite de 32 MP no decode e limite por lado da GPU do aparelho. Exportações maiores exibem erro e exigem resolução menor. Tiles são pendentes.
-- “1080p” usa maior lado de 1920 px (Story 9:16 resulta em 1080 × 1920); “1440p” 2560; “4K” 3840. Fotos não são ampliadas; Stories são compostos na resolução escolhida, mantendo a proporção do canvas. Fontes pequenas continuam limitadas pelos seus pixels originais.
+- “1080p” usa maior lado de 1920 px (9:16: 1080 × 1920); “1440p” usa 2560 (1440 × 2560); “4K” usa 3840 (2160 × 3840). A seleção vale para fotos, Stories e lote, inclusive com formatos de publicação Story/feed/quadrado/perfil/wallpaper. Fotos menores são ampliadas para o tamanho solicitado; isso não recupera detalhes ausentes. Stories são compostos na resolução escolhida, mantendo a proporção do canvas. “Original” conserva o tamanho nativo no modo Livre e o tamanho base no formato de publicação. Dimensões personalizadas são exatas e substituem o seletor de resolução. O diálogo mostra os pixels finais para formatos de publicação e Stories, e o maior lado escolhido para fotos em Livre.
 - PNG é sem perdas. WebP com qualidade 100 usa modo sem perdas no Android 11+; Android 10 usa o compressor disponível naquela versão.
 - Histórico guarda até 80 entradas na sessão; os últimos 20 estados de cada direção são salvos com o projeto.
 - Alterações precisam ser salvas explicitamente; importar a fonte já cria um projeto inicial local.

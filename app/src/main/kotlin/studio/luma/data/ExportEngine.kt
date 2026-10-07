@@ -12,6 +12,7 @@ import androidx.exifinterface.media.ExifInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import studio.luma.core.Project
+import studio.luma.core.ExportSize
 import studio.luma.renderer.GpuRenderer
 import studio.luma.renderer.ImageSource
 import studio.luma.renderer.StoryRenderer
@@ -24,27 +25,32 @@ class ExportEngine(private val context: Context, private val store: StudioStore,
     suspend fun export(project: Project, options: ExportOptions): Uri = withContext(Dispatchers.IO) {
         require(options.quality in 1..100 && options.maxEdge in 0..8192)
         require(options.width==0 && options.height==0 || options.width in 64..8192 && options.height in 64..8192 && options.width.toLong()*options.height<=32_000_000) {"Dimensões inválidas: máximo 32 MP."}
+        val targetSize=if(options.width==0) null else ExportSize(options.width,options.height)
+        val renderEdge=targetSize?.longEdge ?: options.maxEdge
         val original = store.source(project)
         val story=project.edit.story
-        var bitmap=if(story!=null) stories.render(story,store.directory(project.id),project.edit,options.maxEdge,true) else {
+        var bitmap=if(story!=null) stories.render(story,store.directory(project.id),project.edit,targetSize?.let {ExportSize(story.width,story.height).fittedLongEdge(it)} ?: renderEdge,true) else {
         val dims = ImageSource.dimensions(original)
         val crop = project.edit.transform.crop
         val croppedMax = maxOf(dims.first * (crop.right - crop.left), dims.second * (crop.bottom - crop.top))
-        val sourceEdge = if (options.maxEdge == 0) 0 else (maxOf(dims.first, dims.second) * minOf(1f, options.maxEdge / croppedMax)).roundToInt().coerceAtLeast(1)
+        val sourceEdge = if (renderEdge == 0) 0 else (maxOf(dims.first, dims.second) * minOf(1f, renderEdge / croppedMax)).roundToInt().coerceAtLeast(1)
         val decoded = ImageSource.decode(original, sourceEdge)
-        try { renderer.render(decoded, project.edit, options.maxEdge,store.directory(project.id)) } finally { decoded.recycle() }
-        }
-        if(options.width!=0 || options.height!=0) {
-            require(options.width in 64..8192 && options.height in 64..8192 && options.width.toLong()*options.height<=32_000_000) {"Dimensões inválidas: máximo 32 MP."}
-            val originalBitmap=bitmap
-            require(bitmap.allocationByteCount.toLong()+options.width.toLong()*options.height*8<Runtime.getRuntime().maxMemory()*.75) {"Memória insuficiente. Escolha dimensões menores."}
-            bitmap=Bitmap.createBitmap(options.width,options.height,Bitmap.Config.ARGB_8888)
-            val factor=minOf(options.width.toFloat()/originalBitmap.width,options.height.toFloat()/originalBitmap.height)
-            val dw=originalBitmap.width*factor;val dh=originalBitmap.height*factor
-            try {Canvas(bitmap).drawBitmap(originalBitmap,null,android.graphics.RectF((options.width-dw)/2,(options.height-dh)/2,(options.width+dw)/2,(options.height+dh)/2),android.graphics.Paint(android.graphics.Paint.FILTER_BITMAP_FLAG))} finally {originalBitmap.recycle()}
+        try { renderer.render(decoded, project.edit, renderEdge,store.directory(project.id)) } finally { decoded.recycle() }
         }
         var result: Uri? = null
         try {
+            val outputSize=targetSize ?: ExportSize(bitmap.width,bitmap.height).atLongEdge(options.maxEdge)
+            require(outputSize.width in 1..8192 && outputSize.height in 1..8192 && outputSize.width.toLong()*outputSize.height<=32_000_000) {"Dimensões inválidas: máximo 32 MP e 8192 px por lado."}
+            if(bitmap.width!=outputSize.width || bitmap.height!=outputSize.height) {
+                require(bitmap.allocationByteCount.toLong()+outputSize.width.toLong()*outputSize.height*8<Runtime.getRuntime().maxMemory()*.75) {"Memória insuficiente. Escolha dimensões menores."}
+                val resized=Bitmap.createBitmap(outputSize.width,outputSize.height,Bitmap.Config.ARGB_8888)
+                try {
+                    val factor=minOf(outputSize.width.toFloat()/bitmap.width,outputSize.height.toFloat()/bitmap.height)
+                    val dw=bitmap.width*factor;val dh=bitmap.height*factor
+                    Canvas(resized).drawBitmap(bitmap,null,android.graphics.RectF((outputSize.width-dw)/2,(outputSize.height-dh)/2,(outputSize.width+dw)/2,(outputSize.height+dh)/2),android.graphics.Paint(android.graphics.Paint.FILTER_BITMAP_FLAG))
+                } catch(e:Throwable) {resized.recycle();throw e}
+                bitmap.recycle();bitmap=resized
+            }
             val filename = "Luma_${java.text.SimpleDateFormat("yyyyMMdd_HHmmss_SSS", java.util.Locale.ROOT).format(java.util.Date())}.${options.format.extension}"
             result = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ContentValues().apply {
                 put(MediaStore.Images.Media.DISPLAY_NAME, filename); put(MediaStore.Images.Media.MIME_TYPE, options.format.mime)

@@ -139,7 +139,7 @@ private val storyColors=listOf(0xFFFFFFFF.toInt(),0xFF151518.toInt(),0xFFE8E3D7.
         Text("Para usar seu próprio sticker PNG, adicione pela opção Fotos.",color=Muted,fontSize=11.sp)
     }},confirmButton={TextButton(onClick={stickers=false}) {Text("Fechar")}})
     if(shapes) AlertDialog(onDismissRequest={shapes=false},title={Text("Adicionar forma")},text={Column {listOf("Retângulo" to "rect","Círculo" to "circle","Linha" to "line","Seta" to "arrow").forEach { (name,shape)->TextButton(onClick={vm.addLayer("shape",shape=shape);shapes=false}) {Text(name)} }}},confirmButton={TextButton(onClick={shapes=false}) {Text("Fechar")}})
-    if(export) ExportDialog({export=false},story=true) {options->export=false;vm.export(options)}
+    if(export) ExportDialog({export=false},story=true,canvasSize=ExportSize(story.width,story.height)) {options->export=false;vm.export(options)}
     if(saveTemplate) SaveTemplateDialog(state,vm) {saveTemplate=false}
     if(rename) {
         var name by remember {mutableStateOf(state.project?.name ?: "Meu Story")}

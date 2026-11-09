@@ -1,8 +1,8 @@
-# Luma Studio
+# Luma Studio para Android
 
 Editor Android de fotos e Stories. O processamento padrão acontece no aparelho, com Kotlin, Jetpack Compose e OpenGL ES.
 
-## O que dá para fazer
+## Funcionalidades
 
 - Ajustar cores, aplicar filtros, editar máscaras e comparar antes e depois.
 - Compor Stories e colagens com camadas, texto e templates.

@@ -30,3 +30,29 @@ def test_later_failed_tile_is_not_replaced_with_previous_tile():
     with pytest.raises(RuntimeError,match="GPU allocation failed"):
         engine.tile_process()
     assert calls==2
+
+
+def test_inference_server_disables_the_slurm_launcher(monkeypatch):
+    from basicsr.utils import dist_util
+
+    monkeypatch.setenv("SLURM_NODELIST", "fixture")
+    with pytest.raises(RuntimeError, match="SLURM training is unavailable"):
+        dist_util._init_dist_slurm("nccl")
+
+
+def test_modified_model_is_rejected_before_loading(tmp_path, monkeypatch):
+    import hashlib
+
+    from server import download_models
+
+    good = b"test checkpoint"
+    model = tmp_path / "test.pth"
+    model.write_bytes(good)
+    monkeypatch.setattr(download_models, "EXPECTED_SHA256", {
+        model.name: hashlib.sha256(good).hexdigest(),
+    })
+    download_models.verify_weights(tmp_path)
+
+    model.write_bytes(b"changed checkpoint")
+    with pytest.raises(RuntimeError, match="Unexpected model checksum"):
+        download_models.verify_weights(tmp_path)

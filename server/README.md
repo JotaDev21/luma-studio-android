@@ -1,6 +1,6 @@
 # Luma AI no PC
 
-Serviço privado para restaurar fotos com Real-ESRGAN x4plus e rostos com GFPGAN v1.4. Requer GPU NVIDIA/CUDA, Python 3.11, PyTorch 2.8.0/CUDA 12.8 e torchvision 0.23.0. Os modelos e as credenciais ficam em `.tools/`, fora do Git. Não é a tecnologia proprietária do Remini e não promete os mesmos resultados.
+Serviço privado para restaurar fotos com Real-ESRGAN x4plus e rostos com GFPGAN v1.4. Requer GPU NVIDIA/CUDA, Python 3.12, PyTorch 2.14.1/CUDA 13.0 e torchvision 0.29.1. Os modelos e as credenciais ficam em `.tools/`, fora do Git. Não é a tecnologia proprietária do Remini e não promete os mesmos resultados.
 
 ## Usar
 
@@ -18,10 +18,10 @@ O celular e o PC devem estar na mesma rede e o servidor precisa estar aberto. Um
 
 ## Instalação reproduzível
 
-Criar um ambiente virtual Python 3.11 separado em `.tools/luma-ai-venv` (os launchers usam esse caminho). No ambiente:
+Criar um ambiente virtual Python 3.12 separado em `.tools/luma-ai-venv` (os launchers usam esse caminho). No ambiente:
 
 ```powershell
-python -m pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cu128
+python -m pip install torch==2.14.1 torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cu130
 python -m pip install -r server/requirements.txt
 python server/download_models.py
 ```
@@ -41,6 +41,12 @@ python -m pytest server/test_service.py -q
 No ambiente com PyTorch instalado, `python -m pytest server/test_runtime.py -q` verifica a composição dos tiles e a propagação de falhas. `python server/verify_gpu.py` executa os modelos reais pelo servidor usando apenas a fixture pública de retrato NASA; requer o serviço pronto e salva as comparações locais em `.tools/luma-ai/checks`.
 
 `python -m pytest server/test_connection_qr.py -q` verifica a geração e decodificação real do QR, vencimento da página e rejeição de entradas inválidas. Esse teste usa OpenCV já presente nos requisitos do servidor.
+
+## Integridade dos modelos
+
+O servidor confere os quatro hashes SHA-256 antes de carregar os modelos. Se um arquivo estiver ausente ou modificado, rode novamente o passo de download após retirar o arquivo inválido da pasta de modelos.
+
+A rotina de treinamento distribuído via SLURM do BasicSR fica desativada no servidor de inferência. A dependência ainda é identificada pelo aviso [CVE-2024-27763](https://github.com/advisories/GHSA-86w8-vhw6-q9qq), relativo a essa rotina.
 
 ## Comportamento e limites
 

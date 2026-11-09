@@ -12,10 +12,22 @@ import torchvision.transforms.functional as functional
 sys.modules.setdefault("torchvision.transforms.functional_tensor", functional)
 
 from basicsr.archs.rrdbnet_arch import RRDBNet
+from basicsr.utils import dist_util
 from gfpgan import GFPGANer
 from realesrgan import RealESRGANer
 import facexlib.detection
 import facexlib.parsing
+
+from server.download_models import verify_weights
+
+
+def _reject_slurm_training(*_args, **_kwargs):
+    raise RuntimeError("SLURM training is unavailable in the Luma inference server.")
+
+
+# BasicSR 1.4.2 passes SLURM_NODELIST to a shell in this training path.
+# The server performs inference only, so keep the affected launcher disabled.
+dist_util._init_dist_slurm = _reject_slurm_training
 
 
 class StrictRealESRGANer(RealESRGANer):
@@ -41,6 +53,7 @@ class RestorationRuntime:
             raise RuntimeError("CUDA unavailable: install the matching GPU PyTorch build.")
         self.device = torch.device("cuda")
         weights=weights.resolve()
+        verify_weights(weights)
         def local_weight(url,**kwargs):
             name=Path(urlparse(url).path).name
             if name not in ("detection_Resnet50_Final.pth","parsing_parsenet.pth") or not (weights/name).is_file():

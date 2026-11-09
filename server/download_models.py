@@ -18,6 +18,19 @@ EXPECTED_SHA256={
     "parsing_parsenet.pth":"3d558d8d0e42c20224f13cf5a29c79eba2d59913419f945545d8cf7b72920de2",
 }
 
+def verified_model_digest(path: Path, expected: str) -> str:
+    with path.open("rb") as source:
+        digest = hashlib.file_digest(source, "sha256").hexdigest()
+    if digest != expected:
+        raise RuntimeError(f"Unexpected model checksum: {path.name}")
+    return digest
+
+
+def verify_weights(directory: Path) -> None:
+    for name, expected in EXPECTED_SHA256.items():
+        verified_model_digest(directory / name, expected)
+
+
 if __name__=="__main__":
     WEIGHTS.mkdir(parents=True,exist_ok=True)
     hashes={}
@@ -32,8 +45,6 @@ if __name__=="__main__":
                 temporary.replace(target)
             finally:
                 temporary.unlink(missing_ok=True)
-        hashes[name]=hashlib.sha256(target.read_bytes()).hexdigest()
-        if hashes[name]!=EXPECTED_SHA256[name]:
-            raise RuntimeError(f"Unexpected model checksum: {name}")
+        hashes[name]=verified_model_digest(target, EXPECTED_SHA256[name])
         print(name,target.stat().st_size,"bytes",hashes[name])
     (WEIGHTS/"sha256.json").write_text(json.dumps(hashes,indent=2),encoding="utf-8")
